@@ -1,0 +1,6 @@
+# Source Image
+FROM docker.io/library/registry:2.8
+
+# Configure TLS certificates
+ENV REGISTRY_HTTP_TLS_CERTIFICATE="/certs/cert.pem"
+ENV REGISTRY_HTTP_TLS_KEY="/certs/key.pem"
