@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "sash.hoverBorder": "#7cb9e3",
+      "statusBar.background": "#52a2da",
+      "statusBarItem.hoverBackground": "#2c8bcd",
+      "statusBarItem.remoteBackground": "#52a2da",
+      "statusBar.foreground": "#15202b",
+      "statusBarItem.remoteForeground": "#15202b"
+    },
+    "peacock.remoteColor": "#52a2da",
+    "cSpell.enableFiletypes": ["shellscript"]
+  }
+}
