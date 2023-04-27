@@ -1,0 +1,39 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Git: Fetch upstream",
+      "type": "shell",
+      "command": "git fetch upstream",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Git: Merge from upstream",
+      "type": "shell",
+      "command": "git merge --no-ff --no-commit upstream/main",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Git: Delete merged branches",
+      "type": "shell",
+      "command": "git delete-merged-branches",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Git: Prune remote",
+      "type": "shell",
+      "command": "git remote prune origin",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

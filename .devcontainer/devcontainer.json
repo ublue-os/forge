@@ -1,0 +1,77 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+{
+  "name": "ublue-os/forge",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/base:alpine-3.17",
+
+  // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode",
+  // podman needs this
+  "containerUser": "vscode",
+  "runArgs": [
+    // run container as current user
+    "--userns=keep-id",
+    // disable selinux isolation that breaks bind mounts
+    "--security-opt=label=disable"
+  ],
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+
+  // Mounts from host system
+  "mounts": [
+    "source=/run/user/${localEnv:UID:1000}/podman/podman.sock,target=/run/podman/podman.sock,type=bind"
+  ],
+
+  // Install DevTools
+  "postCreateCommand": "bash ./.devcontainer/install-dev-tools.sh",
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "zsh",
+            "args": ["-l"]
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.automation.linux": "zsh",
+        "terminal.integrated.automationProfile.linux": { "path": "zsh" },
+        "editor.suggestSelection": "first",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "cSpell.customDictionaries": {
+          "project-words": {
+            "name": "custom-dictionary",
+            "path": "${workspaceFolder}/.vscode/cspell_custom.txt",
+            "description": "Words used in this project",
+            "addWords": true
+          },
+          "custom": true,
+          "internal-terms": false
+        },
+        "docker.host": "unix:///run/podman/podman.sock",
+        "peacock.affectActivityBar": false,
+        "peacock.affectStatusBar": true,
+        "peacock.affectTitleBar": false,
+        "peacock.surpriseMeOnStartup": false
+      },
+      "extensions": [
+        "bungcip.better-toml",
+        "DavidAnson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "GitHub.vscode-pull-request-github",
+        "Gruntfuggly.todo-tree",
+        "kokakiwi.vscode-just",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "nico-castell.linux-desktop-file",
+        "redhat.vscode-yaml",
+        "shakram02.bash-beautify",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  }
+}

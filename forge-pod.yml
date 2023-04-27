@@ -1,0 +1,38 @@
+# uBlue-OS forge podman deployment
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ublue-os_forge
+spec:
+  restartPolicy: Always
+  volumes:
+    - name: ublue-os_forge-minica-pvc
+      persistentVolumeClaim:
+        claimName: ublue-os_forge-minica
+    - name: ublue-os_forge-registry-pvc
+      persistentVolumeClaim:
+        claimName: ublue-os_forge-registry
+  containers:
+    - name: registry.ublue.local
+      image: registry
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: 200m
+      volumeMounts:
+        - mountPath: /certs
+          name: ublue-os_forge-minica-pvc
+          subPath: _.ublue.local
+        - mountPath: /var/lib/registry
+          name: ublue-os_forge-registry-pvc
+      ports:
+        - containerPort: 5000
+          hostPort: 9001
+          protocol: TCP
+  initContainers:
+    - name: minica.ublue.local
+      image: minica
+      volumeMounts:
+        - mountPath: /certs
+          name: ublue-os_forge-minica-pvc

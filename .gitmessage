@@ -1,0 +1,19 @@
+<type>(optional scope): <description>
+
+[optional body]
+
+[optional footer(s)]
+
+####
+# Allowed <type> values
+# ---------------------
+# feat: –> A new feature
+# fix: –> Fixed a bug
+# refactor: –> A code change that's not mainly a bug or new feature
+# docs: –> Documentation only changes
+# style: –> Changes to styling like white space, formatting, semi-colons)
+# chore: –> Other changes that don't modify src or test files
+# ci: –> Changes made to the CI configuration like Travis, Circle, Actions
+# revert: –> Revert a previous commit
+# test: –> Add or fix tests
+####

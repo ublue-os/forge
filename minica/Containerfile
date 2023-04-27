@@ -1,0 +1,10 @@
+# Source Image
+FROM docker.io/library/golang:1.20
+
+# Install minica
+RUN go install github.com/jsha/minica@latest
+
+# Generate wildcard certificate
+WORKDIR /certs
+RUN minica --domains "*.ublue.local,ublue.local,localhost" \
+    --ip-addresses 127.0.0.1
