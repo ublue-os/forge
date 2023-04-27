@@ -66,6 +66,7 @@
         "Gruntfuggly.todo-tree",
         "kokakiwi.vscode-just",
         "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
         "nico-castell.linux-desktop-file",
         "redhat.vscode-yaml",
         "shakram02.bash-beautify",
