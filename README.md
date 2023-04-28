@@ -27,12 +27,18 @@ We use a [Minica](https://github.com/jsha/minica) as simple CA to generate a
 key pair and a root certificate for `*.ublue.local`. The wildcard certificate is
 then made available to all other components and are valid for 2 years and 30 days.
 
+### Reverse Proxy
+
+As an entry point for all components we use [Caddy](https://caddyserver.com/) as
+a reverse proxy. Based on URL routing it will redirect the traffic to the
+right container instance.
+
 ### Container Registry
 
 As container registry we make use of the [Docker Registry 2.0](https://hub.docker.com/_/registry/)
 implementation for storing and distributing container images
 
-The container registry is available at `registry.ublue.local:9001`
+The container registry is available at `registry.ublue.local`
 
 ## Firing Up the Forge
 
