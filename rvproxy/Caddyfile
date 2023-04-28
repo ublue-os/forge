@@ -1,0 +1,28 @@
+# Global options
+{
+        auto_https disable_certs
+        persist_config off
+}
+
+# Reverse-proxy configuration
+*.ublue.local {
+        ## TLS certificates
+        tls /certs/_.ublue.local/cert.pem /certs/_.ublue.local/key.pem
+
+        # container registry
+        @registry host registry.ublue.local
+
+        handle @registry {
+                reverse_proxy ublue-os_forge-registry.ublue.local:5000 {
+                        transport http {
+                                tls
+                                tls_trusted_ca_certs /certs/minica.pem
+                        }
+                }
+        }
+
+        # Fallback for otherwise unhandled domains
+        handle {
+                respond "Bad hostname" 400
+        }
+}
