@@ -10,10 +10,26 @@ spec:
     - name: ublue-os_forge-minica-pvc
       persistentVolumeClaim:
         claimName: ublue-os_forge-minica
+
     - name: ublue-os_forge-registry-pvc
       persistentVolumeClaim:
         claimName: ublue-os_forge-registry
+
   containers:
+    - name: rvproxy.ublue.local
+      image: rvproxy
+      resources:
+        limits:
+          memory: 128Mi
+          cpu: 200m
+      volumeMounts:
+        - mountPath: /certs
+          name: ublue-os_forge-minica-pvc
+      ports:
+        - containerPort: 443
+          hostPort: 443
+          protocol: TCP
+
     - name: registry.ublue.local
       image: registry
       resources:
@@ -28,8 +44,8 @@ spec:
           name: ublue-os_forge-registry-pvc
       ports:
         - containerPort: 5000
-          hostPort: 9001
           protocol: TCP
+
   initContainers:
     - name: minica.ublue.local
       image: minica
