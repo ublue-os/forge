@@ -1,0 +1,42 @@
+---
+- name: Check for existing repositories
+  changed_when: false
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/repositories"
+    method: GET
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    status_code: 200
+    timeout: 5
+  register: semaphore_repositories
+
+- name: Create Repository
+  changed_when: "semaphore_repository_created.status == 204"
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/repositories"
+    method: POST
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    body: "{{ lookup('ansible.builtin.template', 'repository.yml.j2') | from_yaml | to_json }}"
+    body_format: json
+    status_code: 204
+    timeout: 5
+  register: semaphore_repository_created
+  when: semaphore_repositories.json | selectattr('name', 'equalto', semaphore_repository_name) | length == 0
+
+- name: Get repository id
+  changed_when: false
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/repositories"
+    method: GET
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    status_code: 200
+    timeout: 5
+  register: semaphore_repositories
+
+- name: Parse semaphore_repository_id
+  ansible.builtin.set_fact:
+    semaphore_repository_id: "{{ semaphore_repositories.json \
+      | selectattr('name', 'equalto', semaphore_repository_name) \
+      | map(attribute='id') | first }}"

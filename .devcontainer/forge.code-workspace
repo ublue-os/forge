@@ -14,6 +14,6 @@
       "statusBarItem.remoteForeground": "#15202b"
     },
     "peacock.remoteColor": "#52a2da",
-    "cSpell.enableFiletypes": ["shellscript"]
+    "cSpell.enableFiletypes": ["ansible", "shellscript"]
   }
 }

@@ -1,0 +1,9 @@
+# Source Image
+FROM docker.io/semaphoreui/semaphore:v2.8.90
+
+# Environment variables
+ENV SEMAPHORE_DB_DIALECT="bolt"
+ENV SEMAPHORE_ADMIN_PASSWORD="ublue"
+ENV SEMAPHORE_ADMIN_NAME="ublue"
+ENV SEMAPHORE_ADMIN_EMAIL="forge@ublue.local"
+ENV SEMAPHORE_ADMIN="ublue"

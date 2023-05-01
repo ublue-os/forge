@@ -4,7 +4,6 @@
   "name": "ublue-os/forge",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/base:alpine-3.17",
-
   // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
   // podman needs this
@@ -15,14 +14,19 @@
     // disable selinux isolation that breaks bind mounts
     "--security-opt=label=disable"
   ],
-  // Features to add to the dev container. More info: https://containers.dev/features.
-  // "features": {},
-
+  // Configure environment variables
+  "containerEnv": {
+    "POETRY_VIRTUALENVS_CREATE": "false",
+    "POETRY_VERSION": "1.3.1"
+  },
+  "remoteEnv": {
+    // Add path for packages installed with poetry
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin:/home/vscode/.local/pipx/venvs/poetry/bin"
+  },
   // Mounts from host system
   "mounts": [
     "source=/run/user/${localEnv:UID:1000}/podman/podman.sock,target=/run/podman/podman.sock,type=bind"
   ],
-
   // Install DevTools
   "postCreateCommand": "bash ./.devcontainer/install-dev-tools.sh",
   // Configure tool-specific properties.
@@ -42,6 +46,21 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
+        "files.associations": {
+          "**/ansible/**/*.yml": "ansible"
+        },
+        "[ansible]": {
+          "editor.defaultFormatter": "redhat.ansible",
+          "editor.formatOnPaste": true,
+          "editor.insertSpaces": true,
+          "editor.tabSize": 2
+        },
+        // "ansible.ansible.path": "/home/vscode/.local/bin/ansible",
+        // "ansible.python.interpreterPath": "/usr/local/bin/python3",
+        "ansible.ansible.useFullyQualifiedCollectionNames": true,
+        "ansible.ansibleLint.enabled": true,
+        // "ansible.ansibleLint.path": "/home/vscode/.local/bin/ansible-lint",
+        "ansible.ansibleLint.arguments": "-c ${containerWorkspaceFolder}/ansible/.ansible-lint",
         "cSpell.customDictionaries": {
           "project-words": {
             "name": "custom-dictionary",
@@ -64,11 +83,14 @@
         "esbenp.prettier-vscode",
         "GitHub.vscode-pull-request-github",
         "Gruntfuggly.todo-tree",
+        "jamesls.jmespath-vscode",
         "kokakiwi.vscode-just",
         "ms-azuretools.vscode-docker",
         "ms-kubernetes-tools.vscode-kubernetes-tools",
         "nico-castell.linux-desktop-file",
+        "redhat.ansible",
         "redhat.vscode-yaml",
+        "samuelcolvin.jinjahtml",
         "shakram02.bash-beautify",
         "streetsidesoftware.code-spell-checker"
       ]

@@ -15,6 +15,10 @@ spec:
       persistentVolumeClaim:
         claimName: ublue-os_forge-registry
 
+    - name: ublue-os_forge-semaphore-pvc
+      persistentVolumeClaim:
+        claimName: ublue-os_forge-semaphore
+
   containers:
     - name: rvproxy.ublue.local
       image: rvproxy
@@ -45,6 +49,26 @@ spec:
       ports:
         - containerPort: 5000
           protocol: TCP
+
+    - name: semaphore.ublue.local
+      image: semaphore
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: 200m
+      volumeMounts:
+        - mountPath: /var/lib/semaphore
+          name: ublue-os_forge-semaphore-pvc
+      ports:
+        - containerPort: 3000
+          protocol: TCP
+
+    - name: setup.ublue.local
+      image: setup
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: 200m
 
   initContainers:
     - name: minica.ublue.local

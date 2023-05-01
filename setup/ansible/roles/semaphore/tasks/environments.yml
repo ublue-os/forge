@@ -1,0 +1,45 @@
+---
+- name: Check for existing environments
+  changed_when: false
+  check_mode: false
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/environment"
+    method: GET
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    status_code: 200
+    timeout: 5
+  register: semaphore_environments
+
+- name: Create default environment
+  changed_when: "semaphore_environment_created.status == 204"
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/environment"
+    method: POST
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    # Body in YAML format is not working
+    body: "{{ lookup('ansible.builtin.template', 'environment.yml.j2') | from_yaml | to_json }}"
+    body_format: json
+    status_code: 204
+    timeout: 5
+  register: semaphore_environment_created
+  when: semaphore_environments.json | selectattr('name', 'equalto', 'default') | length == 0
+
+- name: Check for environments (after creation)
+  changed_when: false
+  check_mode: false
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/environment"
+    method: GET
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    status_code: 200
+    timeout: 5
+  register: semaphore_environments
+
+- name: Parse semaphore_environment_id
+  ansible.builtin.set_fact:
+    semaphore_environment_id: "{{ semaphore_environments.json \
+      | selectattr('name', 'equalto', 'default') \
+      | map(attribute='id') | first }}"

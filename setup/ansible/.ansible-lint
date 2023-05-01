@@ -1,0 +1,12 @@
+---
+# .ansible-lint
+
+# https://ansible-lint.readthedocs.io/profiles/
+profile: production
+
+# Ansible-lint does not fail on warnings from the rules or tags listed below
+warn_list:
+  - galaxy[version-incorrect]
+  - no-jinja-nesting
+  - package-latest
+  - name[template]
