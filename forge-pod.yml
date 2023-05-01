@@ -63,6 +63,13 @@ spec:
         - containerPort: 3000
           protocol: TCP
 
+    - name: setup.ublue.local
+      image: setup
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: 200m
+
   initContainers:
     - name: minica.ublue.local
       image: minica

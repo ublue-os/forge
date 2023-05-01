@@ -1,0 +1,54 @@
+---
+- name: Build dynamic inventory for setup
+  hosts: localhost
+  gather_facts: true
+  become: true
+  pre_tasks:
+    - name: Read getent hosts database
+      ansible.builtin.getent:
+        database: hosts
+        key: host.containers.internal
+
+    - name: Get IP address of container host system
+      ansible.builtin.set_fact:
+        container_host_ip: "{{ ansible_facts.getent_hosts | first }}"
+
+  tasks:
+    - name: Add host system to inventory
+      ansible.builtin.add_host:
+        name: host.ublue.local
+        groups:
+          - forge
+        ansible_host: "{{ container_host_ip }}"
+
+    - name: Add Ansible Semaphore to inventory
+      ansible.builtin.add_host:
+        name: forge.ublue.local
+        groups:
+          - semaphore
+        ansible_host: "{{ container_host_ip }}"
+        ansible_connection: local
+        ansible_python_interpreter: "{{ ansible_playbook_python }}"
+
+## TODO: Add play to configure host system
+
+- name: Configure Ansible Semaphore
+  hosts: semaphore
+  gather_facts: false
+  become: false
+  pre_tasks:
+    - name: Check if API is responding
+      ansible.builtin.uri:
+        ## We must bypass the reverse proxy in this case since we can't add to etc/hosts in a container
+        url: "http://{{ ansible_host }}:3000"
+        method: GET
+        validate_certs: false
+      register: result_check_api
+      until: result_check_api.status == 200
+      retries: 5
+      delay: 10
+
+  tasks:
+    - name: Initial configuration
+      ansible.builtin.include_role:
+        name: semaphore

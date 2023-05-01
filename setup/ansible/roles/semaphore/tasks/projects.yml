@@ -1,0 +1,36 @@
+---
+- name: Check for existing projects
+  changed_when: false
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/projects"
+    method: GET
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    status_code: 200
+    timeout: 5
+  register: semaphore_projects
+
+- name: Create project
+  changed_when: "semaphore_project_created.status == 201"
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/projects"
+    method: POST
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    body:
+      name: "{{ semaphore_project_name }}"
+    body_format: json
+    status_code: 201
+    timeout: 5
+  register: semaphore_project_created
+  when: semaphore_project_name not in semaphore_projects.json | map(attribute='name')
+
+- name: Parse semaphore_project_id (existing)
+  ansible.builtin.set_fact:
+    semaphore_project_id: "{{ semaphore_projects.json | selectattr('name', 'equalto', semaphore_project_name) | map(attribute='id') | first }}"
+  when: semaphore_project_name in semaphore_projects.json | map(attribute='name')
+
+- name: Parse semaphore_project_id (created)
+  ansible.builtin.set_fact:
+    semaphore_project_id: "{{ semaphore_project_created.json.id }}"
+  when: semaphore_project_name not in semaphore_projects.json | map(attribute='name')

@@ -1,0 +1,11 @@
+---
+- name: Get API token
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/auth/login"
+    method: POST
+    body:
+      auth: "{{ semaphore_admin_user }}"
+      password: "{{ semaphore_admin_password }}"
+    body_format: json
+    status_code: 204
+  register: semaphore_login

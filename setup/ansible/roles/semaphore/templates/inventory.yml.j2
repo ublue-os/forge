@@ -1,0 +1,7 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+---
+project_id: {{ semaphore_project_id | int }}
+name: {{ semaphore_project_name }}
+ssh_key_id: {{ semaphore_ansible_none_key_id }}
+type: file
+inventory: inventory

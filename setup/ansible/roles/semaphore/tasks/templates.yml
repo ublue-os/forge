@@ -1,0 +1,29 @@
+---
+- name: Check for existing templates
+  changed_when: false
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/templates"
+    method: GET
+    headers:
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    status_code: 200
+    timeout: 5
+  register: semaphore_templates
+
+- name: Create templates
+  changed_when: "semaphore_template_created.status == 201"
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:3000/api/project/{{ semaphore_project_id }}/templates"
+    method: POST
+    headers:
+      Content-Type: application/json
+      Cookie: "{{ semaphore_login.cookies_string }}"
+    body: "{{ lookup('ansible.builtin.template', 'template.yml.j2') | from_yaml | to_json }} }}"
+    body_format: json
+    status_code: 201
+    timeout: 5
+  register: semaphore_template_created
+  when: semaphore_templates.json | selectattr('name', 'equalto', item.name) | length == 0
+  loop_control:
+    label: "Task {{ item.name }}"
+  loop: "{{ semaphore_tasks }}"
