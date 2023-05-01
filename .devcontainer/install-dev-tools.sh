@@ -22,6 +22,10 @@ echo ""
 echo -e "${YELLOW}Installing additional tools${ENDCOLOR}"
 echo ""
 sudo apk add git-extras --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
+sudo apk add py3-pip
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+pipx install poetry
 
 ## Install podman remote
 echo ""
@@ -40,6 +44,18 @@ echo ""
 echo -e "${YELLOW}Configuring git${ENDCOLOR}"
 echo ""
 git config --local commit.template .gitmessage
+
+# Install python dependencies
+echo ""
+echo -e "${YELLOW}Installing python dependencies${ENDCOLOR}"
+echo ""
+poetry install -C /workspaces/forge/ansible
+
+# Install ansible dependencies
+echo ""
+echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
+echo ""
+ansible-galaxy collection install -r /workspaces/forge/ansible/collections/requirements.yml
 
 # Finish
 echo ""
