@@ -1,4 +1,10 @@
 devcontainer
+devcontainers
+ENDCOLOR
+ensurepath
+gitmessage
 minica
+pipx
 rvproxy
 ublue
+venvs
