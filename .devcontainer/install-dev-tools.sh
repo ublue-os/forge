@@ -49,13 +49,13 @@ git config --local commit.template .gitmessage
 echo ""
 echo -e "${YELLOW}Installing python dependencies${ENDCOLOR}"
 echo ""
-poetry install -C /workspaces/forge/ansible
+poetry install -C /workspaces/forge/setup/ansible
 
 # Install ansible dependencies
-echo ""
-echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
-echo ""
-ansible-galaxy collection install -r /workspaces/forge/ansible/collections/requirements.yml
+# echo ""
+# echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
+# echo ""
+# ansible-galaxy collection install -r /workspaces/forge/setup/ansible/collections/requirements.yml
 
 # Finish
 echo ""

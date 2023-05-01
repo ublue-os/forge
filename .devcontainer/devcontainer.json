@@ -47,7 +47,6 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
         "files.associations": {
-          "**/ansible/*.yml": "ansible",
           "**/ansible/**/*.yml": "ansible"
         },
         "[ansible]": {
