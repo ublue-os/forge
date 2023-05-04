@@ -1,11 +1,7 @@
 # Source Image
 FROM docker.io/library/python:alpine3.17
 
-# Install ansible setup project
+# Install ansible and dependencies
 WORKDIR /ansible
 COPY ./ansible .
 RUN pip3 install -r ./requirements.txt
-RUN chmod +x ./startup.sh
-
-# Container start command
-CMD ["/ansible/startup.sh"]

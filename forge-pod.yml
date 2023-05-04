@@ -5,7 +5,7 @@ kind: Pod
 metadata:
   name: ublue-os_forge
 spec:
-  restartPolicy: Always
+  restartPolicy: OnFailure
   volumes:
     - name: ublue-os_forge-certs-pvc
       persistentVolumeClaim:
@@ -74,6 +74,11 @@ spec:
           subPath: ssh
           name: ublue-os_forge-certs-pvc
           readOnly: true
+      workingDir: /ansible
+      command:
+        - ansible-playbook
+      args:
+        - main.yml
       resources:
         limits:
           memory: 512Mi
