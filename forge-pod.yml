@@ -7,9 +7,9 @@ metadata:
 spec:
   restartPolicy: Always
   volumes:
-    - name: ublue-os_forge-minica-pvc
+    - name: ublue-os_forge-certs-pvc
       persistentVolumeClaim:
-        claimName: ublue-os_forge-minica
+        claimName: ublue-os_forge-certs
 
     - name: ublue-os_forge-registry-pvc
       persistentVolumeClaim:
@@ -28,7 +28,7 @@ spec:
           cpu: 200m
       volumeMounts:
         - mountPath: /certs
-          name: ublue-os_forge-minica-pvc
+          name: ublue-os_forge-certs-pvc
       ports:
         - containerPort: 443
           hostPort: 443
@@ -42,7 +42,7 @@ spec:
           cpu: 200m
       volumeMounts:
         - mountPath: /certs
-          name: ublue-os_forge-minica-pvc
+          name: ublue-os_forge-certs-pvc
           subPath: _.ublue.local
         - mountPath: /var/lib/registry
           name: ublue-os_forge-registry-pvc
@@ -59,12 +59,21 @@ spec:
       volumeMounts:
         - mountPath: /var/lib/semaphore
           name: ublue-os_forge-semaphore-pvc
+        - mountPath: /certs
+          subPath: ssh
+          name: ublue-os_forge-certs-pvc
+          readOnly: true
       ports:
         - containerPort: 3000
           protocol: TCP
 
     - name: setup.ublue.local
       image: setup
+      volumeMounts:
+        - mountPath: /certs
+          subPath: ssh
+          name: ublue-os_forge-certs-pvc
+          readOnly: true
       resources:
         limits:
           memory: 512Mi
@@ -75,4 +84,4 @@ spec:
       image: minica
       volumeMounts:
         - mountPath: /certs
-          name: ublue-os_forge-minica-pvc
+          name: ublue-os_forge-certs-pvc

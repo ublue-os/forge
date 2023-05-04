@@ -1,11 +1,11 @@
 # Source Image
 FROM docker.io/library/python:alpine3.17
 
-# Install forge setup project
-COPY ./ansible /ansible
-RUN pip3 install -r /ansible/requirements.txt
-RUN chmod +x /ansible/startup.sh
-
-# Run starup script
+# Install ansible setup project
 WORKDIR /ansible
-CMD ["./startup.sh"]
+COPY ./ansible .
+RUN pip3 install -r ./requirements.txt
+RUN chmod +x ./startup.sh
+
+# Container start command
+CMD ["/ansible/startup.sh"]

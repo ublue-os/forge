@@ -16,7 +16,7 @@
                 reverse_proxy ublue-os_forge-registry.ublue.local:5000 {
                         transport http {
                                 tls
-                                tls_trusted_ca_certs /certs/minica.pem
+                                tls_trusted_ca_certs /certs/tls/ublue-os_forge-root.pem
                         }
                 }
         }
