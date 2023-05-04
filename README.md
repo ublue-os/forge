@@ -55,6 +55,12 @@ You can use the the user `ublue` and password `ublue` to login.
 > At the moment there's only a dummy project included. Tasks for real life usage
 > will be included soon.
 
-## Firing Up the Forge
+## Handling the forge
 
-To heat up the forge run `./setup.sh`.
+You can use the `forge.sh` to **setup**, **heat-up** and **cool-down** the forge.
+
+| Command                | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `./forge.sh setup`     | Setup the forge for the first time or update |
+| `./forge.sh heat-up`   | Start the forge                              |
+| `./forge.sh cool-down` | Stop the forge                               |
