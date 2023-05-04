@@ -2,7 +2,9 @@ devcontainer
 devcontainers
 ENDCOLOR
 ensurepath
+getent
 gitmessage
+keygen
 minica
 pipx
 rvproxy
