@@ -1,11 +1,15 @@
+configmap
 devcontainer
 devcontainers
 ENDCOLOR
 ensurepath
 getent
 gitmessage
+hostvars
 keygen
+lineinfile
 minica
+Mountpoint
 pipx
 rvproxy
 ublue
