@@ -1,6 +1,9 @@
 # Source Image
 FROM docker.io/library/python:alpine3.17
 
+# Install SSH
+RUN apk add openssh
+
 # Install ansible and dependencies
 WORKDIR /ansible
 COPY ./ansible .

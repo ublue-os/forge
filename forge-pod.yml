@@ -71,9 +71,20 @@ spec:
       image: setup
       volumeMounts:
         - mountPath: /certs
-          subPath: ssh
           name: ublue-os_forge-certs-pvc
           readOnly: true
+      env:
+        - name: ANSIBLE_FORGE_HOST_USER
+          valueFrom:
+            secretKeyRef:
+              name: ublue-os_forge-secure
+              key: ANSIBLE_FORGE_HOST_USER
+
+        - name: ANSIBLE_FORGE_HOST_BECOME_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ublue-os_forge-secure
+              key: ANSIBLE_FORGE_HOST_BECOME_PASSWORD
       workingDir: /ansible
       command:
         - ansible-playbook
