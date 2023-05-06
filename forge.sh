@@ -6,9 +6,9 @@ function setup {
     create_secrets
     echo ""
     echo -e "${YELLOW}Heating up forge for the first time...${ENDCOLOR}"
-    podman play kube forge-pod.yml --configmap forge-pod-ConfigMap.yml --build --replace & PID_BUILD=$!
+    podman play kube forge-pod.yml --build --replace & PID_BUILD=$!
     wait ${PID_BUILD}
-    echo -e "${YELLOW}Configuring Host system...${ENDCOLOR}"
+    echo -e "${YELLOW}Configuring host system...${ENDCOLOR}"
     configure_host & PID_CONFIG=$!
     wait ${PID_CONFIG}
     echo ""
@@ -42,6 +42,7 @@ function configure_host {
         SSH_PUBLIC_KEY="$(cat ${SSH_PUBLIC_KEY_FILE})"
         echo "#uBlue forge ssh key" >> ~/.ssh/authorized_keys
         echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys
+        cp -f ${VOLUME_DIR}/tls/ublue-os_forge-root.pem ~/Downloads
         touch ~/.config/.ublue-os_forge-host-setup-done
     else
         echo "Host system already configured. Nothing to do..."
@@ -67,7 +68,8 @@ function delete_secrets {
 function show_info {
     VOLUME_DIR="$(podman volume inspect ublue-os_forge-certs | jq -r '.[0].Mountpoint')"
     echo -e "${GREEN}Forge is available at: https://forge.ublue.local${ENDCOLOR}"
-    echo -e "${GREEN}Make sure to install the root certificate from ${VOLUME_DIR}/tls/ublue-os_forge-root.pem${ENDCOLOR}"
+    echo -e "${GREEN}To trust the certificate in your Browser of choice, make sure to import the root certificate from:${ENDCOLOR}"
+    echo -e "${GREEN}$HOME/Downloads/tls/ublue-os_forge-root.pem${ENDCOLOR}"
 }
 
 # Bash colors
