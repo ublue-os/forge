@@ -20,6 +20,8 @@
         groups:
           - forge
         ansible_host: "{{ container_host_ip }}"
+        ansible_user: "{{ lookup('ansible.builtin.env', 'ANSIBLE_FORGE_HOST_USER') }}"
+        ansible_become_password: "{{ lookup('ansible.builtin.env', 'ANSIBLE_FORGE_HOST_BECOME_PASSWORD') }}"
 
     - name: Add Ansible Semaphore to inventory
       ansible.builtin.add_host:
@@ -30,7 +32,31 @@
         ansible_connection: local
         ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
-## TODO: Add play to configure host system
+- name: Configure host system
+  hosts: forge
+  gather_facts: true
+  tasks:
+    - name: Add ublue.local entries to /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        search_string: 127.0.0.1 registry.ublue.local forge.ublue.local
+        line: 127.0.0.1 registry.ublue.local forge.ublue.local
+        state: present
+      become: true
+
+    - name: Add ublue.local TSL root certificate to trust anchors
+      ansible.builtin.copy:
+        src: /certs/tls/ublue-os_forge-root.pem
+        dest: /etc/pki/ca-trust/source/anchors/ublue-os_forge-root.pem
+        force: true
+        mode: "0644"
+      become: true
+
+    - name: Update ca-trust store
+      ansible.builtin.command:
+        cmd: update-ca-trust
+      changed_when: false
+      become: true
 
 - name: Configure Ansible Semaphore
   hosts: semaphore
