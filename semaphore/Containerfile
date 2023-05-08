@@ -1,5 +1,22 @@
 # Source Image
-FROM docker.io/semaphoreui/semaphore:v2.8.90
+FROM docker.io/library/python:alpine3.17
+
+# Install dependencies
+RUN apk add openssh-client
+
+# Install ansible-semaphore
+ENV SEMAPHORE_VERSION="2.8.90"
+WORKDIR /usr/local/bin
+RUN wget https://github.com/ansible-semaphore/semaphore/releases/download/v${SEMAPHORE_VERSION}/semaphore_${SEMAPHORE_VERSION}_linux_amd64.tar.gz && \
+    tar xf ./semaphore_${SEMAPHORE_VERSION}_linux_amd64.tar.gz && \
+    chmod +x ./semaphore && \
+    wget https://raw.githubusercontent.com/ansible-semaphore/semaphore/v${SEMAPHORE_VERSION}/deployment/docker/common/semaphore-wrapper && \
+    chmod +x ./semaphore-wrapper
+
+# Cleanup ansible-semaphore installation
+RUN  chown -R root:root . && \
+     rm ./semaphore_${SEMAPHORE_VERSION}_linux_amd64.tar.gz && \
+     mv ./LICENSE ./LICENSE_semaphore
 
 # Environment variables
 ENV SEMAPHORE_DB_DIALECT="bolt"
@@ -7,3 +24,12 @@ ENV SEMAPHORE_ADMIN_PASSWORD="ublue"
 ENV SEMAPHORE_ADMIN_NAME="ublue"
 ENV SEMAPHORE_ADMIN_EMAIL="forge@ublue.local"
 ENV SEMAPHORE_ADMIN="ublue"
+
+# Install ansible and dependencies
+WORKDIR /srv/ublue
+COPY ./ansible .
+RUN pip3 install -r ./requirements_python.txt
+RUN ansible-galaxy collection install -r ./requirements_ansible.yml
+
+# Start ansible-semaphore
+CMD ["/usr/local/bin/semaphore-wrapper","/usr/local/bin/semaphore","server","--config","/etc/semaphore/config.json"]
