@@ -1,10 +1,3 @@
-#!/bin/bash
-cat <<EOM
-install-dev-tools.sh
-=============================================
-This script customizes the devcontainer setup
-=============================================
-EOM
 # Bash colors
 RED="\e[31m"
 YELLOW="\e[33m"
@@ -15,29 +8,19 @@ ENDCOLOR="\e[0m"
 echo ""
 echo -e "${YELLOW}Updating OS${ENDCOLOR}"
 echo ""
-sudo apk update && sudo apk upgrade
+sudo apt-get update && sudo apt-get upgrade -y
 
 ## Install additional tools
 echo ""
 echo -e "${YELLOW}Installing additional tools${ENDCOLOR}"
 echo ""
-sudo apk add git-extras --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
-sudo apk add py3-pip
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
-pipx install poetry
+sudo apt-get -y install --no-install-recommends git-extras gnupg2
 
-## Install podman remote
-echo ""
-echo -e "${YELLOW}Installing podman-remote${ENDCOLOR}"
-echo ""
-PODMAN_SOURCE=https://github.com/containers/podman/releases/download/v4.4.4/podman-remote-static-linux_amd64.tar.gz
-PODMAN_TMP=/tmp/podman.tar.gz
-wget -O $PODMAN_TMP $PODMAN_SOURCE
-sudo tar -xf $PODMAN_TMP -C /tmp
-sudo mv /tmp/bin/podman-remote-static-linux_amd64 /usr/bin/podman
-podman system connection add devcontainer_host unix:///run/podman/podman.sock
-sudo rm -rf /tmp/bin
+## lazygit -> version specified in devcontainer.json
+LAZYGIT_SOURCE=https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz
+LAZYGIT_TMP=/tmp/lazygit.tar.gz
+wget -O $LAZYGIT_TMP $LAZYGIT_SOURCE
+sudo tar -xf $LAZYGIT_TMP -C /usr/bin
 
 # Add git commit template
 echo ""
@@ -45,11 +28,12 @@ echo -e "${YELLOW}Configuring git${ENDCOLOR}"
 echo ""
 git config --local commit.template .gitmessage
 
+
 # Install python dependencies
 echo ""
-echo -e "${YELLOW}Installing python dependencies${ENDCOLOR}"
+echo -e "${YELLOW}Installing project dependencies${ENDCOLOR}"
 echo ""
-poetry install -C /workspaces/forge/setup/ansible
+poetry install --no-root -C /workspaces/forge/setup/ansible
 
 # Install ansible dependencies
 # echo ""

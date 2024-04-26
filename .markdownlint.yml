@@ -1,0 +1,10 @@
+---
+# Markdown Lint Configuration -> https://github.com/DavidAnson/vscode-markdownlint?tab=readme-ov-file#rules
+MD013:
+  line_length: 90
+  tables: false
+  code_blocks: false
+MD024:
+  siblings_only: true
+MD046:
+  style: fenced

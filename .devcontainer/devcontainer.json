@@ -1,98 +1,104 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
   "name": "ublue-os/forge",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/base:alpine-3.17",
-  // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "installTools": true,
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers-contrib/features/black:2": {
+      "version": "24.4.1"
+    },
+    "ghcr.io/devcontainers-contrib/features/poetry:2": {
+      "version": "1.8.2"
+    }
+  },
+  // Container user definition - This is needed for compatibility with podman ->  https://github.com/containers/podman/issues/15001#issuecomment-1193321924
   "remoteUser": "vscode",
-  // podman needs this
   "containerUser": "vscode",
-  "runArgs": [
-    // run container as current user
-    "--userns=keep-id",
-    // disable selinux isolation that breaks bind mounts
-    "--security-opt=label=disable"
-  ],
-  // Configure environment variables
+  // Container environment variables
   "containerEnv": {
     "POETRY_VIRTUALENVS_CREATE": "false",
-    "POETRY_VERSION": "1.3.1"
+    "LAZYGIT_VERSION": "0.41.0"
   },
-  "remoteEnv": {
-    // Add path for packages installed with poetry
-    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin:/home/vscode/.local/pipx/venvs/poetry/bin"
-  },
-  // Mounts from host system
-  "mounts": [
-    "source=/run/user/${localEnv:UID:1000}/podman/podman.sock,target=/run/podman/podman.sock,type=bind"
-  ],
-  // Install DevTools
+  // Install and configure DEV tools
   "postCreateCommand": "bash ./.devcontainer/install-dev-tools.sh",
-  // Configure tool-specific properties.
+  // VSCode settings
   "customizations": {
     "vscode": {
       "settings": {
+        // Terminal settings
+        "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
           "zsh": {
-            "path": "zsh",
-            "args": ["-l"]
+            "path": "zsh"
           }
         },
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.automation.linux": "zsh",
-        "terminal.integrated.automationProfile.linux": { "path": "zsh" },
+        // Editor settings
         "editor.suggestSelection": "first",
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
         "files.associations": {
-          "**/ansible/**/*.yml": "ansible"
+          ".ansible-lint": "yaml",
+          ".gitmessage": "git-commit",
+          "**/pb_*.yml": "ansible",
+          "**/playbooks/*.yml": "ansible",
+          "**/roles/**/tasks/*.yml": "ansible",
+          "inventory_*": "ansible"
         },
-        "[ansible]": {
-          "editor.defaultFormatter": "redhat.ansible",
-          "editor.formatOnPaste": true,
-          "editor.insertSpaces": true,
-          "editor.tabSize": 2
-        },
-        // "ansible.ansible.path": "/home/vscode/.local/bin/ansible",
-        // "ansible.python.interpreterPath": "/usr/local/bin/python3",
-        "ansible.ansible.useFullyQualifiedCollectionNames": true,
-        "ansible.ansibleLint.enabled": true,
-        // "ansible.ansibleLint.path": "/home/vscode/.local/bin/ansible-lint",
-        "ansible.ansibleLint.arguments": "-c ${containerWorkspaceFolder}/ansible/.ansible-lint",
+        // Ansible configuration
+        "ansible.validation.enabled": true,
+        "ansible.validation.lint.arguments": "-c .ansible-lint",
+        "ansible.ansible.reuseTerminal": true,
+        "ansible.lightspeed.enabled": true,
+        "ansible.lightspeed.suggestions.enabled": true,
+        "ansible.lightspeed.URL": "https://c.ai.ansible.redhat.com",
+        // Template configuration
+        "templates.folder": "./.vscode/templates",
+        // Spell-Check configuration
         "cSpell.customDictionaries": {
           "project-words": {
             "name": "custom-dictionary",
-            "path": "${workspaceFolder}/.vscode/cspell_custom.txt",
+            "path": "${workspaceRoot}/.vscode/cspell_custom.txt",
             "description": "Words used in this project",
             "addWords": true
           },
           "custom": true,
           "internal-terms": false
         },
-        "docker.host": "unix:///run/podman/podman.sock",
+        // Workspace colors
         "peacock.affectActivityBar": false,
         "peacock.affectStatusBar": true,
         "peacock.affectTitleBar": false,
         "peacock.surpriseMeOnStartup": false
       },
+      // VSCode Extensions installed in DevContainer
       "extensions": [
-        "bungcip.better-toml",
-        "DavidAnson.vscode-markdownlint",
+        "be5invis.toml",
+        "codezombiech.gitignore",
+        "davidanson.vscode-markdownlint",
         "esbenp.prettier-vscode",
-        "GitHub.vscode-pull-request-github",
-        "Gruntfuggly.todo-tree",
-        "jamesls.jmespath-vscode",
-        "kokakiwi.vscode-just",
+        "gitlab.gitlab-workflow",
+        "gruntfuggly.todo-tree",
+        "johnpapa.vscode-peacock",
         "ms-azuretools.vscode-docker",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "nico-castell.linux-desktop-file",
+        "ms-python.autopep8",
+        "ms-python.black-formatter",
+        "ms-python.python",
+        "mutantdino.resourcemonitor",
         "redhat.ansible",
         "redhat.vscode-yaml",
-        "samuelcolvin.jinjahtml",
-        "shakram02.bash-beautify",
-        "streetsidesoftware.code-spell-checker"
+        "streetsidesoftware.code-spell-checker-german",
+        "streetsidesoftware.code-spell-checker",
+        "tamasfe.even-better-toml"
       ]
     }
   }
