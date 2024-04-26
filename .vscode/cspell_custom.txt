@@ -7,6 +7,7 @@ getent
 gitmessage
 hostvars
 keygen
+LAZYGIT
 lineinfile
 minica
 Mountpoint
