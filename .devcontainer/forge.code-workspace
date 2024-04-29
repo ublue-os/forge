@@ -13,7 +13,6 @@
       "statusBar.foreground": "#15202b",
       "statusBarItem.remoteForeground": "#15202b"
     },
-    "peacock.remoteColor": "#78badd",
-    "cSpell.enableFiletypes": ["ansible", "shellscript"]
+    "peacock.remoteColor": "#78badd"
   }
 }
