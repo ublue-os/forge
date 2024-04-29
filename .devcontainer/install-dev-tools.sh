@@ -33,7 +33,7 @@ git config --local commit.template .gitmessage
 echo ""
 echo -e "${YELLOW}Installing project dependencies${ENDCOLOR}"
 echo ""
-poetry install --no-root -C /workspaces/forge/setup/ansible
+poetry install --no-root -C /workspaces/forge/ansible
 
 # Install ansible dependencies
 # echo ""
