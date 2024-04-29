@@ -32,7 +32,7 @@ then made available to all other components and are valid for 2 years and 30 day
 
 ### Reverse Proxy
 
-As an entry point for all components we use [Caddy](https://caddyserver.com/) as
+As an entry point for all components we use [Traefik](https://doc.traefik.io/traefik/) as
 a reverse proxy. Based on URL routing it will redirect the traffic to the
 right container instance.
 
@@ -43,24 +43,12 @@ implementation for storing and distributing container images
 
 The container registry is available at `registry.ublue.local`
 
-### WebUI
-
-As a WebUI we use [Ansible Semaphore](https://www.ansible-semaphore.com/).
-
-The WebUI is available at `forge.ublue.local`
-
-You can use the the user `ublue` and password `ublue` to login.
-
-> **Warning**
-> At the moment there's only a dummy project included. Tasks for real life usage
-> will be included soon.
-
 ## Handling the forge
 
 You can use the `forge.sh` to **setup**, **heat-up** and **cool-down** the forge.
 
-| Command                | Description                                  |
-| ---------------------- | -------------------------------------------- |
-| `./forge.sh setup`     | Setup the forge for the first time or update |
-| `./forge.sh heat-up`   | Start the forge                              |
-| `./forge.sh cool-down` | Stop the forge                               |
+| Command                | Description                                                 |
+| ---------------------- | ----------------------------------------------------------- |
+| `./forge.sh setup`     | Setup the forge for the first time or update existing setup |
+| `./forge.sh heat-up`   | Start the forge                                             |
+| `./forge.sh cool-down` | Stop the forge                                              |

@@ -1,5 +1,0 @@
-# Source Image
-FROM docker.io/library/caddy:2.6.4-alpine
-
-# Add configuration file
-COPY ./Caddyfile /etc/caddy/Caddyfile

@@ -1,41 +1,82 @@
 # uBlue-OS forge podman deployment
+## variables will be replaces with envsubst when invoked via forge.sh
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ublue-os_forge
+  name: ${FORGE_POD_NAME_REVERSE_PROXY}
+  labels:
+    traefik.enable: true
+    traefik.http.routers.traefik-dashboard.entrypoints: web,websecure
+    traefik.http.routers.traefik-dashboard.rule: Host(`traefik.${FORGE_DOMAIN_NAME}`)
+    traefik.http.services.traefik-dashboard.loadbalancer.server.port: 8080
+    traefik.http.routers.traefik-dashboard.service: api@internal
+spec:
+  securityContext:
+    seLinuxOptions:
+      type: "container_runtime_t" # needed for podman.sock access
+  restartPolicy: OnFailure
+  volumes:
+    - name: podman-socket
+      hostPath:
+        path: /run/user/${FORGE_HOST_UID}/podman/podman.sock
+        type: Socket
+    - name: ublue-os_forge-certs-pvc
+      persistentVolumeClaim:
+        claimName: ublue-os_forge-certs
+  containers:
+    - name: traefik.${FORGE_DOMAIN_NAME}
+      image: traefik # will be built on pod start
+      resources:
+        limits:
+          memory: 128Mi
+          cpu: 200m
+      volumeMounts:
+        - mountPath: /var/run/podman.sock
+          name: podman-socket
+          readOnly: true
+        - mountPath: /certs
+          name: ublue-os_forge-certs-pvc
+      ports:
+        - containerPort: 80
+          hostPort: 80
+          protocol: TCP
+        - containerPort: 443
+          hostPort: 443
+          protocol: TCP
+        - containerPort: 8080
+          hostPort: 8080
+          protocol: TCP
+  initContainers:
+    - name: minica.${FORGE_DOMAIN_NAME}
+      image: minica
+      volumeMounts:
+        - mountPath: /certs
+          name: ublue-os_forge-certs-pvc
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${FORGE_POD_NAME_REGISTRY}
+  labels:
+    traefik.enable: true
+    traefik.http.routers.registry.entryPoints: web,websecure
+    traefik.http.services.registry.loadbalancer.server.port: 5000
+    traefik.http.services.registry.loadbalancer.server.scheme: https
+    traefik.http.routers.registry.rule: Host(`registry.${FORGE_DOMAIN_NAME}`)
 spec:
   restartPolicy: OnFailure
   volumes:
     - name: ublue-os_forge-certs-pvc
       persistentVolumeClaim:
         claimName: ublue-os_forge-certs
-
     - name: ublue-os_forge-registry-pvc
       persistentVolumeClaim:
         claimName: ublue-os_forge-registry
-
-    - name: ublue-os_forge-semaphore-pvc
-      persistentVolumeClaim:
-        claimName: ublue-os_forge-semaphore
-
   containers:
-    - name: rvproxy.ublue.local
-      image: rvproxy
-      resources:
-        limits:
-          memory: 128Mi
-          cpu: 200m
-      volumeMounts:
-        - mountPath: /certs
-          name: ublue-os_forge-certs-pvc
-      ports:
-        - containerPort: 443
-          hostPort: 443
-          protocol: TCP
-
-    - name: registry.ublue.local
-      image: registry
+    - name: docker.${FORGE_DOMAIN_NAME}
+      image: registry # will be built on pod start
       resources:
         limits:
           memory: 512Mi
@@ -43,61 +84,44 @@ spec:
       volumeMounts:
         - mountPath: /certs
           name: ublue-os_forge-certs-pvc
-          subPath: _.ublue.local
+          subPath: _.${FORGE_DOMAIN_NAME}
         - mountPath: /var/lib/registry
           name: ublue-os_forge-registry-pvc
       ports:
         - containerPort: 5000
           protocol: TCP
 
-    - name: semaphore.ublue.local
-      image: semaphore
-      resources:
-        limits:
-          memory: 512Mi
-          cpu: 200m
-      volumeMounts:
-        - mountPath: /var/lib/semaphore
-          name: ublue-os_forge-semaphore-pvc
-        - mountPath: /certs
-          subPath: ssh
-          name: ublue-os_forge-certs-pvc
-          readOnly: true
-      ports:
-        - containerPort: 3000
-          protocol: TCP
-
-    - name: setup.ublue.local
-      image: setup
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${FORGE_POD_NAME_SETUP}
+spec:
+  restartPolicy: OnFailure
+  volumes:
+    - name: ublue-os_forge-certs-pvc
+      persistentVolumeClaim:
+        claimName: ublue-os_forge-certs
+  containers:
+    - name: ansible.${FORGE_DOMAIN_NAME}
+      image: ansible # will be built on pod start
       volumeMounts:
         - mountPath: /certs
           name: ublue-os_forge-certs-pvc
           readOnly: true
       env:
-        - name: ANSIBLE_FORGE_HOST_USER
+        - name: ANSIBLE_HOST_USER
           valueFrom:
             secretKeyRef:
               name: ublue-os_forge-secure
-              key: ANSIBLE_FORGE_HOST_USER
+              key: ANSIBLE_HOST_USER
 
-        - name: ANSIBLE_FORGE_HOST_BECOME_PASSWORD
+        - name: ANSIBLE_HOST_BECOME_PASSWORD
           valueFrom:
             secretKeyRef:
               name: ublue-os_forge-secure
-              key: ANSIBLE_FORGE_HOST_BECOME_PASSWORD
-      workingDir: /ansible
+              key: ANSIBLE_HOST_BECOME_PASSWORD
       command:
         - ansible-playbook
       args:
-        - main.yml
-      resources:
-        limits:
-          memory: 512Mi
-          cpu: 200m
-
-  initContainers:
-    - name: minica.ublue.local
-      image: minica
-      volumeMounts:
-        - mountPath: /certs
-          name: ublue-os_forge-certs-pvc
+        - playbooks/configure_host.yml

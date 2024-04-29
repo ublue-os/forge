@@ -1,0 +1,9 @@
+---
+all:
+  hosts:
+    localhost:
+    host.ublue.local:
+      ansible_host: host.containers.internal
+      ansible_user: "{{ lookup('ansible.builtin.env', 'ANSIBLE_HOST_USER') }}"
+      ansible_become_password: "{{ lookup('ansible.builtin.env', 'ANSIBLE_HOST_BECOME_PASSWORD') }}"
+  children:
