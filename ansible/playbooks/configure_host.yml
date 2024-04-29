@@ -1,0 +1,26 @@
+---
+- name: Configure host system
+  hosts: host.ublue.local
+  gather_facts: true
+  tasks:
+    - name: Add ublue.local entries to /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        search_string: 127.0.0.1 rvproxy.ublue.local registry.ublue.local forge.ublue.local
+        line: 127.0.0.1 rvproxy.ublue.local registry.ublue.local forge.ublue.local
+        state: present
+      become: true
+
+    - name: Add ublue.local TSL root certificate to trust anchors
+      ansible.builtin.copy:
+        src: /certs/tls/ublue-os_forge-root.pem
+        dest: /etc/pki/ca-trust/source/anchors/ublue-os_forge-root.pem
+        force: true
+        mode: "0644"
+      become: true
+
+    - name: Update ca-trust store
+      ansible.builtin.command:
+        cmd: update-ca-trust
+      changed_when: false
+      become: true

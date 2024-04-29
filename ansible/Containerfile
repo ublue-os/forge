@@ -1,0 +1,20 @@
+# Source Image
+FROM docker.io/library/python:3.11-alpine3.19
+
+# Environment vars
+ENV PIPX_BIN_DIR="/usr/local/py-utils"
+ENV PIPX_HOME="/usr/local/pipx"
+ENV POETRY_VERSION="1.8.2"
+ENV POETRY_VIRTUALENVS_CREATE="true"
+ENV POETRY_VIRTUALENVS_IN_PROJECT="true"
+ENV PATH="${PATH}:${PIPX_BIN_DIR}:${PIPX_HOME}/venvs/poetry/bin:/ansible/.venv/bin"
+
+# Install system dependencies
+RUN apk --no-cache add pipx openssh bash
+RUN pipx install poetry==${POETRY_VERSION}
+
+# Install ansible and dependencies
+WORKDIR /ansible
+COPY . .
+RUN poetry install --no-root
+CMD poetry env use .venv/bin/python
