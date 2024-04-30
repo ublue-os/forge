@@ -113,6 +113,18 @@ function check_prerequisites {
         echo -e "${GREEN}podman is installed${ENDCOLOR}"
         echo ""
     fi
+    echo -e "${YELLOW}Checking podman socket service${ENDCOLOR}"
+    PODMAN_SERVICE_STATUS="$(systemctl --user is-active podman.socket)"
+    if [ "${PODMAN_SERVICE_STATUS}" != "active" ];
+    then
+        echo -e "${RED}It looks like your podman socket is not running.${ENDCOLOR}"
+        echo -e "${RED}Make sure to configure and start it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md${ENDCOLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}podman socket is ${PODMAN_SERVICE_STATUS}${ENDCOLOR}"
+        echo ""
+    fi
     echo -e "${YELLOW}Checking jq installation${ENDCOLOR}"
     JQ_PATH=$(which jq 2>/dev/null || echo 'FALSE')
     if [ "$JQ_PATH" == "FALSE" ];
