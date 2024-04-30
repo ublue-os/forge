@@ -27,7 +27,8 @@ function setup {
     echo ""
     echo -e "${YELLOW}Cleaning up secrets...${ENDCOLOR}"
     delete_secrets
-    show_info
+    echo -e "${GREEN}Setup complete${ENDCOLOR}"
+    show_forge_info
     echo -e "${GREEN}Done. Happy forging!${ENDCOLOR}"
 }
 
@@ -35,11 +36,15 @@ function up {
     echo -e "${YELLOW}Heating up forge...${ENDCOLOR}"
     podman pod start ${FORGE_POD_NAME_REVERSE_PROXY}
     podman pod start ${FORGE_POD_NAME_REGISTRY}
+    echo -e "${GREEN}The following containers are now running...${ENDCOLOR}"
+    show_containter_info
     echo -e "${GREEN}Done. Happy forging!${ENDCOLOR}"
 }
 
 function down {
     echo -e "${YELLOW}Cooling down forge...${ENDCOLOR}"
+    echo -e "${YELLOW}Shutting down the following containers..${ENDCOLOR}"
+    show_containter_info
     podman pod stop "${FORGE_POD_NAME_REVERSE_PROXY}" --ignore
     podman pod stop "${FORGE_POD_NAME_REGISTRY}" --ignore
     echo -e "${GREEN}Done. Have a nice day${ENDCOLOR}"
@@ -152,7 +157,13 @@ function check_prerequisites {
     fi
 }
 
-function show_info {
+function show_containter_info (
+    podman container ps --filter "name=${FORGE_POD_NAME_PRE_AMBLE}" --format "table {{.Names}} {{.Status}} {{.Image}}"
+)
+
+function show_forge_info {
+    echo -e "${GREEN}The following containers are now running...${ENDCOLOR}"
+    show_containter_info
     echo -e "${GREEN}uBlue forge reverse-proxy is available at: https://traefik.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
     echo -e "${GREEN}uBlue forge docker registry is available at: registry.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
     echo -e "${GREEN}To trust the certificate in your Browser of choice, make sure to import the root certificate from:${ENDCOLOR}"
