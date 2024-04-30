@@ -143,6 +143,7 @@ function check_prerequisites {
     then
         echo -e "${RED}It looks like jq is not installed.${ENDCOLOR}"
         echo -e "${RED}Make sure to install it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://jqlang.github.io/jq/download{ENDCOLOR}"
         exit 1
     else
         echo -e "${GREEN}jq is installed${ENDCOLOR}"
