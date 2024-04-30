@@ -2,7 +2,6 @@
 # Variables
 export FORGE_DOMAIN_NAME="ublue.local"
 export FORGE_NETWORK_NAME="ublue-os_forge"
-export FORGE_HOST_UID=$(id -u)
 export FORGE_POD_CONFIGURATION="forge-pod.yml"
 export FORGE_POD_NAME_PRE_AMBLE="ublue-os_forge-"
 export FORGE_POD_NAME_REVERSE_PROXY=${FORGE_POD_NAME_PRE_AMBLE}rvproxy
@@ -91,6 +90,18 @@ function create_network {
 }
 
 function check_prerequisites {
+    echo -e "${YELLOW}Checking jq installation${ENDCOLOR}"
+    JQ_PATH=$(which jq 2>/dev/null || echo 'FALSE')
+    if [ "$JQ_PATH" == "FALSE" ];
+    then
+        echo -e "${RED}It looks like jq is not installed.${ENDCOLOR}"
+        echo -e "${RED}Make sure to install it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://jqlang.github.io/jq/download{ENDCOLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}jq is installed${ENDCOLOR}"
+        echo ""
+    fi
     echo -e "${YELLOW}Checking podman installation${ENDCOLOR}"
     PODMAN_PATH=$(which podman 2>/dev/null || echo 'FALSE')
     if [ "$PODMAN_PATH" == "FALSE" ];
@@ -112,6 +123,7 @@ function check_prerequisites {
         exit 1
     else
         echo -e "${GREEN}podman socket is ${PODMAN_SERVICE_STATUS}${ENDCOLOR}"
+        export FORGE_PODMAN_SOCKET_PATH=$(podman system info -f json | jq '.host.remoteSocket.path')
         echo ""
     fi
     echo -e "${YELLOW}Checking net.ipv4.ip_unprivileged_port_start${ENDCOLOR}"
@@ -124,18 +136,6 @@ function check_prerequisites {
         exit 1
     else
         echo -e "${GREEN}net.ipv4.ip_unprivileged_port_start is ${NET_IPV4_UNPRIV_PORT_START}${ENDCOLOR}"
-        echo ""
-    fi
-    echo -e "${YELLOW}Checking jq installation${ENDCOLOR}"
-    JQ_PATH=$(which jq 2>/dev/null || echo 'FALSE')
-    if [ "$JQ_PATH" == "FALSE" ];
-    then
-        echo -e "${RED}It looks like jq is not installed.${ENDCOLOR}"
-        echo -e "${RED}Make sure to install it first.${ENDCOLOR}"
-        echo -e "${YELLOW}Need help? -> https://jqlang.github.io/jq/download{ENDCOLOR}"
-        exit 1
-    else
-        echo -e "${GREEN}jq is installed${ENDCOLOR}"
         echo ""
     fi
     echo -e "${YELLOW}Checking sshd service${ENDCOLOR}"
