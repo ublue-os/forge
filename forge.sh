@@ -91,17 +91,6 @@ function create_network {
 }
 
 function check_prerequisites {
-    echo -e "${YELLOW}Checking sshd service${ENDCOLOR}"
-    SSH_SERVICE_STATUS="$(systemctl is-active sshd)"
-    if [ "${SSH_SERVICE_STATUS}" = "inactive" ];
-    then
-        echo -e "${RED}It looks like your sshd service is not running.${ENDCOLOR}"
-        echo -e "${RED}Make sure to configure and start it first.${ENDCOLOR}"
-        exit 1
-    else
-        echo -e "${GREEN}sshd service is ${SSH_SERVICE_STATUS}${ENDCOLOR}"
-        echo ""
-    fi
     echo -e "${YELLOW}Checking podman installation${ENDCOLOR}"
     PODMAN_PATH=$(which podman 2>/dev/null || echo 'FALSE')
     if [ "$PODMAN_PATH" == "FALSE" ];
@@ -147,6 +136,18 @@ function check_prerequisites {
         exit 1
     else
         echo -e "${GREEN}jq is installed${ENDCOLOR}"
+        echo ""
+    fi
+    echo -e "${YELLOW}Checking sshd service${ENDCOLOR}"
+    SSH_SERVICE_STATUS="$(systemctl is-active sshd)"
+    if [ "${SSH_SERVICE_STATUS}" != "active" ];
+    then
+        echo -e "${RED}It looks like your sshd service is not running.${ENDCOLOR}"
+        echo -e "${RED}Make sure to configure and start it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd${ENDCOLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}sshd service is ${SSH_SERVICE_STATUS}${ENDCOLOR}"
         echo ""
     fi
 }
