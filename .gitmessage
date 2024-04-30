@@ -1,19 +1,24 @@
-<type>(optional scope): <description>
+<type>(optional scope): <description> (optional #<issue-id>)
 
 [optional body]
 
 [optional footer(s)]
-
 ####
-# Allowed <type> values
-# ---------------------
-# feat: –> A new feature
-# fix: –> Fixed a bug
-# refactor: –> A code change that's not mainly a bug or new feature
-# docs: –> Documentation only changes
-# style: –> Changes to styling like white space, formatting, semi-colons)
-# chore: –> Other changes that don't modify src or test files
-# ci: –> Changes made to the CI configuration like Travis, Circle, Actions
-# revert: –> Revert a previous commit
-# test: –> Add or fix tests
+# The CHANGELOG.md is built automatically according to the commit
+# messages. Commit messages that are not matched will be ignored!
+#
+# Supported <type> values
+# -----------------------
+# feat: --> Features
+# fix: --> Bug Fixes
+# doc: --> Documentation
+# refactor: --> Refactor
+# style: --> Styling
+# test: --> Testing
+# chore: --> Miscellaneous Tasks
+# ci --> CI/CD configuration
+# revert: --> Revert
+#
+## Example: feat(parser): add ability to parse arrays
+#
 ####

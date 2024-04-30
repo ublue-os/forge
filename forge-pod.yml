@@ -19,7 +19,7 @@ spec:
   volumes:
     - name: podman-socket
       hostPath:
-        path: /run/user/${FORGE_HOST_UID}/podman/podman.sock
+        path: ${FORGE_PODMAN_SOCKET_PATH}
         type: Socket
     - name: ublue-os_forge-certs-pvc
       persistentVolumeClaim:

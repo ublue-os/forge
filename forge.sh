@@ -2,7 +2,6 @@
 # Variables
 export FORGE_DOMAIN_NAME="ublue.local"
 export FORGE_NETWORK_NAME="ublue-os_forge"
-export FORGE_HOST_UID=$(id -u)
 export FORGE_POD_CONFIGURATION="forge-pod.yml"
 export FORGE_POD_NAME_PRE_AMBLE="ublue-os_forge-"
 export FORGE_POD_NAME_REVERSE_PROXY=${FORGE_POD_NAME_PRE_AMBLE}rvproxy
@@ -28,7 +27,8 @@ function setup {
     echo ""
     echo -e "${YELLOW}Cleaning up secrets...${ENDCOLOR}"
     delete_secrets
-    show_info
+    echo -e "${GREEN}Setup complete${ENDCOLOR}"
+    show_forge_info
     echo -e "${GREEN}Done. Happy forging!${ENDCOLOR}"
 }
 
@@ -36,11 +36,15 @@ function up {
     echo -e "${YELLOW}Heating up forge...${ENDCOLOR}"
     podman pod start ${FORGE_POD_NAME_REVERSE_PROXY}
     podman pod start ${FORGE_POD_NAME_REGISTRY}
+    echo -e "${GREEN}The following containers are now running...${ENDCOLOR}"
+    show_containter_info
     echo -e "${GREEN}Done. Happy forging!${ENDCOLOR}"
 }
 
 function down {
     echo -e "${YELLOW}Cooling down forge...${ENDCOLOR}"
+    echo -e "${YELLOW}Shutting down the following containers..${ENDCOLOR}"
+    show_containter_info
     podman pod stop "${FORGE_POD_NAME_REVERSE_PROXY}" --ignore
     podman pod stop "${FORGE_POD_NAME_REGISTRY}" --ignore
     echo -e "${GREEN}Done. Have a nice day${ENDCOLOR}"
@@ -91,15 +95,16 @@ function create_network {
 }
 
 function check_prerequisites {
-    echo -e "${YELLOW}Checking sshd service${ENDCOLOR}"
-    SSH_SERVICE_STATUS="$(systemctl is-active sshd)"
-    if [ "${SSH_SERVICE_STATUS}" = "inactive" ];
+    echo -e "${YELLOW}Checking jq installation${ENDCOLOR}"
+    JQ_PATH=$(which jq 2>/dev/null || echo 'FALSE')
+    if [ "$JQ_PATH" == "FALSE" ];
     then
-        echo -e "${RED}It looks like your sshd service is not running.${ENDCOLOR}"
-        echo -e "${RED}Make sure to configure and start it first.${ENDCOLOR}"
+        echo -e "${RED}It looks like jq is not installed.${ENDCOLOR}"
+        echo -e "${RED}Make sure to install it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://jqlang.github.io/jq/download{ENDCOLOR}"
         exit 1
     else
-        echo -e "${GREEN}sshd service is ${SSH_SERVICE_STATUS}${ENDCOLOR}"
+        echo -e "${GREEN}jq is installed${ENDCOLOR}"
         echo ""
     fi
     echo -e "${YELLOW}Checking podman installation${ENDCOLOR}"
@@ -113,20 +118,52 @@ function check_prerequisites {
         echo -e "${GREEN}podman is installed${ENDCOLOR}"
         echo ""
     fi
-    echo -e "${YELLOW}Checking jq installation${ENDCOLOR}"
-    JQ_PATH=$(which jq 2>/dev/null || echo 'FALSE')
-    if [ "$JQ_PATH" == "FALSE" ];
+    echo -e "${YELLOW}Checking podman socket service${ENDCOLOR}"
+    PODMAN_SERVICE_STATUS="$(systemctl --user is-active podman.socket)"
+    if [ "${PODMAN_SERVICE_STATUS}" != "active" ];
     then
-        echo -e "${RED}It looks like jq is not installed.${ENDCOLOR}"
-        echo -e "${RED}Make sure to install it first.${ENDCOLOR}"
+        echo -e "${RED}It looks like your podman socket is not running.${ENDCOLOR}"
+        echo -e "${RED}Make sure to configure and start it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md${ENDCOLOR}"
         exit 1
     else
-        echo -e "${GREEN}jq is installed${ENDCOLOR}"
+        echo -e "${GREEN}podman socket is ${PODMAN_SERVICE_STATUS}${ENDCOLOR}"
+        export FORGE_PODMAN_SOCKET_PATH=$(podman system info -f json | jq '.host.remoteSocket.path')
+        echo ""
+    fi
+    echo -e "${YELLOW}Checking net.ipv4.ip_unprivileged_port_start${ENDCOLOR}"
+    NET_IPV4_UNPRIV_PORT_START="$(sysctl -n net.ipv4.ip_unprivileged_port_start)"
+    if [ "${NET_IPV4_UNPRIV_PORT_START}" -gt 80 ];
+    then
+        echo -e "${RED}Your net.ipv4.ip_unprivileged_port_start is set to ${NET_IPV4_UNPRIV_PORT_START}${ENDCOLOR}"
+        echo -e "${RED}Make sure to configure net.ipv4.ip_unprivileged_port_start to <= 80${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> run 'sudo sysctl net.ipv4.ip_unprivileged_port_start=80' for this session or run 'sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80' for a permanent configuration${ENDCOLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}net.ipv4.ip_unprivileged_port_start is ${NET_IPV4_UNPRIV_PORT_START}${ENDCOLOR}"
+        echo ""
+    fi
+    echo -e "${YELLOW}Checking sshd service${ENDCOLOR}"
+    SSH_SERVICE_STATUS="$(systemctl is-active sshd)"
+    if [ "${SSH_SERVICE_STATUS}" != "active" ];
+    then
+        echo -e "${RED}It looks like your sshd service is not running.${ENDCOLOR}"
+        echo -e "${RED}Make sure to configure and start it first.${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/infrastructure-services/OpenSSH/#s2-ssh-configuration-sshd${ENDCOLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}sshd service is ${SSH_SERVICE_STATUS}${ENDCOLOR}"
         echo ""
     fi
 }
 
-function show_info {
+function show_containter_info (
+    podman container ps --filter "name=${FORGE_POD_NAME_PRE_AMBLE}" --format "table {{.Names}} {{.Status}} {{.Image}}"
+)
+
+function show_forge_info {
+    echo -e "${GREEN}The following containers are now running...${ENDCOLOR}"
+    show_containter_info
     echo -e "${GREEN}uBlue forge reverse-proxy is available at: https://traefik.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
     echo -e "${GREEN}uBlue forge docker registry is available at: registry.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
     echo -e "${GREEN}To trust the certificate in your Browser of choice, make sure to import the root certificate from:${ENDCOLOR}"
