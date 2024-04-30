@@ -125,6 +125,18 @@ function check_prerequisites {
         echo -e "${GREEN}podman socket is ${PODMAN_SERVICE_STATUS}${ENDCOLOR}"
         echo ""
     fi
+    echo -e "${YELLOW}Checking net.ipv4.ip_unprivileged_port_start${ENDCOLOR}"
+    NET_IPV4_UNPRIV_PORT_START="$(sysctl -n net.ipv4.ip_unprivileged_port_start)"
+    if [ "${NET_IPV4_UNPRIV_PORT_START}" -gt 80 ];
+    then
+        echo -e "${RED}Your net.ipv4.ip_unprivileged_port_start is set to ${NET_IPV4_UNPRIV_PORT_START}${ENDCOLOR}"
+        echo -e "${RED}Make sure to configure net.ipv4.ip_unprivileged_port_start to <= 80${ENDCOLOR}"
+        echo -e "${YELLOW}Need help? -> run 'sudo sysctl net.ipv4.ip_unprivileged_port_start=80' for this session or run 'sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80' for a permanent configuration${ENDCOLOR}"
+        exit 1
+    else
+        echo -e "${GREEN}net.ipv4.ip_unprivileged_port_start is ${NET_IPV4_UNPRIV_PORT_START}${ENDCOLOR}"
+        echo ""
+    fi
     echo -e "${YELLOW}Checking jq installation${ENDCOLOR}"
     JQ_PATH=$(which jq 2>/dev/null || echo 'FALSE')
     if [ "$JQ_PATH" == "FALSE" ];
