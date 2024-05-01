@@ -56,7 +56,8 @@
         },
         // Ansible configuration
         "ansible.validation.enabled": true,
-        "ansible.validation.lint.arguments": "-c .ansible-lint",
+        "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
+        "ansible.python.interpreterPath": "/usr/local/python/current/bin/python",
         "ansible.ansible.reuseTerminal": true,
         "ansible.lightspeed.enabled": true,
         "ansible.lightspeed.suggestions.enabled": true,
