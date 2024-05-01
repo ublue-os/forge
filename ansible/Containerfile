@@ -19,6 +19,7 @@ COPY . .
 RUN poetry install --no-root
 CMD poetry env use .venv/bin/python && \
     chmod +x entrypoint.sh
+RUN ansible-galaxy collection install -r collections/requirements.yml
 
 # Set entrypoint
 ENTRYPOINT [ "/ansible/entrypoint.sh" ]
