@@ -1,0 +1,10 @@
+---
+# variables used for all groups and hosts
+
+## container registry
+forge_registry_url: registry.ublue.local
+
+## Git
+forge_git_repository_url: https://github.com/ublue-os/bluefin.git
+forge_git_repository_destination: "{{ ansible_facts.env.HOME }}/ublue-os/forge/bluefin"
+forge_git_repository_version: main

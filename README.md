@@ -36,12 +36,20 @@ As an entry point for all components we use [Traefik](https://doc.traefik.io/tra
 a reverse proxy. Based on URL routing it will redirect the traffic to the
 right container instance.
 
+The reverse proxy dashboard is available at <https://traefik.ublue.local>
+
 ### Container Registry
 
 As container registry we make use of the [Docker Registry 2.0](https://hub.docker.com/_/registry/)
 implementation for storing and distributing container images
 
-The container registry is available at `registry.ublue.local`
+The container registry API is available at <https://registry.ublue.local/v2>
+
+### Anvil
+
+The blacksmith's work is done with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+
+The shiny GUI is missing but this should not shy us away. See [usage](#usage) for instructions.
 
 ## Handling the forge
 
@@ -52,3 +60,7 @@ You can use the `forge.sh` to **setup**, **heat-up** and **cool-down** the forge
 | `./forge.sh setup`     | Setup the forge for the first time or update existing setup |
 | `./forge.sh heat-up`   | Start the forge                                             |
 | `./forge.sh cool-down` | Stop the forge                                              |
+
+### Usage
+
+..tbd...

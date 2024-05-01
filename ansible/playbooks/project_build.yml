@@ -1,0 +1,17 @@
+---
+- name: Build project
+  hosts: host.ublue.local
+  gather_facts: true
+  tasks:
+    - name: Build and push an image to registry
+      containers.podman.podman_image:
+        name: bluefin
+        tag: latest
+        path: "{{ forge_git_repository_destination }}"
+        build:
+          file: Containerfile
+          format: oci
+        pull: false
+        push: true
+        push_args:
+          dest: "{{ forge_registry_url }}"

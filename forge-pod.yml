@@ -95,7 +95,7 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ${FORGE_POD_NAME_SETUP}
+  name: ${FORGE_POD_NAME_ANVIL}
 spec:
   restartPolicy: OnFailure
   volumes:
@@ -121,7 +121,3 @@ spec:
             secretKeyRef:
               name: ublue-os_forge-secure
               key: ANSIBLE_HOST_BECOME_PASSWORD
-      command:
-        - ansible-playbook
-      args:
-        - playbooks/configure_host.yml

@@ -35,11 +35,11 @@ echo -e "${YELLOW}Installing project dependencies${ENDCOLOR}"
 echo ""
 poetry install --no-root -C /workspaces/forge/ansible
 
-# Install ansible dependencies
-# echo ""
-# echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
-# echo ""
-# ansible-galaxy collection install -r /workspaces/forge/setup/ansible/collections/requirements.yml
+Install ansible dependencies
+echo ""
+echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
+echo ""
+ansible-galaxy collection install -r /workspaces/forge/ansible/collections/requirements.yml
 
 # Finish
 echo ""
