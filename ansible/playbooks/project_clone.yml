@@ -1,0 +1,10 @@
+---
+- name: Clone project
+  hosts: host.ublue.local
+  gather_facts: true
+  tasks:
+    - name: Clone project
+      ansible.builtin.git:
+        repo: "{{ forge_git_repository_url }}"
+        dest: "{{ forge_git_repository_destination }}"
+        version: "{{ forge_git_repository_version }}"
