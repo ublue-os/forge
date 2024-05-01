@@ -6,7 +6,7 @@ export FORGE_POD_CONFIGURATION="forge-pod.yml"
 export FORGE_POD_NAME_PRE_AMBLE="ublue-os_forge-"
 export FORGE_POD_NAME_REVERSE_PROXY=${FORGE_POD_NAME_PRE_AMBLE}rvproxy
 export FORGE_POD_NAME_REGISTRY=${FORGE_POD_NAME_PRE_AMBLE}registry
-export FORGE_POD_NAME_SETUP=${FORGE_POD_NAME_PRE_AMBLE}setup
+export FORGE_POD_NAME_ANVIL=${FORGE_POD_NAME_PRE_AMBLE}anvil
 
 # Functions
 function setup {
@@ -23,7 +23,7 @@ function setup {
     configure_host_prerequisites & PID_CONFIG=$!
     wait ${PID_CONFIG}
     echo -e "${YELLOW}Configuring host system...${ENDCOLOR}"
-    podman logs --color --follow "${FORGE_POD_NAME_SETUP}-ansible.${FORGE_DOMAIN_NAME}"
+    podman exec ${FORGE_POD_NAME_ANVIL}-ansible.${FORGE_DOMAIN_NAME} ansible-playbook playbooks/configure_host.yml
     echo ""
     echo -e "${YELLOW}Cleaning up secrets...${ENDCOLOR}"
     delete_secrets
@@ -36,6 +36,7 @@ function up {
     echo -e "${YELLOW}Heating up forge...${ENDCOLOR}"
     podman pod start ${FORGE_POD_NAME_REVERSE_PROXY}
     podman pod start ${FORGE_POD_NAME_REGISTRY}
+    podman pod start ${FORGE_POD_NAME_ANVIL}
     echo -e "${GREEN}The following containers are now running...${ENDCOLOR}"
     show_containter_info
     echo -e "${GREEN}Done. Happy forging!${ENDCOLOR}"
@@ -47,6 +48,7 @@ function down {
     show_containter_info
     podman pod stop "${FORGE_POD_NAME_REVERSE_PROXY}" --ignore
     podman pod stop "${FORGE_POD_NAME_REGISTRY}" --ignore
+    podman pod stop "${FORGE_POD_NAME_ANVIL}" --ignore
     echo -e "${GREEN}Done. Have a nice day${ENDCOLOR}"
 }
 
