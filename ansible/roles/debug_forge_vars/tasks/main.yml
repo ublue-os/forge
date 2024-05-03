@@ -1,0 +1,13 @@
+---
+# main task file for this role
+
+- name: DEBUG | forge variables
+  ansible.builtin.debug:
+    msg: "{{ item }}: {{ lookup('ansible.builtin.vars', item) }}"
+    verbosity: 1
+  loop: "{{ __forge_vars_used }}"
+  loop_control:
+    extended: true
+    label: "{{ ansible_loop.index }}/{{ ansible_loop.length }}"
+  vars:
+    __forge_vars_used: "{{ lookup('ansible.builtin.varnames', forge_debug_vars_regex_search, wantlist=true) }}"

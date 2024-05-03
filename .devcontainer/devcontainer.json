@@ -49,10 +49,10 @@
         "files.associations": {
           ".ansible-lint": "yaml",
           ".gitmessage": "git-commit",
-          "**/pb_*.yml": "ansible",
           "**/playbooks/*.yml": "ansible",
           "**/roles/**/tasks/*.yml": "ansible",
-          "inventory_*": "ansible"
+          "**/inventory*.yml": "ansible",
+          "**/*.just": "just"
         },
         // Ansible configuration
         "ansible.validation.enabled": true,
@@ -97,6 +97,7 @@
         "mutantdino.resourcemonitor",
         "redhat.ansible",
         "redhat.vscode-yaml",
+        "skellock.just",
         "streetsidesoftware.code-spell-checker-german",
         "streetsidesoftware.code-spell-checker",
         "tamasfe.even-better-toml"

@@ -24,3 +24,26 @@
         cmd: update-ca-trust
       changed_when: false
       become: true
+
+    - name: Create default directory for forge content
+      ansible.builtin.file:
+        path: "{{ forge_data_path }}"
+        state: directory
+        mode: "0755"
+
+    - name: Create default configuration variable file
+      ansible.builtin.copy:
+        dest: "{{ forge_data_default_variables_file_path }}"
+        content: |
+          ## ublue-os forge configuration variables defaults
+          ## For more details got to https://github.com/ublue-os/forge/blob/main/docs/variables.md
+
+          {% for item in __vars_used %}
+          #{{ item | upper }}={{ lookup('ansible.builtin.vars', item) }}
+          {% endfor %}
+        backup: true
+        owner: "{{ ansible_facts.env.USER }}"
+        mode: "0644"
+      vars:
+        __vars_used: "{{ lookup('ansible.builtin.varnames', __regex_search, wantlist=true) }}"
+        __regex_search: ^forge_.+

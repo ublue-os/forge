@@ -35,7 +35,7 @@ echo -e "${YELLOW}Installing project dependencies${ENDCOLOR}"
 echo ""
 poetry install --no-root -C /workspaces/forge/ansible
 
-Install ansible dependencies
+# Install ansible dependencies
 echo ""
 echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
 echo ""
