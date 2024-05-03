@@ -1,0 +1,2 @@
+# Default vars for this role
+forge_debug_vars_regex_search: "{{ lookup('ansible.builtin.env', 'FORGE_DEBUG_VARS_REGEX_SEARCH', default='^forge_.+') }}"
