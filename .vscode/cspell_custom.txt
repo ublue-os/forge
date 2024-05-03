@@ -27,5 +27,7 @@ rvproxy
 serverstransport
 traefik
 ublue
+varnames
 venvs
+wantlist
 websecure
