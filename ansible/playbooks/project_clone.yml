@@ -2,9 +2,18 @@
 - name: Clone project
   hosts: host.ublue.local
   gather_facts: true
+  pre_tasks:
+    - name: DEBUG - forge variables
+      ansible.builtin.include_role:
+        name: debug_forge_vars
   tasks:
     - name: Clone project
       ansible.builtin.git:
         repo: "{{ forge_git_repository_url }}"
         dest: "{{ forge_git_repository_destination }}"
         version: "{{ forge_git_repository_version }}"
+      register: __git_clone_info
+
+    - name: INFO | Status from git clone
+      ansible.builtin.debug:
+        msg: "{{ __git_clone_info }}"

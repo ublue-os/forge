@@ -1,0 +1,4 @@
+---
+# data variables
+forge_data_path: "{{ lookup('ansible.builtin.env', 'FORGE_DATA_PATH', default=ansible_facts.env.HOME + '/ublue-os_forge') }}"
+forge_data_default_variables_file_path: "{{ forge_data_path }}/forge_default_vars.env"

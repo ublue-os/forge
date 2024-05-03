@@ -2,10 +2,15 @@
 - name: Build project
   hosts: host.ublue.local
   gather_facts: true
+  pre_tasks:
+    - name: DEBUG - forge variables
+      ansible.builtin.include_role:
+        name: debug_forge_vars
+
   tasks:
-    - name: Build and push an image to registry
+    - name: Build and push image to registry
       containers.podman.podman_image:
-        name: bluefin
+        name: "{{ forge_git_repository_url | regex_search(__regex_search) }}"
         tag: latest
         path: "{{ forge_git_repository_destination }}"
         build:
@@ -15,3 +20,10 @@
         push: true
         push_args:
           dest: "{{ forge_registry_url }}"
+      vars:
+        __regex_search: (?<=/)[^/]+(?=\.git)
+      register: __podman_image_info
+
+    - name: INFO | Status from build and push
+      ansible.builtin.debug:
+        msg: "{{ __podman_image_info }}"
