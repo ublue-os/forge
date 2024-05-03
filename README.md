@@ -1,9 +1,7 @@
-# forge
+# Universal Blue - Forge
 
-On-premises Universal Blue
-
-This repo is intended to provide the service units necessary to set up a
-self-hosted OS forge for custom images.
+On-premises Universal Blue. This repository is intended to provide the service units
+necessary to set up a self-hosted OS forge for custom images.
 
 > **Warning**
 > This project is "work in progress" and not ready for production
@@ -55,12 +53,42 @@ The shiny GUI is missing but this should not shy us away. See [usage](#usage) fo
 
 You can use the `forge.sh` to **setup**, **heat-up** and **cool-down** the forge.
 
+<!-- markdownlint-disable MD013 -->
+
 | Command                | Description                                                 |
 | ---------------------- | ----------------------------------------------------------- |
 | `./forge.sh setup`     | Setup the forge for the first time or update existing setup |
 | `./forge.sh heat-up`   | Start the forge                                             |
 | `./forge.sh cool-down` | Stop the forge                                              |
 
+<!-- markdownlint-enable MD013 -->
+
 ### Usage
 
-..tbd...
+Once the forge has been setup the following recipes are available via [just command runner](https://github.com/casey/just).
+
+<!-- markdownlint-disable MD013 -->
+
+| Just recipe           | Input argument          | Default argument value                      | Description                                  |
+| --------------------- | ----------------------- | ------------------------------------------- | -------------------------------------------- |
+| `forge_project-clone` | `forge_config_var_file` | $HOME/ublue-os_forge/forge_default_vars.env | Clone git project repository                 |
+| `forge_project-build` | `forge_config_var_file` | $HOME/ublue-os_forge/forge_default_vars.env | Build container image and upload to registry |
+
+<!-- markdownlint-enable MD013 -->
+
+All available settings for the `forge_config_var_file` are documented in the [variables.md](./docs/variables.md)
+file. To launch a recipe you simple run:
+
+```sh
+just -f forge.just {{ recipe_name }} {{ forge_config_var_file }}
+```
+
+**_Example:_**
+
+```sh
+just -f forge.just forge_project-clone /var/home/stephan/ublue-os_forge/my-forge-project.env
+```
+
+In case you don't have [just command runner](https://github.com/casey/just) available.
+Have a look at the [forge.just](./forge.just) file. It easy enough to understand which commands
+are executed via the just recipes.
