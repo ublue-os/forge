@@ -4,20 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Git: Fetch upstream",
-      "type": "shell",
-      "command": "git fetch upstream",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      }
-    },
-    {
-      "label": "Git: Merge from upstream",
-      "type": "shell",
-      "command": "git merge --no-ff --no-commit upstream/main",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      }
+      "label": "Git: Cleanup",
+      "dependsOn": ["Git: Delete merged branches", "Git: Prune remote"],
+      "problemMatcher": []
     },
     {
       "label": "Git: Delete merged branches",
@@ -35,5 +24,6 @@
         "cwd": "${workspaceFolder}"
       }
     }
-  ]
+  ],
+  "inputs": []
 }
