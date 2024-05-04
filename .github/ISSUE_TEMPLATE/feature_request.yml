@@ -1,0 +1,17 @@
+name: Feature Request
+description: Request a new feature to be included in the forge tool set
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this feature request
+  - type: textarea
+    id: describe-feature
+    attributes:
+      label: Describe the feature
+      description: Include why you feel this should be in the forge
+      placeholder: Tell us what you need
+      value: "I'd like this project to be enhanced with ... because ..."
+    validations:
+      required: true
