@@ -10,6 +10,8 @@ readme = "../README.md"
 python = "^3.11"
 ansible-core = "^2.16"
 jmespath = "^1.0"
+nicegui = "^1.4.23"
+ansible-runner = "^2.3.6"
 
 [tool.poetry.group.dev.dependencies]
 ansible-lint = { version = "^24.2", markers = 'platform_system != "Windows"' } # https://github.com/ansible/ansible-lint/issues/2730#issuecomment-1330406601

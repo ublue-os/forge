@@ -23,7 +23,7 @@ function setup {
     configure_host_prerequisites & PID_CONFIG=$!
     wait ${PID_CONFIG}
     echo -e "${YELLOW}Configuring host system...${ENDCOLOR}"
-    podman exec ${FORGE_POD_NAME_ANVIL}-ansible.${FORGE_DOMAIN_NAME} ansible-playbook playbooks/configure_host.yml
+    podman exec ${FORGE_POD_NAME_ANVIL}-ansible.${FORGE_DOMAIN_NAME} ansible-playbook ansible/playbooks/configure_host.yml
     echo ""
     echo -e "${YELLOW}Cleaning up secrets...${ENDCOLOR}"
     delete_secrets

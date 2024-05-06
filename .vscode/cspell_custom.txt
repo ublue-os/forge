@@ -14,6 +14,7 @@ lightspeed
 lineinfile
 minica
 Mountpoint
+nicegui
 noarchive
 noimageindex
 Nosniff

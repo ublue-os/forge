@@ -54,6 +54,10 @@
           "**/inventory*.yml": "ansible",
           "**/*.just": "just"
         },
+        // Python configuration
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        },
         // Ansible configuration
         "ansible.validation.enabled": true,
         "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
