@@ -74,7 +74,9 @@ class local_file_picker(ui.dialog):
         if not self.show_hidden_files:
             paths = [p for p in paths if not p.name.startswith(".")]
         if self.file_name_filter:  # Add this condition
-            paths = [p for p in paths if p.is_file() and p.suffix == self.file_name_filter]
+            paths = [
+                p for p in paths if p.is_file() and p.suffix == self.file_name_filter
+            ]
         paths.sort(key=lambda p: p.name.lower())
         paths.sort(key=lambda p: not p.is_dir())
 
@@ -112,6 +114,26 @@ class local_file_picker(ui.dialog):
             f"getElement({self.grid.id}).gridOptions.api.getSelectedRows()"
         )
         self.submit([r["path"] for r in rows])
+
+
+class progress_spinner(ui.spinner):
+    def __init__(
+        self,
+        *,
+        type: str = "dots",
+        size: str = "lg",
+        color: str | None = "red",
+        thickness: float = 5,
+    ) -> None:
+        super().__init__(type, size=size, color=color, thickness=thickness)
+        with self, ui.spinner():
+            self.visible = False
+
+    def enable_progress(self) -> None:
+        self.set_visibility(True)
+
+    def disable_progress(self) -> None:
+        self.set_visibility(False)
 
 
 def get_project_root() -> Path:

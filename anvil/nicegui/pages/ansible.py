@@ -1,14 +1,15 @@
 import ansible_runner
 import re
+import asyncio
+import time
 from nicegui import ui
-from utils import get_project_root, local_file_picker
-from multiprocessing import Manager, Queue
+from utils import get_project_root, local_file_picker, progress_spinner
 
 ANSIBLE_EXTRA_VARS = None
 
 
 # Ansible integration
-@ui.refreshable #https://www.reddit.com/r/nicegui/comments/1bphjk5/comment/kx7l5kj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+@ui.refreshable  # https://www.reddit.com/r/nicegui/comments/1bphjk5/comment/kx7l5kj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 async def load_configuration_file() -> None:
     result = await local_file_picker(
         directory="/data", multiple=False, file_name_filter=".yml"
@@ -23,7 +24,15 @@ async def load_configuration_file() -> None:
     ## Preserve configuration file path for ansible-playbook --extra-vars
     ANSIBLE_EXTRA_VARS = f'"@{file_path}"'
 
-async def run_ansible_playbook(playbook_name: str, ngui_log: ui.log):
+
+async def run_ansible_playbook(
+    playbook_name: str,
+    ngui_log: ui.log,
+    ngui_spinner: progress_spinner,
+) -> None:
+    ngui_spinner.enable_progress()
+    # make sure spinner is displayed
+    await asyncio.sleep(1)
     project_root = str(get_project_root())
     playbook_path = project_root + "/ansible/playbooks/"
     inventory_path = project_root + "/ansible/inventory.yml"
@@ -36,7 +45,7 @@ async def run_ansible_playbook(playbook_name: str, ngui_log: ui.log):
             inventory_path,
             "--extra-vars",
             extra_vars_file,
-        ]
+        ],
     )
     # clear log
     ngui_log.clear()
@@ -45,16 +54,18 @@ async def run_ansible_playbook(playbook_name: str, ngui_log: ui.log):
     # show log from asynchronous job
     while runner.rc is None:
         for event in runner.events:
-            ansible_log = format(ansi_escape.sub("", event['stdout']))
+            ansible_log = format(ansi_escape.sub("", event["stdout"]))
             ngui_log.push(ansible_log)
+    ngui_spinner.disable_progress()
+
 
 # Page content
 def content() -> None:
     with ui.row().classes("w-full"):
         with ui.row().classes("w-full"):
             with ui.card().classes("h-full"):
-                ui.button(text=
-                    "Load configuration file",
+                ui.button(
+                    text="Load configuration file",
                     on_click=lambda: load_configuration_file.refresh(),
                     icon="folder",
                 )
@@ -63,22 +74,30 @@ def content() -> None:
         with ui.row().classes("w-full"):
             # First Row
             with ui.card().classes("h-full"):
-                ui.label("Build").classes("text-h6")
+                with ui.row().classes("no-wrap"):
+                    ui.label("Build").classes("text-h5")
+                    build_progress = progress_spinner()
                 ui.button(
                     text="Clone project",
                     on_click=lambda: run_ansible_playbook(
-                        playbook_name="project_clone.yml", ngui_log=playbook_log
+                        playbook_name="project_clone.yml",
+                        ngui_log=playbook_log,
+                        ngui_spinner=build_progress,
                     ),
                 )
                 ui.button(
                     text="Build project",
                     on_click=lambda: run_ansible_playbook(
-                        "project_build.yml", ngui_log=playbook_log
+                        "project_build.yml",
+                        ngui_log=playbook_log,
+                        ngui_spinner=build_progress,
                     ),
                 )
             # Second Row
             with ui.card().classes("h-full"):
-                ui.label("Deploy").classes("text-h6")
+                with ui.row().classes("no-wrap"):
+                    ui.label("Deploy").classes("text-h6")
+                    deploy_progress = progress_spinner()
                 ui.button(
                     "Deploy VM",
                     on_click=lambda: ui.notify("This playbook is not implemented yet"),
@@ -88,4 +107,5 @@ def content() -> None:
             with ui.card().classes("w-full"):
                 ui.label("Playbook Log").classes("text-h6")
                 ui.button("Clear Log", on_click=lambda: playbook_log.clear())
+
                 playbook_log = ui.log().classes("w-full h-full")
