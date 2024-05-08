@@ -116,25 +116,5 @@ class local_file_picker(ui.dialog):
         self.submit([r["path"] for r in rows])
 
 
-class progress_spinner(ui.spinner):
-    def __init__(
-        self,
-        *,
-        type: str = "dots",
-        size: str = "lg",
-        color: str | None = "red",
-        thickness: float = 5,
-    ) -> None:
-        super().__init__(type, size=size, color=color, thickness=thickness)
-        with self, ui.spinner():
-            self.visible = False
-
-    def enable_progress(self) -> None:
-        self.set_visibility(True)
-
-    def disable_progress(self) -> None:
-        self.set_visibility(False)
-
-
 def get_project_root() -> Path:
     return Path(__file__).parent.parent

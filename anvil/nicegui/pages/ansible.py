@@ -1,9 +1,9 @@
 import ansible_runner
 import re
 import asyncio
-import time
 from nicegui import ui
-from utils import get_project_root, local_file_picker, progress_spinner
+from theme import GuiProgressSpinner
+from utils import get_project_root, local_file_picker
 
 ANSIBLE_EXTRA_VARS = None
 
@@ -25,14 +25,12 @@ async def load_configuration_file() -> None:
     ANSIBLE_EXTRA_VARS = f'"@{file_path}"'
 
 
-async def run_ansible_playbook(
-    playbook_name: str,
-    ngui_log: ui.log,
-    ngui_spinner: progress_spinner,
-) -> None:
-    ngui_spinner.enable_progress()
-    # make sure spinner is displayed
-    await asyncio.sleep(1)
+async def run_ansible_playbook(playbook_name: str, gui_log: ui.log, gui_spinner: GuiProgressSpinner) -> None:
+    # Clear log console
+    gui_log.clear()
+    # Enable spinner
+    gui_spinner.enable()
+    # Run ansible playbook
     project_root = str(get_project_root())
     playbook_path = project_root + "/ansible/playbooks/"
     inventory_path = project_root + "/ansible/inventory.yml"
@@ -47,16 +45,26 @@ async def run_ansible_playbook(
             extra_vars_file,
         ],
     )
-    # clear log
-    ngui_log.clear()
-    # regex to remove color characters from response until clear how to display them in a log
-    ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-9;#]+[mGK]?)")
+    # Parse and display output from ansible playbook
+    ## Remove color characters from response until clear how to display them in a log
+    output_parser = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-9;#]+[mGK]?)")
     # show log from asynchronous job
+    processed_events = set()  # Set to store processed events
     while runner.rc is None:
         for event in runner.events:
-            ansible_log = format(ansi_escape.sub("", event["stdout"]))
-            ngui_log.push(ansible_log)
-    ngui_spinner.disable_progress()
+            # Make sure log is displayed during playbook run
+            await asyncio.sleep(0.1)
+            # Check if event has been processed already
+            event_key = (event['uuid'], event['counter'])
+            if event_key not in processed_events:
+                # Add event to processed set
+                processed_events.add(event_key)
+                # Process event
+                ansible_log = format(output_parser.sub("", event["stdout"]))
+                # Push log to ui
+                gui_log.push(ansible_log)
+    # Disable spinner
+    gui_spinner.disable()
 
 
 # Page content
@@ -76,28 +84,28 @@ def content() -> None:
             with ui.card().classes("h-full"):
                 with ui.row().classes("no-wrap"):
                     ui.label("Build").classes("text-h5")
-                    build_progress = progress_spinner()
+                    gui_build_progress = GuiProgressSpinner()
                 ui.button(
                     text="Clone project",
                     on_click=lambda: run_ansible_playbook(
                         playbook_name="project_clone.yml",
-                        ngui_log=playbook_log,
-                        ngui_spinner=build_progress,
+                        gui_log=playbook_log,
+                        gui_spinner=gui_build_progress,
                     ),
                 )
                 ui.button(
                     text="Build project",
                     on_click=lambda: run_ansible_playbook(
                         "project_build.yml",
-                        ngui_log=playbook_log,
-                        ngui_spinner=build_progress,
+                        gui_log=playbook_log,
+                        gui_spinner=gui_build_progress,
                     ),
                 )
             # Second Row
             with ui.card().classes("h-full"):
                 with ui.row().classes("no-wrap"):
                     ui.label("Deploy").classes("text-h6")
-                    deploy_progress = progress_spinner()
+                    gui_deploy_progress = GuiProgressSpinner
                 ui.button(
                     "Deploy VM",
                     on_click=lambda: ui.notify("This playbook is not implemented yet"),

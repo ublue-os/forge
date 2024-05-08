@@ -1,8 +1,26 @@
 from contextlib import contextmanager
-
 from menu import menu
-
 from nicegui import ui
+
+
+class GuiProgressSpinner(ui.spinner):
+    def __init__(
+        self,
+        *,
+        type: str = "dots",
+        size: str = "lg",
+        color: str | None = "red",
+        thickness: float = 5
+    ) -> None:
+        super().__init__(type, size=size, color=color, thickness=thickness)
+        with self, ui.spinner():
+            self.visible = False
+
+    def enable(self) -> None:
+        self.set_visibility(True)
+
+    def disable(self) -> None:
+        self.set_visibility(False)
 
 
 @contextmanager
