@@ -1,3 +1,6 @@
+## Devcontainer
+.devcontainer/mountpoint
+
 ## Ansible
 **/collections
 !**/collections/requirements.yml

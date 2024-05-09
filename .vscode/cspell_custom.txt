@@ -1,7 +1,9 @@
+aggrid
 CHACHA
 configmap
 devcontainer
 devcontainers
+dotenv
 ENDCOLOR
 ensurepath
 envsubst
@@ -24,11 +26,13 @@ pipx
 posix
 Proto
 redirections
+refreshable
 rvproxy
 serverstransport
 traefik
 ublue
 varnames
 venvs
+VIRTUALENVS
 wantlist
 websecure

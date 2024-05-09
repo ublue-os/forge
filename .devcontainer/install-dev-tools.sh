@@ -39,7 +39,7 @@ poetry install --no-root -C /workspaces/forge/anvil
 echo ""
 echo -e "${YELLOW}Installing ansible dependencies${ENDCOLOR}"
 echo ""
-ansible-galaxy collection install -r /workspaces/forge/anvil/ansible/collections/requirements.yml
+ansible-galaxy collection install --force -r /workspaces/forge/anvil/ansible/collections/requirements.yml
 
 # Finish
 echo ""
