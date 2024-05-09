@@ -114,7 +114,3 @@ class local_file_picker(ui.dialog):
             f"getElement({self.grid.id}).gridOptions.api.getSelectedRows()"
         )
         self.submit([r["path"] for r in rows])
-
-
-def get_project_root() -> Path:
-    return Path(__file__).parent.parent

@@ -1,10 +1,10 @@
 from nicegui import ui
-from utils import get_project_root
+import os
 
 
 def content() -> None:
-    project_root = str(get_project_root())
+    project_root = os.environ['NICEGUI_DIR']
     ui.label("Work in progress...").classes("text-h6")
-    ui.image(project_root + "/nicegui/pages/assets/work-in-progress.png").classes(
+    ui.image(project_root + "/pages/assets/work-in-progress.png").classes(
         "w-[200%]"
     )

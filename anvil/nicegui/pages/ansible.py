@@ -1,9 +1,10 @@
 import ansible_runner
 import re
 import asyncio
+import os
 from nicegui import ui
 from theme import GuiProgressSpinner
-from utils import get_project_root, local_file_picker
+from utils import local_file_picker
 
 ANSIBLE_EXTRA_VARS = None
 
@@ -11,6 +12,7 @@ ANSIBLE_EXTRA_VARS = None
 # Ansible integration
 @ui.refreshable  # https://www.reddit.com/r/nicegui/comments/1bphjk5/comment/kx7l5kj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 async def load_configuration_file() -> None:
+    global ANSIBLE_EXTRA_VARS
     result = await local_file_picker(
         directory="/data", multiple=False, file_name_filter=".yml"
     )
@@ -22,7 +24,7 @@ async def load_configuration_file() -> None:
     ## Display content
     ui.code(content=data, language="yaml")
     ## Preserve configuration file path for ansible-playbook --extra-vars
-    ANSIBLE_EXTRA_VARS = f'"@{file_path}"'
+    ANSIBLE_EXTRA_VARS = f"@{file_path}"
 
 
 async def run_ansible_playbook(playbook_name: str, gui_log: ui.log, gui_spinner: GuiProgressSpinner) -> None:
@@ -31,16 +33,14 @@ async def run_ansible_playbook(playbook_name: str, gui_log: ui.log, gui_spinner:
     # Enable spinner
     gui_spinner.enable()
     # Run ansible playbook
-    project_root = str(get_project_root())
-    playbook_path = project_root + "/ansible/playbooks/"
-    inventory_path = project_root + "/ansible/inventory.yml"
-    extra_vars_file = str(ANSIBLE_EXTRA_VARS)
+    project_root = os.environ['ANSIBLE_DIR']
+    playbook_path = f"{project_root}/playbooks/"
+    extra_vars_file = ANSIBLE_EXTRA_VARS
     thread, runner = ansible_runner.interface.run_command_async(
         executable_cmd="ansible-playbook",
         cmdline_args=[
-            playbook_path + playbook_name,
-            "-i",
-            inventory_path,
+            f"{playbook_path}/{playbook_name}",
+            # playbook_path + playbook_name,
             "--extra-vars",
             extra_vars_file,
         ],
@@ -89,7 +89,7 @@ def content() -> None:
                     text="Clone project",
                     on_click=lambda: run_ansible_playbook(
                         playbook_name="project_clone.yml",
-                        gui_log=playbook_log,
+                        gui_log=gui_playbook_log,
                         gui_spinner=gui_build_progress,
                     ),
                 )
@@ -97,7 +97,7 @@ def content() -> None:
                     text="Build project",
                     on_click=lambda: run_ansible_playbook(
                         "project_build.yml",
-                        gui_log=playbook_log,
+                        gui_log=gui_playbook_log,
                         gui_spinner=gui_build_progress,
                     ),
                 )
@@ -114,6 +114,6 @@ def content() -> None:
         with ui.row().classes("w-full"):
             with ui.card().classes("w-full"):
                 ui.label("Playbook Log").classes("text-h6")
-                ui.button("Clear Log", on_click=lambda: playbook_log.clear())
+                ui.button("Clear Log", on_click=lambda: gui_playbook_log.clear())
 
-                playbook_log = ui.log().classes("w-full h-full")
+                gui_playbook_log = ui.log().classes("w-full h-full")
