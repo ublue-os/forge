@@ -1,0 +1,8 @@
+# Don't add the following files to the container
+
+## Python cache
+**/__pycache__
+
+## Podman build files
+.containerignore
+Containerfile
