@@ -79,7 +79,7 @@ These tools and service are necessary to get started:
 
 ### Setup / Heat-Up / Cool-Down
 
-For the initial setup and maintenance of the forge you can use the `forge.sh` script:
+For the initial setup and maintenance of the forge you can use the [forge.sh](forge.sh) script:
 
 <!-- markdownlint-disable MD013 -->
 
@@ -90,3 +90,5 @@ For the initial setup and maintenance of the forge you can use the `forge.sh` sc
 | `./forge.sh cool-down` | Stop the forge                                              |
 
 <!-- markdownlint-enable MD013 -->
+
+Details about what the setup does can be found [here](./docs/setup.md).

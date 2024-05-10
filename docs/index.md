@@ -32,7 +32,7 @@ etc. is stored there. You can inspect the volume with:
 ```
 
 Under the `"Mountpoint:"` you find the actual path on your file system. I would recommend you
-symlink this folder to a path more rememberable. For example you can do:
+symlink this folder to a path more rememberable. For example you can do the following:
 
 ```sh
 FORGE_POD_DATA_DIR="$(podman volume inspect ublue-os_forge-data | jq -r '.[0].Mountpoint')"
