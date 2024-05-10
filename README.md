@@ -1,6 +1,6 @@
 # Universal Blue - Forge
 
-On-premises Universal Blue. This repository is intended to provide the service units
+On-premises Universal Blue. This projects intended is to provide the service units
 necessary to set up a self-hosted OS forge for custom images.
 
 > **Warning**
@@ -30,8 +30,8 @@ then made available to all other components and are valid for 2 years and 30 day
 
 ### Reverse Proxy
 
-As an entry point for all components we use [Traefik](https://doc.traefik.io/traefik/) as
-a reverse proxy. Based on URL routing it will redirect the traffic to the
+As an entry point for all web components we use [Traefik](https://doc.traefik.io/traefik/)
+as a reverse proxy. Based on URL routing it will redirect the traffic to the
 right container instance.
 
 The reverse proxy dashboard is available at <https://traefik.ublue.local>
@@ -47,14 +47,39 @@ The container registry API is available at <https://registry.ublue.local/v2>
 
 The blacksmith's work is done with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
-There are two methods of operating the forge, either via a GUI available at <https://forge.ublue.local>
-or via [just command runner](https://github.com/casey/just).
+There are two methods of operating the forge, either via a [GUI](./docs/gui.md) available
+at <https://forge.ublue.local> or via [just](./docs/just.md) command runner.
 
-Detailed usage instructions are available in the [documentation](./docs/index.md) section.
+Details about the project and usage instructions are available in the [documentation](./docs/index.md)
+section.
 
-## Handling the forge
+## Installation
 
-You can use the `forge.sh` to **setup**, **heat-up** or **cool-down** the forge.
+### Pre-requisites
+
+As many tools as possible are built-in but still we rely on some pre-requisites.
+These tools and service are necessary to get started:
+
+- [Podman](https://podman.io/)  
+  Must be installed and a [podman socket](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md)
+  in the user space must be active.
+
+- [js](https://jqlang.github.io/jq/)  
+  Must be installed. It it currently needed in the setup process to parse certain parameters
+  automatically for you
+
+- The kernel parameter `net.ipv4.ip_unprivileged_port_start` must be set to `80`  
+  This is because of podman's [shortcoming](https://github.com/containers/podman/blob/main/rootless.md#shortcomings-of-rootless-podman)
+  to bind to ports `< 1024`. Our reverse-proxy is listening on port `80` and `443`
+  for incoming traffic.
+
+- [OpenSSH](https://www.openssh.com/)  
+  Must be installed and the service activated. Ansible needs this to execute all the fancy
+  commands on your host for you.
+
+### Setup / Heat-Up / Cool-Down
+
+For the initial setup and maintenance of the forge you can use the `forge.sh` script:
 
 <!-- markdownlint-disable MD013 -->
 

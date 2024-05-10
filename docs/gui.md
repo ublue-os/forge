@@ -11,13 +11,13 @@ For navigation you can use the navigation bar on the top left.
 ### Home
 
 Currently nothing to see here. The goal is to display some
-general information here. Link to documentation and important
+general information here. Links to documentation and important
 news etc.
 
 ### Ansible
 
-Here you can load your forge configuration file from the data store,
-clone a project and build the container image. The buttons should be self explanatory.
+Here you can load your forge [configuration](./index.md#configuration) file from the data store,
+clone projects and build container images. The buttons should be self explanatory.
 The "Deploy VM" button is currently a mock-up, sorry :wink:
 we are [working](https://github.com/ublue-os/forge/issues/35) on it.
 

@@ -1,6 +1,6 @@
 # Usage with just command runner
 
-If you don't want to use the [GUI](gui.md) we provide the following recipes
+If you don't want to use the [GUI](./gui.md) we provide the following recipes
 via [just command runner](https://github.com/casey/just).
 
 <!-- markdownlint-disable MD013 -->
@@ -12,8 +12,9 @@ via [just command runner](https://github.com/casey/just).
 
 <!-- markdownlint-enable MD013 -->
 
-All available settings for the `forge_config_var_file` are documented in the [variables.md](./variables.md)
-file. To launch a recipe you simple run:
+The input argument expects a [configuration](./index.md#configuration) file from the data store.
+
+To launch a recipe you simple run:
 
 ```sh
 just -f forge.just {{ recipe_name }} {{ forge_config_var_file }}

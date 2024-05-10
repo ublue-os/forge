@@ -1,7 +1,7 @@
-# Universal Blue - Forge
+# Universal Blue - Forge Documentation
 
-On-premises Universal Blue. This projects provides the service units
-necessary to set up a self-hosted OS forge for custom images.
+On-premises Universal Blue provides the service units necessary to set up a self-hosted
+OS forge for custom images.
 
 ## Configuration
 
@@ -39,6 +39,8 @@ FORGE_POD_DATA_DIR="$(podman volume inspect ublue-os_forge-data | jq -r '.[0].Mo
 ln -s $FORGE_POD_DATA_DIR $HOME/ublue-os_forge-data
 ```
 
+With this the data folder would be available in your home directory under `~/ublue-os_forge-data`
+
 In that folder you will find an example configuration similar to this:
 
 ```yaml
@@ -51,17 +53,13 @@ forge_git_repository_version: main
 forge_registry_url: registry.ublue.local
 ```
 
-This file acts as a template. Simple copy it and modify it to your liking. For each project
-you want to handle with the forge you can create a dedicated file.
+This file acts as a template. It has all available settings outlined for you. Simple copy
+it and modify it to your liking. For each project you want to handle with the forge you can
+create a dedicated file.
 
 Details about the available variables are documented [here](./variables.md).
 
 ## Usage
 
-There are two methods of operating the forge, either via a GUI available at <https://forge.ublue.local>
-or via [just command runner](https://github.com/casey/just).
-
-More details about either usage are available here:
-
-- [GUI](./gui.md)
-- [just command runner](./just.md)
+There are two methods of operating the forge, either via a [GUI](./gui.md) available
+at <https://forge.ublue.local> or via [just](./just.md) command runner.
