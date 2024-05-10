@@ -14,7 +14,7 @@ The initial setup and maintenance of the forge you can use the `forge.sh` script
 
 ## What happens during setup
 
-Just in case you haven't have a look at the [forge.sh](forge.sh) script. The following
+Just in case you haven't have a look at the [forge.sh](../forge.sh) script. The following
 things happen during the setup:
 
 1. The [pre-requisites](../README.md#pre-requisites) are checked
