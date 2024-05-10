@@ -22,8 +22,11 @@ just -f forge.just {{ recipe_name }} {{ forge_config_var_file }}
 
 **_Example:_**
 
+The path to the [configuration](./index.md#configuration) data directory is pre set. So you just
+have to specify the configuration yaml.
+
 ```sh
-just -f forge.just forge_project-clone ~/ublue-os_forge/my-forge-project.env
+just -f forge.just forge_project-build bluefin.yml
 ```
 
 In case you don't have [just command runner](https://github.com/casey/just) available.
