@@ -1,6 +1,6 @@
 # Universal Blue - Forge
 
-On-premises Universal Blue. This repository is intended to provide the service units
+On-premises Universal Blue. This projects provides the service units
 necessary to set up a self-hosted OS forge for custom images.
 
 ## Configuration

@@ -10,14 +10,14 @@ The following configuration variables are available and can be set to your likin
 
 <!-- markdownlint-disable MD013 -->
 
-| Name                               | Type | Default value                                     | Description                                                      |
-| ---------------------------------- | ---- | ------------------------------------------------- | ---------------------------------------------------------------- |
-| `forge_git_repository_url`         | str  | <https://github.com/ublue-os/bluefin.git>         | Git repository url                                               |
-| `forge_git_repository_destination` | str  | `{{ forge_data_volume_mountpoint }}`/data/bluefin | Git destination where repository is cloned to. </br> **_Note:_** |
-| `forge_git_repository_version`     | str  | main                                              | Git repository branch or tag or commit version                   |
-| `forge_registry_url`               | str  | registry.ublue.local                              | Container registry url                                           |
+| Name                               | Type | Default value                                     | Description                                    |
+| ---------------------------------- | ---- | ------------------------------------------------- | ---------------------------------------------- |
+| `forge_git_repository_url`         | str  | <https://github.com/ublue-os/bluefin.git>         | Git repository url                             |
+| `forge_git_repository_destination` | str  | `{{ forge_data_volume_mountpoint }}`/data/bluefin | Git destination where repository is cloned to. |
+| `forge_git_repository_version`     | str  | main                                              | Git repository branch or tag or commit version |
+| `forge_registry_url`               | str  | registry.ublue.local                              | Container registry url                         |
 
-<!-- markdownlint-enable MD013 -->
+<!-- markdownlint-enable MD013-->
 
-On playbook launch your variable file will be imported into the ansible container so that
-the settings are available during playbook execution.
+**_Note:_** The `{{ forge_data_volume_mountpoint }}` points to your ublue-os_forge-data
+podman volume.
