@@ -64,7 +64,7 @@ These tools and service are necessary to get started:
   Must be installed and a [podman socket](https://github.com/containers/podman/blob/main/docs/tutorials/socket_activation.md)
   in the user space must be active.
 
-- [js](https://jqlang.github.io/jq/)  
+- [jq](https://jqlang.github.io/jq/)  
   Must be installed. It it currently needed in the setup process to parse certain parameters
   automatically for you
 
