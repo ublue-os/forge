@@ -27,13 +27,15 @@ async def load_configuration_file() -> None:
     ANSIBLE_EXTRA_VARS = f"@{file_path}"
 
 
-async def run_ansible_playbook(playbook_name: str, gui_log: ui.log, gui_spinner: GuiProgressSpinner) -> None:
+async def run_ansible_playbook(
+    playbook_name: str, gui_log: ui.log, gui_spinner: GuiProgressSpinner
+) -> None:
     # Clear log console
     gui_log.clear()
     # Enable spinner
     gui_spinner.enable()
     # Run ansible playbook
-    project_root = os.environ['ANSIBLE_DIR']
+    project_root = os.environ["ANSIBLE_DIR"]
     playbook_path = f"{project_root}/playbooks/"
     extra_vars_file = ANSIBLE_EXTRA_VARS
     thread, runner = ansible_runner.interface.run_command_async(
@@ -55,7 +57,7 @@ async def run_ansible_playbook(playbook_name: str, gui_log: ui.log, gui_spinner:
             # Make sure log is displayed during playbook run
             await asyncio.sleep(0.1)
             # Check if event has been processed already
-            event_key = (event['uuid'], event['counter'])
+            event_key = (event["uuid"], event["counter"])
             if event_key not in processed_events:
                 # Add event to processed set
                 processed_events.add(event_key)

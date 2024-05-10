@@ -3,6 +3,8 @@
 export FORGE_DOMAIN_NAME="ublue.local"
 export FORGE_NETWORK_NAME="ublue-os_forge"
 export FORGE_POD_CONFIGURATION="forge-pod.yml"
+export FORGE_POD_CERTS_DIR="$(podman volume inspect ublue-os_forge-certs | jq -r '.[0].Mountpoint')"
+export FORGE_POD_DATA_DIR="$(podman volume inspect ublue-os_forge-data | jq -r '.[0].Mountpoint')"
 export FORGE_POD_NAME_PRE_AMBLE="ublue-os_forge-"
 export FORGE_POD_NAME_REVERSE_PROXY=${FORGE_POD_NAME_PRE_AMBLE}rvproxy
 export FORGE_POD_NAME_REGISTRY=${FORGE_POD_NAME_PRE_AMBLE}registry
@@ -56,13 +58,12 @@ function configure_host_prerequisites {
     if [ ! -f ~/.config/.ublue-os_forge-host-setup-done ];
     then
         echo "adding ssh public key to ~/.ssh/authorized_keys"
-        VOLUME_DIR="$(podman volume inspect ublue-os_forge-certs | jq -r '.[0].Mountpoint')"
-        SSH_PUBLIC_KEY_FILE="${VOLUME_DIR}/ssh/ublue-os_forge-id_ed25519.pub"
+        SSH_PUBLIC_KEY_FILE="${FORGE_POD_CERTS_DIR}/ssh/ublue-os_forge-id_ed25519.pub"
         SSH_PUBLIC_KEY="$(cat ${SSH_PUBLIC_KEY_FILE})"
         echo "#uBlue forge ssh key" >> ~/.ssh/authorized_keys
         echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys
-        cp -f ${VOLUME_DIR}/tls/ublue-os_forge-root.pem ~/Downloads
-        touch ~/.config/.ublue-os_forge-host-setup-done
+        cp -f ${FORGE_POD_CERTS_DIR}/tls/ublue-os_forge-root.pem ${FORGE_POD_DATA_DIR}
+        touch ${FORGE_POD_DATA_DIR}/.ublue-os_forge-host-setup-done
         echo ""
     else
         echo "Host system pre-requisites already configured. Nothing to do..."
@@ -166,10 +167,10 @@ function show_containter_info (
 function show_forge_info {
     echo -e "${GREEN}The following containers are now running...${ENDCOLOR}"
     show_containter_info
-    echo -e "${GREEN}uBlue forge reverse-proxy is available at: https://traefik.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
+    echo -e "${GREEN}uBlue forge is available at: https://forge.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
     echo -e "${GREEN}uBlue forge docker registry is available at: registry.${FORGE_DOMAIN_NAME}${ENDCOLOR}"
     echo -e "${GREEN}To trust the certificate in your Browser of choice, make sure to import the root certificate from:${ENDCOLOR}"
-    echo -e "${GREEN}$HOME/Downloads/tls/ublue-os_forge-root.pem${ENDCOLOR}"
+    echo -e "${GREEN}${FORGE_POD_DATA_DIR}/ublue-os_forge-root.pem${ENDCOLOR}"
     echo ""
 }
 

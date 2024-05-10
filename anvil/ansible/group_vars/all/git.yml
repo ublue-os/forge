@@ -1,5 +1,5 @@
 ---
 # git variables
-forge_git_repository_url: "{{ lookup('ansible.builtin.env', 'FORGE_GIT_REPOSITORY_URL', default='https://github.com/ublue-os/bluefin.git') }}"
-forge_git_repository_destination: "{{ lookup('ansible.builtin.env', 'FORGE_GIT_REPOSITORY_DESTINATION', default=forge_data_path + '/bluefin') }}"
-forge_git_repository_version: "{{ lookup('ansible.builtin.env', 'FORGE_GIT_REPOSITORY_VERSION', default='main') }}"
+forge_git_repository_url: "https://github.com/ublue-os/bluefin.git"
+forge_git_repository_destination: "{{ forge_data_volume_mountpoint }}/data/bluefin"
+forge_git_repository_version: "main"

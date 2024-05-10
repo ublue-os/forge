@@ -32,6 +32,8 @@
     // Ansible settings
     "ANSIBLE_DIR": "/workspaces/forge/anvil/ansible",
     "ANSIBLE_INVENTORY": "${ANSIBLE_DIR}/inventory.yml",
+    "ANSIBLE_CACHE_PLUGIN": "community.general.yaml",
+    "ANSIBLE_CACHE_PLUGIN_CONNECTION": "${ANSIBLE_DIR}/fact_cache",
     "ANSIBLE_ROLES_PATH": "${ANSIBLE_DIR}/roles",
     "ANSIBLE_COLLECTIONS_PATH": "${ANSIBLE_DIR}/collections",
     "ANSIBLE_PRIVATE_KEY_FILE": "/certs/ssh/ublue-os_forge-id_ed25519",
@@ -73,7 +75,8 @@
           "**/playbooks/*.yml": "ansible",
           "**/roles/**/tasks/*.yml": "ansible",
           "**/inventory*.yml": "ansible",
-          "**/*.just": "just"
+          "**/*.just": "just",
+          "**/.containerignore": "ignore"
         },
         // Python configuration
         "[python]": {
@@ -88,7 +91,7 @@
         "ansible.lightspeed.suggestions.enabled": true,
         "ansible.lightspeed.URL": "https://c.ai.ansible.redhat.com",
         // Template configuration
-        "templates.folder": "./.vscode/templates",
+        "templates.folder": "${localWorkspaceFolder}/.vscode/templates",
         // Spell-Check configuration
         "cSpell.customDictionaries": {
           "project-words": {

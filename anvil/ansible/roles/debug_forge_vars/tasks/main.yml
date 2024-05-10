@@ -4,7 +4,7 @@
 - name: DEBUG | forge variables
   ansible.builtin.debug:
     msg: "{{ item }}: {{ lookup('ansible.builtin.vars', item) }}"
-    # verbosity: 1
+    verbosity: 1
   loop: "{{ __forge_vars_used }}"
   loop_control:
     extended: true

@@ -4,6 +4,7 @@
 ## Ansible
 **/collections
 !**/collections/requirements.yml
+**/fact_cache
 
 ## Python 
 # Byte-compiled / optimized / DLL files

@@ -1,5 +1,9 @@
 # Don't add the following files to the container
 
+## Ansible files
+**/collections/ansible_collections
+**/fact_cache
+
 ## Python cache
 **/__pycache__
 

@@ -1,6 +1,7 @@
 aggrid
 CHACHA
 configmap
+containerignore
 devcontainer
 devcontainers
 dotenv
