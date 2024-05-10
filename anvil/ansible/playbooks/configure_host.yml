@@ -2,6 +2,17 @@
 - name: Configure host system
   hosts: host.ublue.local
   gather_facts: true
+  pre_tasks:
+    - name: Get information on podman volume ublue-os_forge_data
+      containers.podman.podman_volume_info:
+        name: ublue-os_forge-data
+      register: __podman_volume_info
+
+    - name: Persist podman ublue-os_forge_data mountpoint
+      ansible.builtin.set_fact:
+        forge_data_volume_mountpoint: "{{ __podman_volume_info.volumes[0].Mountpoint }}"
+        cacheable: true
+
   tasks:
     - name: Add ublue.local entries to /etc/hosts
       ansible.builtin.lineinfile:
@@ -25,25 +36,19 @@
       changed_when: false
       become: true
 
-    - name: Create default directory for forge content
-      ansible.builtin.file:
-        path: "{{ forge_data_path }}"
-        state: directory
-        mode: "0755"
-
-    - name: Create default configuration variable file
+    - name: Create example extra-vars configuration file
       ansible.builtin.copy:
-        dest: "{{ forge_data_default_variables_file_path }}"
+        dest: "{{ forge_data_volume_mountpoint }}/forge_example_vars.yml"
         content: |
-          ## ublue-os forge configuration variables defaults
+          ## ublue-os forge extra-vars example configuration
           ## For more details got to https://github.com/ublue-os/forge/blob/main/docs/variables.md
-
+          ---
           {% for item in __vars_used %}
-          #{{ item | upper }}={{ lookup('ansible.builtin.vars', item) }}
+          {{ item }}: {{ lookup('ansible.builtin.vars', item) }}
           {% endfor %}
         backup: true
         owner: "{{ ansible_facts.env.USER }}"
         mode: "0644"
       vars:
         __vars_used: "{{ lookup('ansible.builtin.varnames', __regex_search, wantlist=true) }}"
-        __regex_search: ^forge_.+
+        __regex_search: ^forge_(?!data).+

@@ -1,0 +1,3 @@
+---
+# container registry variables
+forge_registry_url: "registry.ublue.local"

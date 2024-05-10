@@ -1,0 +1,5 @@
+---
+# git variables
+forge_git_repository_url: "https://github.com/ublue-os/bluefin.git"
+forge_git_repository_destination: "{{ forge_data_volume_mountpoint }}/data/bluefin"
+forge_git_repository_version: "main"

@@ -1,3 +1,0 @@
----
-# container registry variables
-forge_registry_url: "{{ lookup('ansible.builtin.env', 'FORGE_REGISTRY_URL', default='registry.ublue.local') }}"

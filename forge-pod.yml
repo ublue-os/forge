@@ -96,19 +96,29 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: ${FORGE_POD_NAME_ANVIL}
+  labels:
+    traefik.enable: true
+    traefik.http.routers.forge.entrypoints: web,websecure
+    traefik.http.routers.forge.rule: Host(`forge.${FORGE_DOMAIN_NAME}`)
+    traefik.http.services.forge.loadbalancer.server.port: 3000
 spec:
   restartPolicy: OnFailure
   volumes:
     - name: ublue-os_forge-certs-pvc
       persistentVolumeClaim:
         claimName: ublue-os_forge-certs
+    - name: ublue-os_forge-data-pvc
+      persistentVolumeClaim:
+        claimName: ublue-os_forge-data
   containers:
     - name: ansible.${FORGE_DOMAIN_NAME}
-      image: ansible # will be built on pod start
+      image: anvil # will be built on pod start
       volumeMounts:
         - mountPath: /certs
           name: ublue-os_forge-certs-pvc
           readOnly: true
+        - mountPath: /data
+          name: ublue-os_forge-data-pvc
       env:
         - name: ANSIBLE_HOST_USER
           valueFrom:
@@ -121,3 +131,6 @@ spec:
             secretKeyRef:
               name: ublue-os_forge-secure
               key: ANSIBLE_HOST_BECOME_PASSWORD
+      ports:
+        - containerPort: 3000
+          protocol: TCP

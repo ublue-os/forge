@@ -1,0 +1,39 @@
+# Source Image
+FROM docker.io/library/python:3.11-alpine3.19
+
+# Environment vars
+ENV PROJECT_DIR="/anvil"
+ENV ANSIBLE_DIR="${PROJECT_DIR}/ansible"
+ENV NICEGUI_DIR="${PROJECT_DIR}/nicegui"
+ENV PIPX_BIN_DIR="/usr/local/py-utils"
+ENV PIPX_HOME="/usr/local/pipx"
+ENV POETRY_VERSION="1.8.2"
+ENV POETRY_VIRTUALENVS_CREATE="true"
+ENV POETRY_VIRTUALENVS_IN_PROJECT="true"
+ENV PATH="${PATH}:${PIPX_BIN_DIR}:${PIPX_HOME}/venvs/poetry/bin:/${PROJECT_DIR}/.venv/bin"
+## Ansible settings
+ENV ANSIBLE_INVENTORY="${ANSIBLE_DIR}/inventory.yml"
+ENV ANSIBLE_CACHE_PLUGIN="community.general.yaml"
+ENV ANSIBLE_CACHE_PLUGIN_CONNECTION="${ANSIBLE_DIR}/fact_cache"
+ENV ANSIBLE_ROLES_PATH="${ANSIBLE_DIR}/roles"
+ENV ANSIBLE_COLLECTIONS_PATH="${ANSIBLE_DIR}/collections"
+ENV ANSIBLE_PRIVATE_KEY_FILE="/certs/ssh/ublue-os_forge-id_ed25519"
+ENV ANSIBLE_DISPLAY_SKIPPED_HOSTS="False"
+ENV ANSIBLE_STDOUT_CALLBACK="yaml"
+ENV ANSIBLE_CALLBACKS_ENABLED="ansible.posix.profile_tasks"
+ENV ANSIBLE_HOST_KEY_CHECKING="False"
+
+# Install system dependencies
+RUN apk --no-cache add pipx openssh bash
+RUN pipx install poetry==${POETRY_VERSION}
+
+# Install ansible and dependencies
+WORKDIR ${PROJECT_DIR}
+COPY . .
+RUN poetry install --no-root
+CMD poetry env use .venv/bin/python && \
+    chmod +x entrypoint.sh
+RUN ansible-galaxy collection install -r ./ansible/collections/requirements.yml
+
+# Set entrypoint
+ENTRYPOINT [ "/anvil/entrypoint.sh" ]

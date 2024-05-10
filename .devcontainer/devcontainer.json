@@ -16,14 +16,37 @@
       "version": "1.8.2"
     }
   },
+  // Create symbolic link for forge data dir mount
+  "initializeCommand": "${localWorkspaceFolder}/.devcontainer/prepare_mount.sh",
   // Container user definition - This is needed for compatibility with podman ->  https://github.com/containers/podman/issues/15001#issuecomment-1193321924
   "remoteUser": "vscode",
   "containerUser": "vscode",
   // Container environment variables
   "containerEnv": {
+    // poetry settings
     "POETRY_VIRTUALENVS_CREATE": "false",
-    "LAZYGIT_VERSION": "0.41.0"
+    // lazygit settings
+    "LAZYGIT_VERSION": "0.41.0",
+    // Nicegui settings
+    "NICEGUI_DIR": "/workspaces/forge/anvil/nicegui",
+    // Ansible settings
+    "ANSIBLE_DIR": "/workspaces/forge/anvil/ansible",
+    "ANSIBLE_INVENTORY": "${ANSIBLE_DIR}/inventory.yml",
+    "ANSIBLE_CACHE_PLUGIN": "community.general.yaml",
+    "ANSIBLE_CACHE_PLUGIN_CONNECTION": "${ANSIBLE_DIR}/fact_cache",
+    "ANSIBLE_ROLES_PATH": "${ANSIBLE_DIR}/roles",
+    "ANSIBLE_COLLECTIONS_PATH": "${ANSIBLE_DIR}/collections",
+    "ANSIBLE_PRIVATE_KEY_FILE": "/certs/ssh/ublue-os_forge-id_ed25519",
+    "ANSIBLE_DISPLAY_SKIPPED_HOSTS": "False",
+    "ANSIBLE_STDOUT_CALLBACK": "yaml",
+    "ANSIBLE_CALLBACKS_ENABLED": "ansible.posix.profile_tasks",
+    "ANSIBLE_HOST_KEY_CHECKING:": "False"
   },
+  // Mount folder from host system
+  "mounts": [
+    // forge config data folder | used for testing only
+    "source=${localWorkspaceFolder}/.devcontainer/mountpoint,target=/data,type=bind,consistency=cached"
+  ],
   // Install and configure DEV tools
   "postCreateCommand": "bash ./.devcontainer/install-dev-tools.sh",
   // VSCode settings
@@ -52,23 +75,28 @@
           "**/playbooks/*.yml": "ansible",
           "**/roles/**/tasks/*.yml": "ansible",
           "**/inventory*.yml": "ansible",
-          "**/*.just": "just"
+          "**/*.just": "just",
+          "**/.containerignore": "ignore"
+        },
+        // Python configuration
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
         },
         // Ansible configuration
         "ansible.validation.enabled": true,
-        "ansible.validation.lint.arguments": "-c ansible/.ansible-lint",
+        "ansible.validation.lint.arguments": "-c /workspaces/forge/anvil/ansible/.ansible-lint",
         "ansible.python.interpreterPath": "/usr/local/python/current/bin/python",
         "ansible.ansible.reuseTerminal": true,
         "ansible.lightspeed.enabled": true,
         "ansible.lightspeed.suggestions.enabled": true,
         "ansible.lightspeed.URL": "https://c.ai.ansible.redhat.com",
         // Template configuration
-        "templates.folder": "./.vscode/templates",
+        "templates.folder": "${localWorkspaceFolder}/.vscode/templates",
         // Spell-Check configuration
         "cSpell.customDictionaries": {
           "project-words": {
             "name": "custom-dictionary",
-            "path": "${workspaceRoot}/.vscode/cspell_custom.txt",
+            "path": "${workspaceFolder}/.vscode/cspell_custom.txt",
             "description": "Words used in this project",
             "addWords": true
           },

@@ -1,7 +1,10 @@
+aggrid
 CHACHA
 configmap
+containerignore
 devcontainer
 devcontainers
+dotenv
 ENDCOLOR
 ensurepath
 envsubst
@@ -14,6 +17,7 @@ lightspeed
 lineinfile
 minica
 Mountpoint
+nicegui
 noarchive
 noimageindex
 Nosniff
@@ -23,11 +27,13 @@ pipx
 posix
 Proto
 redirections
+refreshable
 rvproxy
 serverstransport
 traefik
 ublue
 varnames
 venvs
+VIRTUALENVS
 wantlist
 websecure
