@@ -39,7 +39,7 @@ The reverse proxy dashboard is available at <https://traefik.ublue.local>
 ### Container Registry
 
 As container registry we make use of the [Docker Registry 2.0](https://hub.docker.com/_/registry/)
-implementation for storing and distributing container images
+implementation for storing and distributing container images.
 
 The container registry API is available at <https://registry.ublue.local/v2>
 
@@ -47,11 +47,14 @@ The container registry API is available at <https://registry.ublue.local/v2>
 
 The blacksmith's work is done with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
-The shiny GUI is missing but this should not shy us away. See [usage](#usage) for instructions.
+There are two methods of operating the forge, either via a GUI available at <https://forge.ublue.local>
+or via [just command runner](https://github.com/casey/just).
+
+Detailed usage instructions are available in the [documentation](./docs/index.md) section.
 
 ## Handling the forge
 
-You can use the `forge.sh` to **setup**, **heat-up** and **cool-down** the forge.
+You can use the `forge.sh` to **setup**, **heat-up** or **cool-down** the forge.
 
 <!-- markdownlint-disable MD013 -->
 
@@ -62,33 +65,3 @@ You can use the `forge.sh` to **setup**, **heat-up** and **cool-down** the forge
 | `./forge.sh cool-down` | Stop the forge                                              |
 
 <!-- markdownlint-enable MD013 -->
-
-### Usage
-
-Once the forge has been setup the following recipes are available via [just command runner](https://github.com/casey/just).
-
-<!-- markdownlint-disable MD013 -->
-
-| Just recipe           | Input argument          | Default argument value                      | Description                                  |
-| --------------------- | ----------------------- | ------------------------------------------- | -------------------------------------------- |
-| `forge_project-clone` | `forge_config_var_file` | $HOME/ublue-os_forge/forge_default_vars.env | Clone git project repository                 |
-| `forge_project-build` | `forge_config_var_file` | $HOME/ublue-os_forge/forge_default_vars.env | Build container image and upload to registry |
-
-<!-- markdownlint-enable MD013 -->
-
-All available settings for the `forge_config_var_file` are documented in the [variables.md](./docs/variables.md)
-file. To launch a recipe you simple run:
-
-```sh
-just -f forge.just {{ recipe_name }} {{ forge_config_var_file }}
-```
-
-**_Example:_**
-
-```sh
-just -f forge.just forge_project-clone ~/ublue-os_forge/my-forge-project.env
-```
-
-In case you don't have [just command runner](https://github.com/casey/just) available.
-Have a look at the [forge.just](./forge.just) file. It easy enough to understand which commands
-are executed via the just recipes.
