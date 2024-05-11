@@ -7,13 +7,28 @@
       ansible.builtin.include_role:
         name: debug_forge_vars
   tasks:
-    - name: Clone project
+    - name: Git clone project
       ansible.builtin.git:
         repo: "{{ forge_git_repository_url }}"
         dest: "{{ forge_git_repository_destination }}"
         version: "{{ forge_git_repository_version }}"
-      register: __git_clone_info
+      async: 180
+      poll: 0
+      register: __git_clone
+
+    - name: Waiting for git clone to finish
+      ansible.builtin.async_status:
+        jid: "{{ __git_clone.ansible_job_id }}"
+      register: __job_result
+      until: __job_result.finished
+      retries: 180
+      delay: 1
 
     - name: INFO | Status from git clone
       ansible.builtin.debug:
-        msg: "{{ __git_clone_info }}"
+        msg:
+          - "Source: {{ forge_git_repository_url }}"
+          - "Destination: {{ forge_git_repository_destination }}"
+          - "Version: {{ forge_git_repository_version }}"
+          - "Commit revision before the repository was updated: {{ __job_result.before }}"
+          - "Last commit revision of the repository retrieved during the update: {{ __job_result.after }}"

@@ -22,8 +22,20 @@
           dest: "{{ forge_registry_url }}"
       vars:
         __regex_search: (?<=/)[^/]+(?=\.git)
-      register: __podman_image_info
+      async: 1800
+      poll: 0
+      register: __podman_image
+
+    - name: Waiting for container build to finish
+      ansible.builtin.async_status:
+        jid: "{{ __podman_image.ansible_job_id }}"
+      register: __job_result
+      until: __job_result.finished
+      retries: 1800
+      delay: 1
 
     - name: INFO | Status from build and push
       ansible.builtin.debug:
-        msg: "{{ __podman_image_info }}"
+        msg:
+          - "{{ __job_result.actions | to_nice_yaml(indent=2) }}"
+          - "{{ __job_result.image | to_nice_yaml(indent=2) }}"
