@@ -4,6 +4,20 @@ YELLOW="\e[33m"
 GREEN="\e[32m"
 ENDCOLOR="\e[0m"
 
+# Add Forge DEV DNS entries
+echo ""
+echo -e "${YELLOW}Adding DNS entries for ublue.local${ENDCOLOR}"
+echo ""
+DOCKER_HOST=$(getent hosts host.docker.internal | awk '{ print $1 }')
+echo "$DOCKER_HOST registry.ublue.local" | sudo tee -a /etc/hosts
+
+## Install SSL certificates
+echo ""
+echo -e "${YELLOW}Installing SSL certificates${ENDCOLOR}"
+echo ""
+sudo cp /data/ublue-os_forge-root.pem /usr/local/share/ca-certificates/ublue-os_forge-root.crt
+sudo update-ca-certificates --fresh
+
 ## Update system
 echo ""
 echo -e "${YELLOW}Updating OS${ENDCOLOR}"
