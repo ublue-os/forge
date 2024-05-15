@@ -12,6 +12,9 @@ ansible-core = "^2.16"
 jmespath = "^1.0"
 nicegui = "^1.4.23"
 ansible-runner = "^2.3.6"
+requests = "^2.31.0"
+pandas = "^2.2.2"
+humanize = "^4.9.0"
 
 [tool.poetry.group.dev.dependencies]
 ansible-lint = { version = "^24.2", markers = 'platform_system != "Windows"' } # https://github.com/ansible/ansible-lint/issues/2730#issuecomment-1330406601

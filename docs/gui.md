@@ -25,9 +25,10 @@ we are [working](https://github.com/ublue-os/forge/issues/35) on it.
 
 ### Registry
 
-Currently nothing to see here. The goal is to display some
-information about the docker registry <registry.ublue.local> here.
-Like a list of all available images you have uploaded etc.
+Here you get an overview of all images available in
+the container registry `registry.ublue.local`.
+
+![registry](./assets/gui_registry.png)
 
 ### About
 
