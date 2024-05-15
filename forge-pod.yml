@@ -110,6 +110,10 @@ spec:
     - name: ublue-os_forge-data-pvc
       persistentVolumeClaim:
         claimName: ublue-os_forge-data
+  hostAliases:
+    - ip: ${FORGE_HOST_IP_ADDRESS}
+      hostnames:
+        - registry.${FORGE_DOMAIN_NAME}
   containers:
     - name: ansible.${FORGE_DOMAIN_NAME}
       image: anvil # will be built on pod start

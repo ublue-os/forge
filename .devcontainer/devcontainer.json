@@ -16,6 +16,8 @@
       "version": "1.8.2"
     }
   },
+  // Additional arguments when starting the container
+  "runArgs": ["--add-host=host.docker.internal:host-gateway"],
   // Create symbolic link for forge data dir mount
   "initializeCommand": "${localWorkspaceFolder}/.devcontainer/prepare_mount.sh",
   // Container user definition - This is needed for compatibility with podman ->  https://github.com/containers/podman/issues/15001#issuecomment-1193321924

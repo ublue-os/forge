@@ -4,7 +4,7 @@ import asyncio
 import os
 from nicegui import ui
 from theme import GuiProgressSpinner
-from utils import local_file_picker
+from utils.filepicker import local_file_picker
 
 ANSIBLE_EXTRA_VARS = None
 
@@ -117,5 +117,4 @@ def content() -> None:
             with ui.card().classes("w-full"):
                 ui.label("Playbook Log").classes("text-h6")
                 ui.button("Clear Log", on_click=lambda: gui_playbook_log.clear())
-
                 gui_playbook_log = ui.log().classes("w-full h-full")

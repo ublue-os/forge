@@ -12,6 +12,8 @@ The following configuration variables are available and can be set to your likin
 
 | Name                               | Type | Default value                                     | Description                                                                      |
 | ---------------------------------- | ---- | ------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `forge_container_file`             | str  | Containerfile                                     | Path to the Containerfile for Podman to build                                    |
+| `forge_container_format`           | str  | oci                                               | Format of the image Podman will build. Can be either `oci` or `docker`           |
 | `forge_git_repository_url`         | str  | <https://github.com/ublue-os/bluefin.git>         | Git repository url                                                               |
 | `forge_git_repository_destination` | str  | `{{ forge_data_volume_mountpoint }}`/data/bluefin | Git destination where repository is cloned to. Can be any directory on your host |
 | `forge_git_repository_version`     | str  | main                                              | Git repository branch or tag or commit version                                   |

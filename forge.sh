@@ -9,6 +9,8 @@ export FORGE_POD_NAME_PRE_AMBLE="ublue-os_forge-"
 export FORGE_POD_NAME_REVERSE_PROXY=${FORGE_POD_NAME_PRE_AMBLE}rvproxy
 export FORGE_POD_NAME_REGISTRY=${FORGE_POD_NAME_PRE_AMBLE}registry
 export FORGE_POD_NAME_ANVIL=${FORGE_POD_NAME_PRE_AMBLE}anvil
+export FORGE_HOST_IP_ADDRESS=$(hostname -I | awk '{print $1}')
+
 
 # Functions
 function setup {
