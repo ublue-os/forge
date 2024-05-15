@@ -1,6 +1,7 @@
 aggrid
 CHACHA
 configmap
+Containerfile
 containerignore
 devcontainer
 devcontainers
@@ -8,15 +9,18 @@ dotenv
 ENDCOLOR
 ensurepath
 envsubst
+filepicker
 getent
 gitmessage
 hostvars
+humanfriendly
 keygen
 LAZYGIT
 lightspeed
 lineinfile
 minica
 Mountpoint
+naturalsize
 nicegui
 noarchive
 noimageindex
