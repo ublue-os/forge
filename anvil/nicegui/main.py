@@ -1,5 +1,4 @@
 import pages
-import pages.about
 import pages.ansible
 import pages.home
 import pages.registry
@@ -24,12 +23,6 @@ def ansible_page() -> None:
 def registry_page() -> None:
     with theme.frame("Registry"):
         pages.registry.content()
-
-
-@ui.page("/about")
-def about_page() -> None:
-    with theme.frame("About"):
-        pages.about.content()
 
 
 ui.run(title="uBlue Forge", port=3000)
