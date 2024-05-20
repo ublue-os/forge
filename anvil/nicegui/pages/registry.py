@@ -6,8 +6,13 @@ from utils.registry import DockerRegistry
 
 ## TODO: this should be async but I currently don't know how to implement this without button press
 def get_image_info() -> pandas.DataFrame:
-    registry = DockerRegistry()
-    all_image_info = registry.get_all_image_info()
+    data = pandas.DataFrame(columns=["image_name", "tag", "size"])
+    try:
+        registry = DockerRegistry()
+        all_image_info = registry.get_all_image_info()
+    except Exception as error:
+        ui.notify(message=error)
+        return data
     if isinstance(all_image_info, list) and len(all_image_info) > 0:
         data = pandas.json_normalize(
             all_image_info,
@@ -26,7 +31,6 @@ def get_image_info() -> pandas.DataFrame:
         return data
     else:
         ui.notify(message="No images found")
-        data = pandas.DataFrame(columns=["image_name", "tag", "size"])
         return data
 
 
