@@ -1,18 +1,19 @@
 # Usage with GUI
 
-We have simple UI available at <https://forge.ublue.local>.
+We have simple UI available at <https://forge.ublue.local>. This page should give
+you a glimpse on what to expect before you try out the project.
 
 ## Navigation
 
-For navigation you can use the navigation bar on the top left.
+For navigation you can use the navigation menu on the top left.
 
 ![navigation](./assets/gui_navigation.png)
 
 ### Home
 
-Currently nothing to see here. The goal is to display some
-general information here. Links to documentation and important
-news etc.
+Start page with links and information.
+
+![home](./assets/gui_home.png)
 
 ### Ansible
 
@@ -32,6 +33,6 @@ the container registry `registry.ublue.local`.
 
 ### About
 
-Currently nothing to see here. The goal is to display some
-information here about the software and versions used in this project
-and maybe some acknowledgments etc.
+If you are interested about software versions used etc. you can go to the about page.
+
+![about](./assets/gui_about.png)
