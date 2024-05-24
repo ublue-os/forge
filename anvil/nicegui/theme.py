@@ -1,6 +1,7 @@
 from contextlib import contextmanager
 from menu import menu
 from nicegui import ui
+from utils.helper import get_project_root
 
 
 class GuiProgressSpinner(ui.spinner):
@@ -28,12 +29,16 @@ def frame(
     navigation_title: str,
 ):
     """Custom page frame to share the same styling and behavior across all pages"""
+    project_root = get_project_root()
     ui.colors(primary="#4051b5", secondary="#dddbff", accent="#171d9a")
     with ui.header():
         with ui.grid(columns=3).classes("w-full gap-0"):
             with ui.row(wrap=False).classes("col-span-1 justify-start"):
                 menu()
-                ui.label(text="uBlue-OS Forge").classes("text-h5")
+                ui.image(source=f"{project_root}/pages/assets/ublue-mini.svg").props(
+                    "width=33px hight=auto"
+                )
+                ui.label(text="Forge").classes("text-h5")
             with ui.row(wrap=False).classes("col-span-1 justify-center"):
                 ui.label(text=navigation_title).classes("text-h5")
             with ui.row(wrap=False).classes("col-span-1 justify-end"):
