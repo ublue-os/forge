@@ -5,6 +5,7 @@ import pages.registry
 import theme
 
 from nicegui import ui
+from utils.helper import get_project_root
 
 
 @ui.page("/")
@@ -25,4 +26,9 @@ def registry_page() -> None:
         pages.registry.content()
 
 
-ui.run(title="uBlue Forge", port=3000)
+project_root = get_project_root()
+ui.run(
+    title="uBlue-OS Forge",
+    port=3000,
+    favicon=f"{project_root}/pages/assets/favicon.png",
+)
