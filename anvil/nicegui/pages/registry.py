@@ -24,8 +24,10 @@ def get_image_info() -> pandas.DataFrame:
                 lambda layers: sum(layer["size"] for layer in layers)
             )
         )
-        data = data[["image_name", "name", "size"]].rename(
-            columns={"image_name": "image", "name": "tag", "size": "size"}
+        data = (
+            data[["image_name", "name", "size"]]
+            .rename(columns={"image_name": "image", "name": "tag", "size": "size"})
+            .sort_values(by=["image", "tag"], ascending=False)
         )
         data["size"] = data["size"].apply(humanize.naturalsize)
         return data
@@ -39,4 +41,7 @@ def content() -> None:
         with ui.card().classes("w-full"):
             ui.label("Image Overview").classes("text-h5")
             data = get_image_info()
-            ui.table.from_pandas(df=data).classes("w-full")
+            with ui.table.from_pandas(df=data).classes("w-full") as table:
+                table.columns[0]["sortable"] = True
+                table.columns[1]["sortable"] = True
+                table.columns[2]["sortable"] = True
