@@ -27,10 +27,6 @@ spec:
   containers:
     - name: traefik.${FORGE_DOMAIN_NAME}
       image: traefik # will be built on pod start
-      resources:
-        limits:
-          memory: 128Mi
-          cpu: 200m
       volumeMounts:
         - mountPath: /var/run/podman.sock
           name: podman-socket
@@ -77,10 +73,6 @@ spec:
   containers:
     - name: docker.${FORGE_DOMAIN_NAME}
       image: registry # will be built on pod start
-      resources:
-        limits:
-          memory: 512Mi
-          cpu: 200m
       volumeMounts:
         - mountPath: /certs
           name: ublue-os_forge-certs-pvc
