@@ -2,6 +2,9 @@
 - name: Build project
   hosts: host.ublue.local
   gather_facts: true
+  vars:
+    __image_regex_search: (?<=/)[^/]+(?=\.git)
+    __image_name: "{{ forge_registry_url }}/{{ forge_git_repository_url | regex_search(__image_regex_search) }}"
   pre_tasks:
     - name: DEBUG - forge variables
       ansible.builtin.include_role:
@@ -10,7 +13,7 @@
   tasks:
     - name: Build and push image to registry
       containers.podman.podman_image:
-        name: "{{ forge_git_repository_url | regex_search(__regex_search) }}"
+        name: "{{ __image_name }}"
         tag: latest
         path: "{{ forge_git_repository_destination }}"
         build:
@@ -19,10 +22,6 @@
           extra_args: "{{ forge_container_extra_args | default([]) | join(' ') }}"
         pull: false
         push: true
-        push_args:
-          dest: "{{ forge_registry_url }}"
-      vars:
-        __regex_search: (?<=/)[^/]+(?=\.git)
       async: 1800
       poll: 0
       register: __podman_image
