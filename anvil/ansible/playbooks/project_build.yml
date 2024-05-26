@@ -22,7 +22,7 @@
           extra_args: "{{ forge_container_extra_args | default([]) | join(' ') }}"
         pull: false
         push: true
-      async: 1800
+      async: 900
       poll: 0
       register: __podman_image
 
@@ -31,7 +31,7 @@
         jid: "{{ __podman_image.ansible_job_id }}"
       register: __job_result
       until: __job_result.finished
-      retries: 1800
+      retries: 900
       delay: 1
 
     - name: INFO | Result from container image build
