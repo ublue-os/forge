@@ -16,6 +16,7 @@
         build:
           file: "{{ forge_container_file | default('Containerfile') }}"
           format: "{{ forge_container_format | default('oci') }}"
+          extra_args: "{{ forge_container_extra_args | default([]) | join(' ') }}"
         pull: false
         push: true
         push_args:
