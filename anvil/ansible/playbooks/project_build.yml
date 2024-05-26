@@ -11,7 +11,7 @@
         name: debug_forge_vars
 
   tasks:
-    - name: Build and push image to registry
+    - name: Build and upload container image
       containers.podman.podman_image:
         name: "{{ __image_name }}"
         tag: latest
@@ -26,7 +26,7 @@
       poll: 0
       register: __podman_image
 
-    - name: Waiting for container build to finish
+    - name: Waiting for container build and upload to finish
       ansible.builtin.async_status:
         jid: "{{ __podman_image.ansible_job_id }}"
       register: __job_result
@@ -34,7 +34,7 @@
       retries: 1800
       delay: 1
 
-    - name: INFO | Status from build and push
+    - name: INFO | Result from container image build
       ansible.builtin.debug:
         msg:
           - "{{ __job_result.actions | to_nice_yaml(indent=2) }}"
