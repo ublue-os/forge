@@ -39,3 +39,31 @@
         msg:
           - "{{ __job_result.actions | to_nice_yaml(indent=2) }}"
           - "{{ __job_result.image | to_nice_yaml(indent=2) }}"
+
+    - name: Add additional tag to container image
+      containers.podman.podman_tag:
+        image: "{{ __image_name }}:latest"
+        target_names:
+          - "{{ __image_name }}:{{ forge_container_tag }}"
+
+    - name: Push additional container image tag to registry
+      containers.podman.podman_image:
+        name: "{{ __image_name }}"
+        tag: "{{ forge_container_tag }}"
+        pull: false
+        push: true
+      async: 15
+      poll: 0
+      register: __podman_image
+
+    - name: Waiting for additional container image tag push to finish
+      ansible.builtin.async_status:
+        jid: "{{ __podman_image.ansible_job_id }}"
+      register: __job_result
+      until: __job_result.finished
+      retries: 15
+      delay: 1
+
+    - name: INFO | Result from additional container image tag push
+      ansible.builtin.debug:
+        msg: "{{ __job_result.actions | to_nice_yaml(indent=2) }}"
