@@ -41,21 +41,24 @@ ln -s $FORGE_POD_DATA_DIR $HOME/ublue-os_forge-data
 
 With this the data folder would be available in your home directory under `~/ublue-os_forge-data`
 
-In that folder you will find an example configuration similar to this:
+In that folder you will find an **examples** folder with example configurations similar to this:
 
 ```yaml
-## ublue-os forge extra-vars example configuration
+## ublue-os forge example configuration
 ## For more details got to https://github.com/ublue-os/forge/blob/main/docs/variables.md
 ---
 forge_git_repository_url: https://github.com/ublue-os/bluefin.git
-forge_git_repository_destination: /var/home/stephan/.local/share/containers/storage/volumes/ublue-os_forge-data/_data/data/bluefin
-forge_git_repository_version: main
-forge_registry_url: registry.ublue.local
+forge_git_repository_destination: "/var/home/stephan/.local/share/containers/storage/volumes/ublue-os_forge-data/_data/data/bluefin"
+forge_container_extra_args:
+  - --build-arg="BASE_IMAGE_NAME=silverblue"
+  - --build-arg="IMAGE_FLAVOR=main"
+  - --build-arg="AKMODS_FLAVOR=main"
+  - --build-arg="FEDORA_MAJOR_VERSION=39"
+  - --build-arg="TARGET_BASE=bluefin"
 ```
 
-This file acts as a template. It has all available settings outlined for you. Simple copy
-it and modify it to your liking. For each project you want to handle with the forge you can
-create a dedicated file.
+These files are a good starting point for your custom configuration. Simple copy those examples
+you are interested in modify them to your liking.
 
 Details about the available variables are documented [here](./variables.md).
 
