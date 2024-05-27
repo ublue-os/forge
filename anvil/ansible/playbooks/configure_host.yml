@@ -36,19 +36,19 @@
       changed_when: false
       become: true
 
-    - name: Create example extra-vars configuration file
-      ansible.builtin.copy:
-        dest: "{{ forge_data_volume_mountpoint }}/forge_example_vars.yml"
-        content: |
-          ## ublue-os forge extra-vars example configuration
-          ## For more details got to https://github.com/ublue-os/forge/blob/main/docs/variables.md
-          ---
-          {% for item in __vars_used %}
-          {{ item }}: {{ lookup('ansible.builtin.vars', item) }}
-          {% endfor %}
+    - name: Create example directory
+      ansible.builtin.file:
+        path: "{{ forge_data_volume_mountpoint }}/examples/"
+        state: directory
+        mode: "0755"
+
+    - name: Create example configuration files
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "{{ forge_data_volume_mountpoint }}/examples/{{ item | regex_search(__regex_search) }}"
         backup: true
         owner: "{{ ansible_facts.env.USER }}"
         mode: "0644"
+      with_fileglob: "files/examples/*"
       vars:
-        __vars_used: "{{ lookup('ansible.builtin.varnames', __regex_search, wantlist=true) }}"
-        __regex_search: ^forge_(?!data).+
+        __regex_search: "[^\/]+$"

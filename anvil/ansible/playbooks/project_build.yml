@@ -2,9 +2,6 @@
 - name: Build project
   hosts: host.ublue.local
   gather_facts: true
-  vars:
-    __image_regex_search: (?<=/)[^/]+(?=\.git)
-    __image_name: "{{ forge_registry_url }}/{{ forge_git_repository_url | regex_search(__image_regex_search) }}"
   pre_tasks:
     - name: DEBUG - forge variables
       ansible.builtin.include_role:
@@ -13,13 +10,13 @@
   tasks:
     - name: Build and upload container image
       containers.podman.podman_image:
-        name: "{{ __image_name }}"
+        name: "{{ forge_container_name }}"
         tag: latest
         path: "{{ forge_git_repository_destination }}"
         build:
-          file: "{{ forge_container_file | default('Containerfile') }}"
-          format: "{{ forge_container_format | default('oci') }}"
-          extra_args: "{{ forge_container_extra_args | default([]) | join(' ') }}"
+          file: "{{ forge_container_file }}"
+          format: "{{ forge_container_format }}"
+          extra_args: "{{ forge_container_extra_args | join(' ') }}"
         pull: false
         push: true
       async: 900
@@ -42,13 +39,13 @@
 
     - name: Add additional tag to container image
       containers.podman.podman_tag:
-        image: "{{ __image_name }}:latest"
+        image: "{{ forge_container_name }}:latest"
         target_names:
-          - "{{ __image_name }}:{{ forge_container_tag }}"
+          - "{{ forge_container_name }}:{{ forge_container_tag }}"
 
     - name: Push additional container image tag to registry
       containers.podman.podman_image:
-        name: "{{ __image_name }}"
+        name: "{{ forge_container_name }}"
         tag: "{{ forge_container_tag }}"
         pull: false
         push: true
