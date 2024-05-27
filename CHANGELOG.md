@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.0](https://github.com/ublue-os/forge/compare/v0.1.0...v0.2.0) (2024-05-27)
+
+
+### Features
+
+* **ansible:** add additional tags to container image ([6297b8f](https://github.com/ublue-os/forge/commit/6297b8f951eaa597d2499116a1f4ab0c0ff0fa8c))
+* **ansible:** add example configurations to the setup ([#45](https://github.com/ublue-os/forge/issues/45)) ([e0df500](https://github.com/ublue-os/forge/commit/e0df50076e6067ad65588a7bfe77818470b495c6))
+* **ansible:** add possibility to add build-args to podman build job ([#51](https://github.com/ublue-os/forge/issues/51)) ([cec7512](https://github.com/ublue-os/forge/commit/cec7512c570dd100d87b079c350440207abafde9))
+* **nicegui:** easy navigation to home ([327c010](https://github.com/ublue-os/forge/commit/327c010ddddc62dfb7873adfe0b36d14ed567e2e))
+* **nicegui:** make image table sortable ([af3bdc3](https://github.com/ublue-os/forge/commit/af3bdc37fb4d8b65043981257e942dfd8ba6651d))
+
+
+### Bug Fixes
+
+* **ansible:** use registry url for container image name ([d1a0f7f](https://github.com/ublue-os/forge/commit/d1a0f7fff2be3854a9b6765dea77eedb529f42a3))
+* **nicegui:** empty image table should use same column names as when images are available ([ae10ebc](https://github.com/ublue-os/forge/commit/ae10ebc4acdf8e9bfab792cb2dbcaa22257c00d1))
+* **registry:** disable performance constraints ([#52](https://github.com/ublue-os/forge/issues/52)) ([b213c82](https://github.com/ublue-os/forge/commit/b213c826cf224b5a21d45dcf3c0b5ef526f22ecd))
+
 ## 0.1.0 (2024-05-24)
 
 
