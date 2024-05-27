@@ -6,7 +6,7 @@ from utils.registry import DockerRegistry
 
 ## TODO: this should be async but I currently don't know how to implement this without button press
 def get_image_info() -> pandas.DataFrame:
-    data = pandas.DataFrame(columns=["image_name", "tag", "size"])
+    data = pandas.DataFrame(columns=["image", "tag", "size"])
     try:
         registry = DockerRegistry()
         all_image_info = registry.get_all_image_info()
