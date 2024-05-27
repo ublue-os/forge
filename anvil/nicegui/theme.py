@@ -35,9 +35,10 @@ def frame(
         with ui.grid(columns=3).classes("w-full gap-0"):
             with ui.row(wrap=False).classes("col-span-1 justify-start"):
                 menu()
-                ui.image(source=f"{project_root}/pages/assets/ublue-mini.svg").props(
-                    "width=33px hight=auto"
-                )
+                with ui.link(target="/"):
+                    ui.image(
+                        source=f"{project_root}/pages/assets/ublue-mini.svg"
+                    ).props("width=33px hight=auto")
                 ui.label(text="Forge").classes("text-h5")
             with ui.row(wrap=False).classes("col-span-1 justify-center"):
                 ui.label(text=navigation_title).classes("text-h5")
