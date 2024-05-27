@@ -1,3 +1,6 @@
 ---
+forge_container_name: "{{ forge_registry_url }}/{{ forge_git_repository_url | regex_search('(?<=/)[^/]+(?=\\.git)') }}"
+forge_container_tag: "{{ ansible_date_time.date }}_{{ ansible_date_time.time | replace(':','')}}"
 forge_container_file: "Containerfile"
 forge_container_format: "oci"
+forge_container_extra_args: []

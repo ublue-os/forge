@@ -1,0 +1,11 @@
+## ublue-os forge example configuration for bluefin
+## For more details got to https://github.com/ublue-os/forge/blob/main/docs/variables.md
+---
+forge_git_repository_url: https://github.com/ublue-os/bluefin.git
+forge_git_repository_destination: "{{ forge_data_volume_mountpoint }}/data/bluefin"
+forge_container_extra_args:
+  - --build-arg="BASE_IMAGE_NAME=silverblue"
+  - --build-arg="IMAGE_FLAVOR=main"
+  - --build-arg="AKMODS_FLAVOR=main"
+  - --build-arg="FEDORA_MAJOR_VERSION=39"
+  - --build-arg="TARGET_BASE=bluefin"

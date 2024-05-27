@@ -10,16 +10,16 @@ The following configuration variables are available and can be set to your likin
 
 <!-- markdownlint-disable MD013 -->
 
-| Name                               | Type | Default value                                     | Description                                                                      |
-| ---------------------------------- | ---- | ------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `forge_container_file`             | str  | Containerfile                                     | Path to the Containerfile for Podman to build                                    |
-| `forge_container_format`           | str  | oci                                               | Format of the image Podman will build. Can be either `oci` or `docker`           |
-| `forge_git_repository_url`         | str  | <https://github.com/ublue-os/bluefin.git>         | Git repository url                                                               |
-| `forge_git_repository_destination` | str  | `{{ forge_data_volume_mountpoint }}`/data/bluefin | Git destination where repository is cloned to. Can be any directory on your host |
-| `forge_git_repository_version`     | str  | main                                              | Git repository branch or tag or commit version                                   |
-| `forge_registry_url`               | str  | registry.ublue.local                              | Container registry url                                                           |
+| Name                               | Type | Default value                                                           | Description                                                                                                                  |
+| ---------------------------------- | ---- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `forge_container_name`             | str  | Project name derived from `forge_git_repository_url` Example: `bluefin` | Container image name.                                                                                                        |
+| `forge_container_tag`              | str  | Evaluates to: `YYY-MM-DD_HHMMSS` Example: `2024-05-26_192206`           | Container image tag.                                                                                                         |
+| `forge_container_file`             | str  | Containerfile                                                           | Path to the Containerfile for Podman to build                                                                                |
+| `forge_container_format`           | str  | oci                                                                     | Format of the image Podman will build. Can be either `oci` or `docker`                                                       |
+| `forge_container_extra_args`       | list | []                                                                      | List of extra arguments which gets passed to the podman build process. Example: `[--build-arg="BASE_IMAGE_NAME=silverblue"]` |
+| `forge_git_repository_url`         | str  |                                                                         | Git repository url                                                                                                           |
+| `forge_git_repository_destination` | str  |                                                                         | Git destination where repository is cloned to.                                                                               |
+| `forge_git_repository_version`     | str  | main                                                                    | Git repository branch or tag or commit version                                                                               |
+| `forge_registry_url`               | str  | registry.ublue.local                                                    | Container registry url                                                                                                       |
 
 <!-- markdownlint-enable MD013-->
-
-**_Note:_** The `{{ forge_data_volume_mountpoint }}` points to your ublue-os_forge-data
-podman volume.

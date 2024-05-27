@@ -14,7 +14,9 @@ ANSIBLE_EXTRA_VARS = None
 async def load_configuration_file() -> None:
     global ANSIBLE_EXTRA_VARS
     result = await local_file_picker(
-        directory="/data", multiple=False, file_name_filter=".yml"
+        directory="/data",
+        multiple=False,
+        # file_name_filter=".yml", # TODO: limit to yml files but make sure folders are visible as well
     )
     file_path = result[0]
     with open(file_path, "r") as file:
