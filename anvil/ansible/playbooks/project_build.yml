@@ -8,34 +8,59 @@
         name: debug_forge_vars
 
   tasks:
-    - name: Build and push image to registry
+    - name: Build and upload container image
       containers.podman.podman_image:
-        name: "{{ forge_git_repository_url | regex_search(__regex_search) }}"
+        name: "{{ forge_container_name }}"
         tag: latest
         path: "{{ forge_git_repository_destination }}"
         build:
-          file: "{{ forge_container_file | default('Containerfile') }}"
-          format: "{{ forge_container_format | default('oci') }}"
+          file: "{{ forge_container_file }}"
+          format: "{{ forge_container_format }}"
+          extra_args: "{{ forge_container_extra_args | join(' ') }}"
         pull: false
         push: true
-        push_args:
-          dest: "{{ forge_registry_url }}"
-      vars:
-        __regex_search: (?<=/)[^/]+(?=\.git)
-      async: 1800
+      async: 900
       poll: 0
       register: __podman_image
 
-    - name: Waiting for container build to finish
+    - name: Waiting for container build and upload to finish
       ansible.builtin.async_status:
         jid: "{{ __podman_image.ansible_job_id }}"
       register: __job_result
       until: __job_result.finished
-      retries: 1800
+      retries: 900
       delay: 1
 
-    - name: INFO | Status from build and push
+    - name: INFO | Result from container image build
       ansible.builtin.debug:
         msg:
           - "{{ __job_result.actions | to_nice_yaml(indent=2) }}"
           - "{{ __job_result.image | to_nice_yaml(indent=2) }}"
+
+    - name: Add additional tag to container image
+      containers.podman.podman_tag:
+        image: "{{ forge_container_name }}:latest"
+        target_names:
+          - "{{ forge_container_name }}:{{ forge_container_tag }}"
+
+    - name: Push additional container image tag to registry
+      containers.podman.podman_image:
+        name: "{{ forge_container_name }}"
+        tag: "{{ forge_container_tag }}"
+        pull: false
+        push: true
+      async: 15
+      poll: 0
+      register: __podman_image
+
+    - name: Waiting for additional container image tag push to finish
+      ansible.builtin.async_status:
+        jid: "{{ __podman_image.ansible_job_id }}"
+      register: __job_result
+      until: __job_result.finished
+      retries: 15
+      delay: 1
+
+    - name: INFO | Result from additional container image tag push
+      ansible.builtin.debug:
+        msg: "{{ __job_result.actions | to_nice_yaml(indent=2) }}"
