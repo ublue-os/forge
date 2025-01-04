@@ -1,5 +1,5 @@
 # Source Image
-FROM docker.io/library/python:3.11-alpine3.19
+FROM docker.io/library/python:3.13-alpine3.19
 
 # Environment vars
 ENV PROJECT_DIR="/anvil"
