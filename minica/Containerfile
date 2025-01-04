@@ -1,5 +1,5 @@
 # Source Image
-FROM docker.io/library/golang:1.20
+FROM docker.io/library/golang:1.23
 
 # Copy script
 WORKDIR /certs
