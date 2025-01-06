@@ -1,5 +1,5 @@
 # Source Image
-FROM docker.io/traefik:v3.2
+FROM docker.io/traefik:v3.3
 
 # Add configuration file
 COPY ./config/*.yml /etc/traefik/
