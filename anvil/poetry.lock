@@ -1160,13 +1160,13 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "2.9.0"
+version = "2.9.1"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "nicegui-2.9.0-py3-none-any.whl", hash = "sha256:0780f8e8a470a8be98096a3fd4639c2c49645a8b63186ec8f0ede4aac35f18e6"},
-    {file = "nicegui-2.9.0.tar.gz", hash = "sha256:1d909a6a805f6339df2c2512725c151672692b476bcb0e44366d8ebee6741504"},
+    {file = "nicegui-2.9.1-py3-none-any.whl", hash = "sha256:5456f1de34c7d3b62d9349879855b99c6623ea67e4c0b5ff0635010ad3b57d22"},
+    {file = "nicegui-2.9.1.tar.gz", hash = "sha256:1cb944340353fefb6db0c6a27d10b43792fd400d3dbc748426efcef59192c250"},
 ]
 
 [package.dependencies]
@@ -1178,7 +1178,7 @@ fastapi = ">=0.109.1"
 httpx = ">=0.24.0"
 ifaddr = ">=0.2.0"
 itsdangerous = ">=2.1.2,<3.0.0"
-jinja2 = ">=3.1.4,<4.0.0"
+jinja2 = ">=3.1.5,<4.0.0"
 markdown2 = ">=2.4.7,<2.4.11 || >2.4.11"
 orjson = {version = ">=3.9.15", markers = "platform_machine != \"i386\" and platform_machine != \"i686\""}
 Pygments = ">=2.15.1,<3.0.0"
