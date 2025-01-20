@@ -1160,13 +1160,13 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "2.9.1"
+version = "2.10.0"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "nicegui-2.9.1-py3-none-any.whl", hash = "sha256:5456f1de34c7d3b62d9349879855b99c6623ea67e4c0b5ff0635010ad3b57d22"},
-    {file = "nicegui-2.9.1.tar.gz", hash = "sha256:1cb944340353fefb6db0c6a27d10b43792fd400d3dbc748426efcef59192c250"},
+    {file = "nicegui-2.10.0-py3-none-any.whl", hash = "sha256:9d5a1199b85ce879e04340748a66924eaf1ec189c495a348afabd23d10206ad1"},
+    {file = "nicegui-2.10.0.tar.gz", hash = "sha256:d09fe3bb815cb5e0129f4db04df03867bcdb7341059ea22a63e7bf4b6562a8b9"},
 ]
 
 [package.dependencies]
@@ -1196,6 +1196,7 @@ highcharts = ["nicegui-highcharts (>=2.0.2,<3.0.0)"]
 matplotlib = ["matplotlib (>=3.5.0,<4.0.0)"]
 native = ["pywebview (>=5.0.1,<6.0.0)"]
 plotly = ["plotly (>=5.13.0,<6.0.0)"]
+redis = ["redis (>=4.0.0)"]
 sass = ["libsass (>=0.23.0,<0.24.0)"]
 
 [[package]]
