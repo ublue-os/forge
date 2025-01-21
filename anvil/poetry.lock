@@ -524,6 +524,9 @@ files = [
     {file = "click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"},
 ]
 
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
 [[package]]
 name = "colorama"
 version = "0.4.6"
@@ -1157,13 +1160,13 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "2.10.0"
+version = "2.10.1"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "nicegui-2.10.0-py3-none-any.whl", hash = "sha256:9d5a1199b85ce879e04340748a66924eaf1ec189c495a348afabd23d10206ad1"},
-    {file = "nicegui-2.10.0.tar.gz", hash = "sha256:d09fe3bb815cb5e0129f4db04df03867bcdb7341059ea22a63e7bf4b6562a8b9"},
+    {file = "nicegui-2.10.1-py3-none-any.whl", hash = "sha256:d1cb72691a2ce178cd91cdef5e175f9efa2e9dc7a48235c673bebd16b89f920c"},
+    {file = "nicegui-2.10.1.tar.gz", hash = "sha256:94f95dd0d57c1ef25e5a3a6333a76dd40fc0d68d43f9491b8402ed026115edfe"},
 ]
 
 [package.dependencies]
