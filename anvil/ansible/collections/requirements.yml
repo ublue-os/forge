@@ -5,4 +5,4 @@ collections:
   - name: community.general
     version: 10.3.0
   - name: containers.podman
-    version: 1.16.2
+    version: 1.16.3
