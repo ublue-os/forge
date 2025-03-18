@@ -896,13 +896,13 @@ files = [
 
 [[package]]
 name = "jinja2"
-version = "3.1.5"
+version = "3.1.6"
 description = "A very fast and expressive template engine."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "jinja2-3.1.5-py3-none-any.whl", hash = "sha256:aba0f4dc9ed8013c424088f68a5c226f7d6097ed89b246d7749c2ec4175c6adb"},
-    {file = "jinja2-3.1.5.tar.gz", hash = "sha256:8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"},
+    {file = "jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"},
+    {file = "jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"},
 ]
 
 [package.dependencies]
@@ -1165,13 +1165,13 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "2.10.1"
+version = "2.13.0"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "nicegui-2.10.1-py3-none-any.whl", hash = "sha256:d1cb72691a2ce178cd91cdef5e175f9efa2e9dc7a48235c673bebd16b89f920c"},
-    {file = "nicegui-2.10.1.tar.gz", hash = "sha256:94f95dd0d57c1ef25e5a3a6333a76dd40fc0d68d43f9491b8402ed026115edfe"},
+    {file = "nicegui-2.13.0-py3-none-any.whl", hash = "sha256:2343d37885df2c2e388a4f4c3f0ce9b308be02e16b0303108471a1a38fe3508f"},
+    {file = "nicegui-2.13.0.tar.gz", hash = "sha256:a2b391c788f15d06baed286a10651a1595f696fc2ac85e234391b14268abea4b"},
 ]
 
 [package.dependencies]
@@ -1183,13 +1183,14 @@ fastapi = ">=0.109.1"
 httpx = ">=0.24.0"
 ifaddr = ">=0.2.0"
 itsdangerous = ">=2.1.2,<3.0.0"
-jinja2 = ">=3.1.5,<4.0.0"
+jinja2 = ">=3.1.6,<4.0.0"
 markdown2 = ">=2.4.7,<2.4.11 || >2.4.11"
 orjson = {version = ">=3.9.15", markers = "platform_machine != \"i386\" and platform_machine != \"i686\""}
 Pygments = ">=2.15.1,<3.0.0"
 python-multipart = ">=0.0.18"
 python-socketio = {version = ">=5.10.0", extras = ["asyncio-client"]}
 requests = ">=2.32.0"
+starlette = {version = ">=0.45.3", markers = "python_version >= \"3.9\""}
 typing-extensions = ">=4.0.0"
 urllib3 = ">=1.26.18,<2.0.0 || >2.0.0,<2.0.1 || >2.0.1,<2.0.2 || >2.0.2,<2.0.3 || >2.0.3,<2.0.4 || >2.0.4,<2.0.5 || >2.0.5,<2.0.6 || >2.0.6,<2.0.7 || >2.0.7,<2.1.0 || >2.1.0,<2.2.0 || >2.2.0,<2.2.1 || >2.2.1"
 uvicorn = {version = ">=0.22.0", extras = ["standard"]}
@@ -1200,7 +1201,7 @@ watchfiles = ">=0.18.1"
 highcharts = ["nicegui-highcharts (>=2.0.2,<3.0.0)"]
 matplotlib = ["matplotlib (>=3.5.0,<4.0.0)"]
 native = ["pywebview (>=5.0.1,<6.0.0)"]
-plotly = ["plotly (>=5.13.0,<6.0.0)"]
+plotly = ["plotly (>=5.13,<7.0)"]
 redis = ["redis (>=4.0.0)"]
 sass = ["libsass (>=0.23.0,<0.24.0)"]
 
@@ -2155,20 +2156,20 @@ files = [
 
 [[package]]
 name = "starlette"
-version = "0.40.0"
+version = "0.45.3"
 description = "The little ASGI library that shines."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "starlette-0.40.0-py3-none-any.whl", hash = "sha256:c494a22fae73805376ea6bf88439783ecfba9aac88a43911b48c653437e784c4"},
-    {file = "starlette-0.40.0.tar.gz", hash = "sha256:1a3139688fb298ce5e2d661d37046a66ad996ce94be4d4983be019a23a04ea35"},
+    {file = "starlette-0.45.3-py3-none-any.whl", hash = "sha256:dfb6d332576f136ec740296c7e8bb8c8a7125044e7c6da30744718880cdd059d"},
+    {file = "starlette-0.45.3.tar.gz", hash = "sha256:2cbcba2a75806f8a41c722141486f37c28e30a0921c5f6fe4346cb0dcee1302f"},
 ]
 
 [package.dependencies]
-anyio = ">=3.4.0,<5"
+anyio = ">=3.6.2,<5"
 
 [package.extras]
-full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7)", "pyyaml"]
+full = ["httpx (>=0.27.0,<0.29.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.18)", "pyyaml"]
 
 [[package]]
 name = "subprocess-tee"
