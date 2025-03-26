@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.2.1](https://github.com/ublue-os/forge/compare/v0.2.0...v0.2.1) (2025-02-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ansible-core to v2.18.2 ([e0f7d5f](https://github.com/ublue-os/forge/commit/e0f7d5fe43db8c0ac8e473232e884cdca75cd3e3))
+* **deps:** update dependency humanize to v4.11.0 ([a32d754](https://github.com/ublue-os/forge/commit/a32d754c70c74c3193c09cde97ba34b6553c6903))
+* **deps:** update dependency humanize to v4.12.1 ([c5d6cb0](https://github.com/ublue-os/forge/commit/c5d6cb072542cc9632e5d4b934b0c084224b3aca))
+* **deps:** update dependency nicegui to v1.4.37 ([46202de](https://github.com/ublue-os/forge/commit/46202de6ba15671a6b3ae0c0bedf1199a496b9a6))
+* **deps:** update dependency nicegui to v2 ([a043aa9](https://github.com/ublue-os/forge/commit/a043aa9ecc1e9a0bd645427a31e766f2611e0547))
+* **deps:** update dependency nicegui to v2.10.0 ([8345361](https://github.com/ublue-os/forge/commit/8345361fccc43a1362005b32359c816e3fa33506))
+* **deps:** update dependency nicegui to v2.10.1 ([e70dc98](https://github.com/ublue-os/forge/commit/e70dc983a8cb437824007e69e22ae2aa15b7562d))
+* **deps:** update dependency nicegui to v2.9.1 [security] ([725673e](https://github.com/ublue-os/forge/commit/725673e5e7901778ad2154e5991c31b0616effbd))
+* **deps:** update dependency pandas to v2.2.3 ([37137ef](https://github.com/ublue-os/forge/commit/37137ef32bdebcaa3dcedcc1ce7aecb0bba32f19))
+
 ## [0.2.0](https://github.com/ublue-os/forge/compare/v0.1.0...v0.2.0) (2024-05-27)
 
 
