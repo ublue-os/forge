@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/ublue-os/forge/compare/v0.2.1...v0.2.2) (2025-04-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nicegui to v2.14.1 ([ec77161](https://github.com/ublue-os/forge/commit/ec771611336a7d53e1ba448ec3b3e457d4c87514))
+
 ## [0.2.1](https://github.com/ublue-os/forge/compare/v0.2.0...v0.2.1) (2025-02-21)
 
 
