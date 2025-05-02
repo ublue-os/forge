@@ -1218,14 +1218,14 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "2.15.0"
+version = "2.16.0"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.8"
 groups = ["main"]
 files = [
-    {file = "nicegui-2.15.0-py3-none-any.whl", hash = "sha256:0e401108447ae0e6b0a77c1de2611b67c4508f095a6f34d98a4640a2e17e2a08"},
-    {file = "nicegui-2.15.0.tar.gz", hash = "sha256:0b63bcf9634744d285aa618f74c4d57ea7264fd8f8a9e331cf10d528ba37355c"},
+    {file = "nicegui-2.16.0-py3-none-any.whl", hash = "sha256:37dd8ad263817c39b374b21e2a553d4e97a98e4c9371fe51443f8e01aa4debcd"},
+    {file = "nicegui-2.16.0.tar.gz", hash = "sha256:63862668cc75503bdd8968cf635076b5fa2e71fb2b81bd7d1474733a94c45437"},
 ]
 
 [package.dependencies]
@@ -1234,6 +1234,7 @@ aiohttp = ">=3.10.2"
 certifi = ">=2024.07.04"
 docutils = ">=0.19.0"
 fastapi = ">=0.109.1"
+h11 = ">=0.16.0"
 httpx = ">=0.24.0"
 ifaddr = ">=0.2.0"
 itsdangerous = ">=2.1.2,<3.0.0"
@@ -1250,6 +1251,7 @@ typing-extensions = ">=4.0.0"
 urllib3 = ">=1.26.18,<2.0.0 || >2.0.0,<2.0.1 || >2.0.1,<2.0.2 || >2.0.2,<2.0.3 || >2.0.3,<2.0.4 || >2.0.4,<2.0.5 || >2.0.5,<2.0.6 || >2.0.6,<2.0.7 || >2.0.7,<2.1.0 || >2.1.0,<2.2.0 || >2.2.0,<2.2.1 || >2.2.1"
 uvicorn = {version = ">=0.22.0", extras = ["standard"]}
 vbuild = ">=0.8.2"
+wait_for2 = ">=0.3.2"
 watchfiles = ">=0.18.1"
 
 [package.extras]
@@ -2425,6 +2427,17 @@ files = [
 
 [package.dependencies]
 pscript = ">=0.7.0,<0.8.0"
+
+[[package]]
+name = "wait-for2"
+version = "0.3.2"
+description = "Asyncio wait_for that can handle simultaneous cancellation and future completion."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "wait_for2-0.3.2.tar.gz", hash = "sha256:93863026dc35f3471104ecf7de1f4a0b31f4c8b12a2241c0d6ee26dcc0c2092a"},
+]
 
 [[package]]
 name = "watchfiles"
