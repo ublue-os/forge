@@ -1,5 +1,5 @@
 # Source Image
-FROM docker.io/traefik:v3.3@sha256:baf1453551f7591b18bf418548de1197355a51b5d99748892e18bcdc7882bf74
+FROM docker.io/traefik:v3.3@sha256:2cd5cc75530c8d07ae0587c743d23eb30cae2436d07017a5ff78498b1a43d09f
 
 # Add configuration file
 COPY ./config/*.yml /etc/traefik/
