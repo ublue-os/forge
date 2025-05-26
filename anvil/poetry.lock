@@ -194,15 +194,15 @@ resolvelib = ">=0.5.3,<1.1.0"
 
 [[package]]
 name = "ansible-lint"
-version = "25.4.0"
+version = "25.5.0"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_lint-25.4.0-py3-none-any.whl", hash = "sha256:16644f11dbfc4b52a12a16e2069eab83d089f154c55dd837484e92de7f031244"},
-    {file = "ansible_lint-25.4.0.tar.gz", hash = "sha256:f2f2b31ad199925b2343f660552fb9468970f16c2c5d57da9feae70ec4eeca7d"},
+    {file = "ansible_lint-25.5.0-py3-none-any.whl", hash = "sha256:25b03f3b58a84bd38f86532a08e38b652252baf175142988cb1071aee49a0eca"},
+    {file = "ansible_lint-25.5.0.tar.gz", hash = "sha256:4182520f233eef4248bc4cf4b6074e25cdaf5be21cf9be944aabc85df5407e9c"},
 ]
 
 [package.dependencies]
@@ -225,7 +225,7 @@ wcmatch = [
 yamllint = ">=1.34.0"
 
 [package.extras]
-docs = ["mkdocs-ansible (>=24.12.0)"]
+docs = ["mkdocs-ansible (>=25.5.0)"]
 test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "ipdb", "ipython", "jmespath", "license-expression (>=30.3.0)", "mypy", "netaddr", "pip", "psutil", "pylint", "pytest (>=7.2.2)", "pytest-instafail (>=0.5.0)", "pytest-mock", "pytest-plus (>=0.6)", "pytest-sugar", "pytest-xdist[psutil,setproctitle] (>=2.1.0)", "ruamel-yaml-clib", "ruamel.yaml (>=0.17.31)", "tox (>=4.0.0)", "tox (>=4.24.2)", "tox-extra (>=2.1)", "tox-uv (>=1.25)", "types-jsonschema", "types-pyyaml"]
 
 [[package]]
@@ -2782,4 +2782,4 @@ test = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more-it
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "ade9a221e45fbcb589c176944b4ae5b8b25c839bd4f6429643c3ed9f0aa6e2e6"
+content-hash = "79090100be1af71d1f96f06da71659b0970a0e112a8896ff9658bc463183ad56"
