@@ -9,10 +9,10 @@
       "installTools": true,
       "version": "3.13"
     },
-    "ghcr.io/devcontainers-contrib/features/black:2": {
+    "ghcr.io/devcontainers-extra/features/black:2": {
       "version": "24.4.1"
     },
-    "ghcr.io/devcontainers-contrib/features/poetry:2": {
+    "ghcr.io/devcontainers-extra/features/poetry:2": {
       "version": "1.8.2"
     }
   },
