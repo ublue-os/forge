@@ -9,8 +9,9 @@ export FORGE_POD_NAME_PRE_AMBLE="ublue-os_forge-"
 export FORGE_POD_NAME_REVERSE_PROXY=${FORGE_POD_NAME_PRE_AMBLE}rvproxy
 export FORGE_POD_NAME_REGISTRY=${FORGE_POD_NAME_PRE_AMBLE}registry
 export FORGE_POD_NAME_ANVIL=${FORGE_POD_NAME_PRE_AMBLE}anvil
-export FORGE_HOST_IP_ADDRESS=$(hostname -I | awk '{print $1}')
-
+## TODO: hostname -I no longer working in fedora 42. Find better solution. -> https://github.com/ublue-os/forge/issues/149
+# export FORGE_HOST_IP_ADDRESS=$(hostname -I | awk '{print $1}')
+export FORGE_HOST_IP_ADDRESS=$(hostname -i | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)
 
 # Functions
 function setup {
