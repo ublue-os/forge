@@ -186,22 +186,22 @@ test = ["coverage", "pip", "pytest (>=7.2.0)", "pytest-instafail", "pytest-mock"
 
 [[package]]
 name = "ansible-core"
-version = "2.18.7"
+version = "2.19.0"
 description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.11"
 groups = ["main", "dev"]
 files = [
-    {file = "ansible_core-2.18.7-py3-none-any.whl", hash = "sha256:ac42ecb480fb98890d338072f7298cd462fb2117da6700d989c7ae688962ba69"},
-    {file = "ansible_core-2.18.7.tar.gz", hash = "sha256:1a129bf9fcd5dca2b17e83ce77147ee2fbc3c51a4958970152897cc5b6d0aae7"},
+    {file = "ansible_core-2.19.0-py3-none-any.whl", hash = "sha256:5914f1539f5da190bd9591112e20e339d699bda0c546992fc77c1e3ccc3928f2"},
+    {file = "ansible_core-2.19.0.tar.gz", hash = "sha256:ca4730837fdd50c8f8ab2fa17c04c448d74c5a27f3d5be7e602d9e3feb9430bc"},
 ]
 
 [package.dependencies]
 cryptography = "*"
-jinja2 = ">=3.0.0"
+jinja2 = ">=3.1.0"
 packaging = "*"
 PyYAML = ">=5.1"
-resolvelib = ">=0.5.3,<1.1.0"
+resolvelib = ">=0.5.3,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
