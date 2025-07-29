@@ -18,7 +18,7 @@ humanize = "^4.9.0"
 toml = "^0.10.2"
 
 [tool.poetry.group.dev.dependencies]
-ansible-lint = { version = "25.6.1", markers = 'platform_system != "Windows"' } # https://github.com/ansible/ansible-lint/issues/2730#issuecomment-1330406601
+ansible-lint = { version = "25.7.0", markers = 'platform_system != "Windows"' } # https://github.com/ansible/ansible-lint/issues/2730#issuecomment-1330406601
 
 [build-system]
 requires = ["poetry-core"]
