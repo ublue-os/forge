@@ -162,15 +162,15 @@ files = [
 
 [[package]]
 name = "ansible-compat"
-version = "25.6.0"
+version = "25.8.0"
 description = "Ansible compatibility goodies"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_compat-25.6.0-py3-none-any.whl", hash = "sha256:cced722001bd7b617d418e54017e308c8b27ef3815f377843c00e020fa07165e"},
-    {file = "ansible_compat-25.6.0.tar.gz", hash = "sha256:c2b4bfeca6383b2047b2e1dea473cec4f1f9f2dd59beef71d6c47f632eaf97c9"},
+    {file = "ansible_compat-25.8.0-py3-none-any.whl", hash = "sha256:e55b118e8984df7f9fe59b026a76aaf82db68366f27008a9f8079a2cfd387d19"},
+    {file = "ansible_compat-25.8.0.tar.gz", hash = "sha256:c319736406c3d848b964209a671371a2dd7a387b4e25370213a1ad2d53561ee7"},
 ]
 
 [package.dependencies]
@@ -205,19 +205,19 @@ resolvelib = ">=0.5.3,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
-version = "25.7.0"
+version = "25.8.1"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_lint-25.7.0-py3-none-any.whl", hash = "sha256:9d9ed35e57abbf6e40f55026ba193e3660930089ae1c65c376281fd84ea19842"},
-    {file = "ansible_lint-25.7.0.tar.gz", hash = "sha256:9afcf419997ce1ffc57acaa3a56f377bce8ceeb9db10e6ab84fd565d09be408b"},
+    {file = "ansible_lint-25.8.1-py3-none-any.whl", hash = "sha256:ce23c83212d21ccef9053fabeafbbe63488ab11f85e1ed2a94b2523f479d1372"},
+    {file = "ansible_lint-25.8.1.tar.gz", hash = "sha256:04059e3cf5b644e796e21d445004621d1e2454e3aeb68d1eea0a49f650ef3219"},
 ]
 
 [package.dependencies]
-ansible-compat = ">=25.1.5"
+ansible-compat = ">=25.8.0"
 ansible-core = ">=2.16.11"
 black = ">=24.3.0"
 filelock = ">=3.8.2"
@@ -237,7 +237,7 @@ yamllint = ">=1.34.0"
 
 [package.extras]
 docs = ["mkdocs-ansible (>=25.5.0)"]
-lock = ["ansible-compat (==25.6.0)", "attrs (==25.3.0)", "black (==25.1.0)", "bracex (==2.6)", "cffi (==1.17.1)", "click (==8.2.1)", "cryptography (==45.0.5)", "filelock (==3.18.0)", "importlib-metadata (==8.7.0)", "jinja2 (==3.1.6)", "jsonschema (==4.24.0)", "jsonschema-specifications (==2025.4.1)", "markupsafe (==3.0.2)", "mypy-extensions (==1.1.0)", "packaging (==25.0)", "pathspec (==0.12.1)", "platformdirs (==4.3.8)", "pycparser (==2.22)", "pyyaml (==6.0.2)", "referencing (==0.36.2)", "rpds-py (==0.26.0)", "ruamel-yaml (==0.18.14)", "subprocess-tee (==0.4.2)", "wcmatch (==10.1)", "yamllint (==1.37.1)", "zipp (==3.23.0)"]
+lock = ["ansible-compat (==25.8.0)", "attrs (==25.3.0)", "black (==25.1.0)", "bracex (==2.6)", "cffi (==1.17.1)", "click (==8.2.1)", "cryptography (==45.0.6)", "filelock (==3.18.0)", "importlib-metadata (==8.7.0)", "jinja2 (==3.1.6)", "jsonschema (==4.25.0)", "jsonschema-specifications (==2025.4.1)", "markupsafe (==3.0.2)", "mypy-extensions (==1.1.0)", "packaging (==25.0)", "pathspec (==0.12.1)", "platformdirs (==4.3.8)", "pycparser (==2.22)", "pyyaml (==6.0.2)", "referencing (==0.36.2)", "rpds-py (==0.27.0)", "ruamel-yaml (==0.18.14)", "subprocess-tee (==0.4.2)", "wcmatch (==10.1)", "yamllint (==1.37.1)", "zipp (==3.23.0)"]
 test = ["ansible-creator (>=24.6.0)", "black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "ipdb", "ipython", "jmespath", "license-expression (>=30.3.0)", "mypy", "netaddr", "pip", "psutil", "pylint", "pytest (>=7.2.2)", "pytest-instafail (>=0.5.0)", "pytest-mock", "pytest-plus (>=0.6)", "pytest-sugar", "pytest-xdist[psutil,setproctitle] (>=2.1.0)", "ruamel-yaml-clib ; python_version < \"3.14\"", "ruamel.yaml (>=0.18.11)", "tox (>=4.0.0)", "tox (>=4.24.2)", "tox-extra (>=2.1)", "tox-uv (>=1.25)", "types-jsonschema", "types-pyyaml"]
 
 [[package]]
@@ -3050,4 +3050,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "7e45be1fb68fc7efbe1d15c4f0338ebff4361f34ba9dd6027f78c09409979039"
+content-hash = "fb372222af7ed7e009b62b5bea16ffc2d9972bdbdc8fb20a672086751758b8de"
