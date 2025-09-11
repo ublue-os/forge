@@ -1321,14 +1321,14 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "2.24.0"
+version = "2.24.1"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.8"
 groups = ["main"]
 files = [
-    {file = "nicegui-2.24.0-py3-none-any.whl", hash = "sha256:76cd72f87b2775537fbc96d97925a8b41a09c166bf67ba9f1999c16f73e0698e"},
-    {file = "nicegui-2.24.0.tar.gz", hash = "sha256:139314d786344965ec2b24691f74055292f5dc458b575d12c4607b7c3ebda8cf"},
+    {file = "nicegui-2.24.1-py3-none-any.whl", hash = "sha256:a1bfc566cd2c9d290925f4df8b8023e63edaab6590e19160de97d9f84b8d6d8c"},
+    {file = "nicegui-2.24.1.tar.gz", hash = "sha256:e35221034077ac796cf05ade2d9e7aeaa7e421bbb87798fc8538a29979897ad1"},
 ]
 
 [package.dependencies]
