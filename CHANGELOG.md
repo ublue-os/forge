@@ -1,5 +1,42 @@
 # Changelog
 
+## [0.2.2](https://github.com/ublue-os/forge/compare/v0.2.1...v0.2.2) (2025-09-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ansible-core to v2.18.5 ([086e32e](https://github.com/ublue-os/forge/commit/086e32ed263a6a353123c40b6b70b8bc5ef825b9))
+* **deps:** update dependency ansible-core to v2.18.6 ([986ea58](https://github.com/ublue-os/forge/commit/986ea586ce49ba2e70eafb2737d61ab42538beda))
+* **deps:** update dependency ansible-core to v2.18.7 ([49b009c](https://github.com/ublue-os/forge/commit/49b009c1e03718ac945b02a08a53cbfc87232cc8))
+* **deps:** update dependency ansible-core to v2.19.0 ([1977645](https://github.com/ublue-os/forge/commit/19776453f8bd5188c4695d98e2090342f7df1261))
+* **deps:** update dependency ansible-core to v2.19.1 ([0a1e59c](https://github.com/ublue-os/forge/commit/0a1e59cde28f959f1d9b9e9d040e9c0330fe6a29))
+* **deps:** update dependency ansible-core to v2.19.2 ([7258c4b](https://github.com/ublue-os/forge/commit/7258c4b2dfb9ee56550a4dc6077819135dc3844b))
+* **deps:** update dependency humanize to v4.12.3 ([367434a](https://github.com/ublue-os/forge/commit/367434a316d5876b5b07cba9ff64fad1e434b76c))
+* **deps:** update dependency humanize to v4.13.0 ([0a9d07f](https://github.com/ublue-os/forge/commit/0a9d07f9ab47a3b50548ec12bd5987f6f2060c0a))
+* **deps:** update dependency nicegui to v2.14.1 ([ec77161](https://github.com/ublue-os/forge/commit/ec771611336a7d53e1ba448ec3b3e457d4c87514))
+* **deps:** update dependency nicegui to v2.15.0 ([f3b4d94](https://github.com/ublue-os/forge/commit/f3b4d94879b258d28f6bb757854bb381490900f8))
+* **deps:** update dependency nicegui to v2.16.0 ([1cd771d](https://github.com/ublue-os/forge/commit/1cd771d7ce30e65d38fe56965c830f2d44536d7a))
+* **deps:** update dependency nicegui to v2.16.1 ([8afc946](https://github.com/ublue-os/forge/commit/8afc946db77e2d6e63a711777b73e5b12c6d1ab9))
+* **deps:** update dependency nicegui to v2.17.0 ([982c25a](https://github.com/ublue-os/forge/commit/982c25a0f5f299bb571bae6819773bb3e4c816aa))
+* **deps:** update dependency nicegui to v2.18.0 ([2923811](https://github.com/ublue-os/forge/commit/29238117422bf49af7affa131f25d27edede8a0d))
+* **deps:** update dependency nicegui to v2.19.0 ([2729187](https://github.com/ublue-os/forge/commit/2729187e209c5da9fa285cb242a3cbe1ec11521f))
+* **deps:** update dependency nicegui to v2.20.0 ([880c140](https://github.com/ublue-os/forge/commit/880c1408f239c95898bc5e511487c3e77c4e777f))
+* **deps:** update dependency nicegui to v2.21.0 ([09b8335](https://github.com/ublue-os/forge/commit/09b83359d6fbe61ae724b3869d8d596149c877be))
+* **deps:** update dependency nicegui to v2.21.1 ([53116ff](https://github.com/ublue-os/forge/commit/53116ffd525d9edb6daaf1151a2ce49377085d63))
+* **deps:** update dependency nicegui to v2.22.0 ([ff00e71](https://github.com/ublue-os/forge/commit/ff00e7129a3223231ffed22cfc9798e4ab0332b8))
+* **deps:** update dependency nicegui to v2.22.1 ([06e5e3a](https://github.com/ublue-os/forge/commit/06e5e3a64b39d347a54f3e9389324d08e00d25ef))
+* **deps:** update dependency nicegui to v2.22.2 ([9c9130a](https://github.com/ublue-os/forge/commit/9c9130a62e9eb6075e001174a2f144a149a268c4))
+* **deps:** update dependency nicegui to v2.23.0 ([1821521](https://github.com/ublue-os/forge/commit/18215214b252e657d642070350287a6de20f9b81))
+* **deps:** update dependency nicegui to v2.23.2 ([b0190e2](https://github.com/ublue-os/forge/commit/b0190e235d41d02f693c249c03668fb1076fb44b))
+* **deps:** update dependency nicegui to v2.23.3 ([330fa9a](https://github.com/ublue-os/forge/commit/330fa9ad027d816bb0ed21154960f89c1a9d9f1f))
+* **deps:** update dependency nicegui to v2.24.0 ([a8244b7](https://github.com/ublue-os/forge/commit/a8244b7643b79b343cb42a10354e21c248c565bb))
+* **deps:** update dependency nicegui to v2.24.1 ([eade4a2](https://github.com/ublue-os/forge/commit/eade4a2c17626e9ddcd4a842131186f4dee4ed20))
+* **deps:** update dependency pandas to v2.3.0 ([91618b0](https://github.com/ublue-os/forge/commit/91618b00679cb0ac049a61a1002564ab77bdfc15))
+* **deps:** update dependency pandas to v2.3.1 ([87b776d](https://github.com/ublue-os/forge/commit/87b776d48d934882e60e33039dcb254abf181dde))
+* **deps:** update dependency pandas to v2.3.2 ([ecccbd7](https://github.com/ublue-os/forge/commit/ecccbd7480d8cd828446f48895a7793cbdf2c33f))
+* **deps:** update dependency requests to v2.32.5 ([309d44f](https://github.com/ublue-os/forge/commit/309d44f2a5dcf8f3e9d4a9ce80c761cf4ab8280b))
+* **setup:** hostname -I no longer available on bluefin 42 ([2b92fdd](https://github.com/ublue-os/forge/commit/2b92fdd1ad3db78d9a61e4fa482fc99c6e41ff7c))
+
 ## [0.2.1](https://github.com/ublue-os/forge/compare/v0.2.0...v0.2.1) (2025-02-21)
 
 
