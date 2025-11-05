@@ -162,39 +162,35 @@ files = [
 
 [[package]]
 name = "ansible-compat"
-version = "25.8.1"
+version = "25.8.2"
 description = "Ansible compatibility goodies"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_compat-25.8.1-py3-none-any.whl", hash = "sha256:5bb843838414b75efff24dae5ff5b332cd503a596143d471980243cec4b46c9c"},
-    {file = "ansible_compat-25.8.1.tar.gz", hash = "sha256:f29ab81264b3f04fb94ac2d7f68fe73efc2eb3cbe4ecf00f9b4742e77c41756f"},
+    {file = "ansible_compat-25.8.2-py3-none-any.whl", hash = "sha256:c35fd18f3a8320123f881ad6a23c4125e323e7e559ae09b6279568690a583b8f"},
+    {file = "ansible_compat-25.8.2.tar.gz", hash = "sha256:c5ae1ff70938f1e009cfc7df66c9faad223a3ccd0ad6b57400de53b2459a6164"},
 ]
 
 [package.dependencies]
 ansible-core = ">=2.16"
 jsonschema = ">=4.6.0"
-packaging = "*"
-PyYAML = "*"
+packaging = ">=25.0"
+pyyaml = ">=6.0.2"
 subprocess-tee = ">=0.4.1"
-
-[package.extras]
-docs = ["argparse-manpage", "black", "mkdocs-ansible (>=24.3.1)"]
-test = ["coverage", "pip", "pytest (>=7.2.0)", "pytest-instafail", "pytest-mock", "pytest-plus (>=0.6.1)", "uv (>=0.4.30)"]
 
 [[package]]
 name = "ansible-core"
-version = "2.19.2"
+version = "2.19.4"
 description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.11"
 groups = ["main", "dev"]
-markers = "python_full_version < \"3.12.0\""
+markers = "python_version < \"3.12\""
 files = [
-    {file = "ansible_core-2.19.2-py3-none-any.whl", hash = "sha256:1fe6ca533951b5ba4a619e763ea4f6725f68c36677c7d5aaa467b59aa449bdc8"},
-    {file = "ansible_core-2.19.2.tar.gz", hash = "sha256:87fcbbc492ed16eb6adb0379bae0adbf69f3ce88a8440e7e88e0dcefa9f8a54c"},
+    {file = "ansible_core-2.19.4-py3-none-any.whl", hash = "sha256:f218e2e8ce4cc95216c48c73badd9789f1dd6ea47e15667213491fb79589316c"},
+    {file = "ansible_core-2.19.4.tar.gz", hash = "sha256:888db6593f2fd42cd05bdbe546704d9c969dce99e3373a54498f6dbefcfa1917"},
 ]
 
 [package.dependencies]
@@ -206,15 +202,15 @@ resolvelib = ">=0.5.3,<2.0.0"
 
 [[package]]
 name = "ansible-core"
-version = "2.20.0b1"
+version = "2.20.0"
 description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.12"
 groups = ["main", "dev"]
-markers = "python_full_version >= \"3.12.0\""
+markers = "python_version >= \"3.12\""
 files = [
-    {file = "ansible_core-2.20.0b1-py3-none-any.whl", hash = "sha256:b6b597323442e5bc4615415e33e803ce83af86346ce87023e8a6cf3736983d7f"},
-    {file = "ansible_core-2.20.0b1.tar.gz", hash = "sha256:b4db52af2b64d87518176a6f20923bdce523eae0ee73402576f3910bee12466a"},
+    {file = "ansible_core-2.20.0-py3-none-any.whl", hash = "sha256:665f9e46401509f1f799b0fc624ce162127765885d61607c5e31a0f77652d7b6"},
+    {file = "ansible_core-2.20.0.tar.gz", hash = "sha256:cd73faf28a056c933bc1eee8f66ab597e7ec7309d42c8a6e5d6e4294c4a78b54"},
 ]
 
 [package.dependencies]
@@ -222,27 +218,24 @@ cryptography = "*"
 jinja2 = ">=3.1.0"
 packaging = "*"
 PyYAML = ">=5.1"
-resolvelib = ">=0.5.3,<2.0.0"
+resolvelib = ">=0.8.0,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
-version = "25.9.1"
+version = "25.9.2"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_lint-25.9.1-py3-none-any.whl", hash = "sha256:ca5b69a7a618014ba8cc0867b7227664741fe90beda9c44ea5953d0c35c1af9a"},
-    {file = "ansible_lint-25.9.1.tar.gz", hash = "sha256:d06ba52a069b756bf79208053a05fe9cafd53f16d69bac27aefc6a8d9cad3bb8"},
+    {file = "ansible_lint-25.9.2-py3-none-any.whl", hash = "sha256:3a4b273b549973c62279de75374138be39b555191227b7c92944428f9d81018d"},
+    {file = "ansible_lint-25.9.2.tar.gz", hash = "sha256:0eea8a5d17dd328bef12e7c9b6eb8714ba03fb1af62d9c700bf46e4858d1a6a4"},
 ]
 
 [package.dependencies]
-ansible-compat = ">=25.8.0"
-ansible-core = [
-    {version = ">=2.20.0b1", markers = "python_full_version >= \"3.14.0\""},
-    {version = ">=2.16.11", markers = "python_full_version < \"3.14.0\""},
-]
+ansible-compat = ">=25.8.2"
+ansible-core = ">=2.16.11"
 black = ">=24.3.0"
 cffi = ">=1.17.1"
 cryptography = ">=38"
@@ -253,29 +246,29 @@ jsonschema = ">=4.10.0"
 packaging = ">=22.0"
 pathspec = ">=0.10.3"
 pyyaml = [
-    {version = ">=6.0.2"},
-    {version = ">=6.0.3", markers = "python_full_version < \"3.14.0\""},
+    {version = ">=6.0.2", markers = "python_version < \"3.14\""},
+    {version = ">=6.0.3", markers = "python_version >= \"3.14\""},
 ]
 referencing = ">=0.36.2"
 ruamel-yaml = ">=0.18.11"
-ruamel-yaml-clib = {version = ">=0.2.12", markers = "python_full_version < \"3.14.0\""}
+ruamel-yaml-clib = {version = ">=0.2.12", markers = "python_version < \"3.14\""}
 subprocess-tee = ">=0.4.1"
 wcmatch = [
-    {version = ">=8.5.0", markers = "python_full_version >= \"3.12.0\""},
-    {version = ">=8.1.2", markers = "python_full_version < \"3.12.0\""},
+    {version = ">=8.1.2", markers = "python_version < \"3.12\""},
+    {version = ">=8.5.0", markers = "python_version >= \"3.12\""},
 ]
 yamllint = ">=1.34.0"
 
 [[package]]
 name = "ansible-runner"
-version = "2.4.1"
+version = "2.4.2"
 description = "\"Consistent Ansible Python API and CLI with container and process isolation runtime capabilities\""
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "ansible_runner-2.4.1-py3-none-any.whl", hash = "sha256:ef4efe906414f6e9a4c2e41d131fabc3bfe952f16edded7bdc06d597b05f0eb6"},
-    {file = "ansible_runner-2.4.1.tar.gz", hash = "sha256:11d717da4dd8d93d56703a4a98e5f2154026a7ed1b46d9930902b8298dc67d09"},
+    {file = "ansible_runner-2.4.2-py3-none-any.whl", hash = "sha256:0bde6cb39224770ff49ccdc6027288f6a98f4ed2ea0c64688b31217033221893"},
+    {file = "ansible_runner-2.4.2.tar.gz", hash = "sha256:331d4da8d784e5a76aa9356981c0255f4bb1ba640736efe84b0bd7c73a4ca420"},
 ]
 
 [package.dependencies]
@@ -993,14 +986,14 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "humanize"
-version = "4.13.0"
+version = "4.14.0"
 description = "Python humanize utilities"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "humanize-4.13.0-py3-none-any.whl", hash = "sha256:b810820b31891813b1673e8fec7f1ed3312061eab2f26e3fa192c393d11ed25f"},
-    {file = "humanize-4.13.0.tar.gz", hash = "sha256:78f79e68f76f0b04d711c4e55d32bebef5be387148862cb1ef83d2b58e7935a0"},
+    {file = "humanize-4.14.0-py3-none-any.whl", hash = "sha256:d57701248d040ad456092820e6fde56c930f17749956ac47f4f655c0c547bfff"},
+    {file = "humanize-4.14.0.tar.gz", hash = "sha256:2fa092705ea640d605c435b1ca82b2866a1b601cdf96f076d70b79a855eba90d"},
 ]
 
 [package.extras]
@@ -1375,14 +1368,14 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "3.0.2"
+version = "3.2.0"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "nicegui-3.0.2-py3-none-any.whl", hash = "sha256:bc2978775d9ee60d44d841c1332cf9f90bb8eef90ce6a62442cb64d417f0cc99"},
-    {file = "nicegui-3.0.2.tar.gz", hash = "sha256:9bdd7f200d4f6f37f51da2b955dae936405cfd5c866a9eb99fbe26b5ab552c75"},
+    {file = "nicegui-3.2.0-py3-none-any.whl", hash = "sha256:17d8ec94cfa0417846598c269162ae3f2b0a9e75f0f841bd5aa9fc6b7c0edcc4"},
+    {file = "nicegui-3.2.0.tar.gz", hash = "sha256:886a9e2498a423c81b6ad5097f687a5819207aae439aa283966d57f9492ca14c"},
 ]
 
 [package.dependencies]
@@ -1401,11 +1394,10 @@ orjson = {version = ">=3.9.15", markers = "platform_machine != \"i386\" and plat
 Pygments = ">=2.15.1,<3.0.0"
 python-engineio = ">=4.12.0"
 python-multipart = ">=0.0.18"
-python-socketio = {version = ">=5.10.0", extras = ["asyncio-client"]}
+python-socketio = {version = ">=5.14.0", extras = ["asyncio-client"]}
 starlette = ">=0.45.3"
 typing-extensions = ">=4.0.0"
 uvicorn = {version = ">=0.22.0", extras = ["standard"]}
-vbuild = ">=0.8.2"
 watchfiles = ">=0.18.1"
 
 [package.extras]
@@ -1673,8 +1665,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
     {version = ">=1.23.2", markers = "python_version == \"3.11\""},
+    {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
 ]
 python-dateutil = ">=2.8.2"
 pytz = ">=2020.1"
@@ -1857,18 +1849,6 @@ files = [
     {file = "propcache-0.3.2-cp39-cp39-win_amd64.whl", hash = "sha256:7a2368eed65fc69a7a7a40b27f22e85e7627b74216f0846b04ba5c116e191ec9"},
     {file = "propcache-0.3.2-py3-none-any.whl", hash = "sha256:98f1ec44fb675f5052cccc8e609c46ed23a35a1cfd18545ad4e29002d858a43f"},
     {file = "propcache-0.3.2.tar.gz", hash = "sha256:20d7d62e4e7ef05f221e0db2856b979540686342e7dd9973b815599c7057e168"},
-]
-
-[[package]]
-name = "pscript"
-version = "0.7.7"
-description = "Python to JavaScript compiler."
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "pscript-0.7.7-py3-none-any.whl", hash = "sha256:b0fdac0df0393a4d7497153fea6a82e6429f32327c4c0a4817f1cd68adc08083"},
-    {file = "pscript-0.7.7.tar.gz", hash = "sha256:8632f7a4483f235514aadee110edee82eb6d67336bf68744a7b18d76e50442f8"},
 ]
 
 [[package]]
@@ -2131,14 +2111,14 @@ files = [
 
 [[package]]
 name = "python-socketio"
-version = "5.13.0"
+version = "5.14.3"
 description = "Socket.IO server and client for Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_socketio-5.13.0-py3-none-any.whl", hash = "sha256:51f68d6499f2df8524668c24bcec13ba1414117cfb3a90115c559b601ab10caf"},
-    {file = "python_socketio-5.13.0.tar.gz", hash = "sha256:ac4e19a0302ae812e23b712ec8b6427ca0521f7c582d6abb096e36e24a263029"},
+    {file = "python_socketio-5.14.3-py3-none-any.whl", hash = "sha256:a5208c1bbf45a8d6328d01ed67e3fa52ec8b186fd3ea44cfcfcbd120f0c71fbe"},
+    {file = "python_socketio-5.14.3.tar.gz", hash = "sha256:cd8da5e0666e741b4be19e07882e880f57a4751d1645f92c2bc746c95f23b1eb"},
 ]
 
 [package.dependencies]
@@ -2149,6 +2129,7 @@ python-engineio = ">=4.11.0"
 [package.extras]
 asyncio-client = ["aiohttp (>=3.4)"]
 client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
+dev = ["tox"]
 docs = ["sphinx"]
 
 [[package]]
@@ -2512,7 +2493,7 @@ description = "C version of reader, parser and emitter for ruamel.yaml derived f
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
-markers = "platform_system != \"Windows\" and python_version < \"3.14\""
+markers = "python_version < \"3.14\" and platform_system != \"Windows\""
 files = [
     {file = "ruamel.yaml.clib-0.2.12-cp310-cp310-macosx_13_0_arm64.whl", hash = "sha256:11f891336688faf5156a36293a9c362bdc7c88f03a8a027c2c1d8e0bcde998e5"},
     {file = "ruamel.yaml.clib-0.2.12-cp310-cp310-manylinux2014_aarch64.whl", hash = "sha256:a606ef75a60ecf3d924613892cc603b154178ee25abb3055db5062da811fd969"},
@@ -2789,21 +2770,6 @@ files = [
 dev = ["Cython (>=3.0,<4.0)", "setuptools (>=60)"]
 docs = ["Sphinx (>=4.1.2,<4.2.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)"]
 test = ["aiohttp (>=3.10.5)", "flake8 (>=5.0,<6.0)", "mypy (>=0.800)", "psutil", "pyOpenSSL (>=23.0.0,<23.1.0)", "pycodestyle (>=2.9.0,<2.10.0)"]
-
-[[package]]
-name = "vbuild"
-version = "0.8.2"
-description = "A simple module to extract html/script/style from a vuejs '.vue' file (can minimize/es2015 compliant js) ... just py2 or py3, NO nodejs !"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
-groups = ["main"]
-files = [
-    {file = "vbuild-0.8.2-py2.py3-none-any.whl", hash = "sha256:d76bcc976a1c53b6a5776ac947606f9e7786c25df33a587ebe33ed09dd8a1076"},
-    {file = "vbuild-0.8.2.tar.gz", hash = "sha256:270cd9078349d907dfae6c0e6364a5a5e74cb86183bb5093613f12a18b435fa9"},
-]
-
-[package.dependencies]
-pscript = ">=0.7.0,<0.8.0"
 
 [[package]]
 name = "watchfiles"
@@ -3197,4 +3163,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "ddd4d8a0f21820f23ecb64cbcac9fef4b1e24cfafb3899449dacedf30da93755"
+content-hash = "0830041089c8789ebb3ee60357135689f6e66886180bd18b956ab9798a414609"
