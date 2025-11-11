@@ -234,20 +234,20 @@ resolvelib = ">=0.8.0,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
-version = "25.9.2"
+version = "25.11.0"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_lint-25.9.2-py3-none-any.whl", hash = "sha256:3a4b273b549973c62279de75374138be39b555191227b7c92944428f9d81018d"},
-    {file = "ansible_lint-25.9.2.tar.gz", hash = "sha256:0eea8a5d17dd328bef12e7c9b6eb8714ba03fb1af62d9c700bf46e4858d1a6a4"},
+    {file = "ansible_lint-25.11.0-py3-none-any.whl", hash = "sha256:4a0f83e292fa70e9922ad2c02e10708013b7e77a93364d729abc2cbf165c75c4"},
+    {file = "ansible_lint-25.11.0.tar.gz", hash = "sha256:79e35246c8bdaacdbe37aa30a6ea471177482ac58fbcf1868f765bdafca3427e"},
 ]
 
 [package.dependencies]
 ansible-compat = ">=25.8.2"
-ansible-core = ">=2.16.11"
+ansible-core = ">=2.17.10"
 black = ">=24.3.0"
 cffi = ">=1.17.1"
 cryptography = ">=38"
@@ -3176,4 +3176,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "0830041089c8789ebb3ee60357135689f6e66886180bd18b956ab9798a414609"
+content-hash = "e2d9a8d5e6b1f9fd1210559d498c3780d68dc96dca2d0e856f24666675db3d3c"
