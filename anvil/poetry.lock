@@ -1381,14 +1381,14 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "3.2.0"
+version = "3.3.0"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "nicegui-3.2.0-py3-none-any.whl", hash = "sha256:17d8ec94cfa0417846598c269162ae3f2b0a9e75f0f841bd5aa9fc6b7c0edcc4"},
-    {file = "nicegui-3.2.0.tar.gz", hash = "sha256:886a9e2498a423c81b6ad5097f687a5819207aae439aa283966d57f9492ca14c"},
+    {file = "nicegui-3.3.0-py3-none-any.whl", hash = "sha256:2267bdcb7596d877c8b1b360cfd9bd4f0a0e884687f21154e671eb87489d4584"},
+    {file = "nicegui-3.3.0.tar.gz", hash = "sha256:e0ea59de946b232fcd6aacc4a0ee4d6ef58a6ed42aee656a37c8b604c24f49fc"},
 ]
 
 [package.dependencies]
@@ -1408,7 +1408,7 @@ Pygments = ">=2.15.1,<3.0.0"
 python-engineio = ">=4.12.0"
 python-multipart = ">=0.0.18"
 python-socketio = {version = ">=5.14.0", extras = ["asyncio-client"]}
-starlette = ">=0.45.3"
+starlette = ">=0.49.1"
 typing-extensions = ">=4.0.0"
 uvicorn = {version = ">=0.22.0", extras = ["standard"]}
 watchfiles = ">=0.18.1"
