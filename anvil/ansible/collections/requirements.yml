@@ -3,6 +3,6 @@ collections:
   - name: ansible.posix
     version: 2.1.0
   - name: community.general
-    version: 12.0.1
+    version: 12.1.0
   - name: containers.podman
     version: 1.18.0
