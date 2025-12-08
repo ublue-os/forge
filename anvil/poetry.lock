@@ -1503,14 +1503,14 @@ files = [
 
 [[package]]
 name = "nicegui"
-version = "3.3.1"
+version = "3.4.0"
 description = "Create web-based user interfaces with Python. The nice way."
 optional = false
-python-versions = "<4.0,>=3.9"
+python-versions = "<4,>=3.9"
 groups = ["main"]
 files = [
-    {file = "nicegui-3.3.1-py3-none-any.whl", hash = "sha256:7eb4e35936958c1df4b0fa6f5f4ed51d6e060c2938aca09b229abfec6b25e35e"},
-    {file = "nicegui-3.3.1.tar.gz", hash = "sha256:0de625b836acf1c36875dc290ae769ef114aba9535e33d302566b19381b206fa"},
+    {file = "nicegui-3.4.0-py3-none-any.whl", hash = "sha256:8c4f3500fc716e24b2ae4fe9ef68b7748164aac606339907b9ec88d35c3c8ab5"},
+    {file = "nicegui-3.4.0.tar.gz", hash = "sha256:b63e8efdd73cb6e7354b390561b4dcb988394c756a67c7048f6bb560c18d23e4"},
 ]
 
 [package.dependencies]
@@ -1518,14 +1518,15 @@ aiofiles = ">=23.1.0"
 aiohttp = ">=3.10.2"
 certifi = ">=2024.07.04"
 docutils = ">=0.19.0"
-fastapi = ">=0.109.1"
+fastapi = ">=0.109.1,<0.123.5 || >0.123.5"
 h11 = ">=0.16.0"
 httpx = ">=0.24.0"
 ifaddr = ">=0.2.0"
-itsdangerous = ">=2.1.2,<3.0.0"
-jinja2 = ">=3.1.6,<4.0.0"
+itsdangerous = ">=2.1.2,<3"
+jinja2 = ">=3.1.6,<4"
 markdown2 = ">=2.4.7,<2.4.11 || >2.4.11"
-orjson = {version = ">=3.9.15", markers = "platform_machine != \"i386\" and platform_machine != \"i686\""}
+orjson = {version = ">=3.9.15", markers = "platform_machine != \"i386\" and platform_machine != \"i686\" and platform_python_implementation != \"PyPy\""}
+pydantic-core = ">=2.35.0"
 Pygments = ">=2.15.1,<3.0.0"
 python-engineio = ">=4.12.0"
 python-multipart = ">=0.0.18"
@@ -1536,12 +1537,11 @@ uvicorn = {version = ">=0.22.0", extras = ["standard"]}
 watchfiles = ">=0.18.1"
 
 [package.extras]
-highcharts = ["nicegui-highcharts (>=2.0.2,<3.0.0)"]
-matplotlib = ["matplotlib (>=3.5.0,<4.0.0)"]
-native = ["pywebview (>=5.0.1,<6.0.0)"]
+highcharts = ["nicegui-highcharts (>=2.0.2,<3)"]
+matplotlib = ["matplotlib (>=3.5.0,<4)"]
+native = ["pywebview (>=5.0.1,<7)"]
 plotly = ["plotly (>=5.13,<7.0)"]
 redis = ["redis (>=4.0.0)"]
-sass = ["libsass (>=0.23.0,<0.24.0)"]
 
 [[package]]
 name = "numpy"
@@ -1634,7 +1634,7 @@ description = "Fast, correct Python JSON library supporting dataclasses, datetim
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "platform_machine != \"i386\" and platform_machine != \"i686\""
+markers = "platform_machine != \"i386\" and platform_machine != \"i686\" and platform_python_implementation != \"PyPy\""
 files = [
     {file = "orjson-3.11.5-cp310-cp310-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl", hash = "sha256:df9eadb2a6386d5ea2bfd81309c505e125cfc9ba2b1b99a97e60985b0b3665d1"},
     {file = "orjson-3.11.5-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ccc70da619744467d8f1f49a8cadae5ec7bbe054e5232d95f92ed8737f8c5870"},
