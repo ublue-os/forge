@@ -268,15 +268,15 @@ resolvelib = ">=0.8.0,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
-version = "25.12.0"
+version = "25.12.1"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_lint-25.12.0-py3-none-any.whl", hash = "sha256:df8385af857a1f509145e680850845efb783c3bf2ccb8d95acaced92e01100e3"},
-    {file = "ansible_lint-25.12.0.tar.gz", hash = "sha256:84fa30130fe8771d8d8997bff09fd2a762a053ae9530d498fa3e66eb74608fe9"},
+    {file = "ansible_lint-25.12.1-py3-none-any.whl", hash = "sha256:26f406dd35794501e66b78b8eb1ee5e4fa87468c0ffa25fb41d4000dba656d92"},
+    {file = "ansible_lint-25.12.1.tar.gz", hash = "sha256:b6e9abfb4b3223c8dd081fe3c986f123d83b07e7011d40a684972431efb4c7de"},
 ]
 
 [package.dependencies]
@@ -3331,4 +3331,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "e3c100c431db5c41fccaf48ab581bcbebca443cd0cf9e240cb4163a6f3047dbe"
+content-hash = "9cf0cf16906b5cfb9079d38a25d94217a0fc00febf21d33cb410b00909c0401f"
