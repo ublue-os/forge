@@ -180,7 +180,6 @@ files = [
 
 [package.dependencies]
 frozenlist = ">=1.1.0"
-typing-extensions = {version = ">=4.2", markers = "python_version < \"3.13\""}
 
 [[package]]
 name = "annotated-doc"
@@ -228,23 +227,23 @@ subprocess-tee = ">=0.4.1"
 
 [[package]]
 name = "ansible-core"
-version = "2.19.5"
+version = "2.18.12"
 description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.11"
 groups = ["main", "dev"]
 markers = "python_version == \"3.11\""
 files = [
-    {file = "ansible_core-2.19.5-py3-none-any.whl", hash = "sha256:7fa6c052bad2c294284b960d240b4cd227060fd2e3836d381db44d2bcfcdf4b7"},
-    {file = "ansible_core-2.19.5.tar.gz", hash = "sha256:d03660ff32ba8a5ae40a82148cb24b38a35d26c0155621ddd9148b7562fd8be2"},
+    {file = "ansible_core-2.18.12-py3-none-any.whl", hash = "sha256:2cf5bc90cf729f5ab3a2ea3af5d1748d3868275b91e3246d55e133a2449e0adb"},
+    {file = "ansible_core-2.18.12.tar.gz", hash = "sha256:40e03f74bee7f0eb65e76827017373c4e56dc57ba0618e98c435d875e8e349fc"},
 ]
 
 [package.dependencies]
 cryptography = "*"
-jinja2 = ">=3.1.0"
+jinja2 = ">=3.0.0"
 packaging = "*"
 PyYAML = ">=5.1"
-resolvelib = ">=0.5.3,<2.0.0"
+resolvelib = ">=0.5.3,<1.1.0"
 
 [[package]]
 name = "ansible-core"
@@ -290,15 +289,12 @@ filelock = ">=3.8.2"
 jsonschema = ">=4.10.0"
 packaging = ">=22.0"
 pathspec = ">=0.10.3"
-pyyaml = ">=6.0.1"
+pyyaml = {version = ">=6.0.1", markers = "python_version < \"3.14\""}
 referencing = ">=0.36.2"
 ruamel-yaml = ">=0.18.11"
 ruamel-yaml-clib = {version = ">=0.2.12", markers = "python_version < \"3.14\""}
 subprocess-tee = ">=0.4.1"
-wcmatch = [
-    {version = ">=8.1.2", markers = "python_version < \"3.12\""},
-    {version = ">=8.5.0", markers = "python_version >= \"3.12\""},
-]
+wcmatch = {version = ">=8.5.0", markers = "python_version >= \"3.12\""}
 yamllint = ">=1.34.0"
 
 [[package]]
@@ -333,7 +329,6 @@ files = [
 
 [package.dependencies]
 idna = ">=2.8"
-typing_extensions = {version = ">=4.5", markers = "python_version < \"3.13\""}
 
 [package.extras]
 trio = ["trio (>=0.31.0) ; python_version < \"3.10\"", "trio (>=0.32.0) ; python_version >= \"3.10\""]
@@ -782,26 +777,26 @@ files = [
 
 [[package]]
 name = "docutils"
-version = "0.22.3"
+version = "0.22.4"
 description = "Docutils -- Python Documentation Utilities"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "docutils-0.22.3-py3-none-any.whl", hash = "sha256:bd772e4aca73aff037958d44f2be5229ded4c09927fcf8690c577b66234d6ceb"},
-    {file = "docutils-0.22.3.tar.gz", hash = "sha256:21486ae730e4ca9f622677b1412b879af1791efcfba517e4c6f60be543fc8cdd"},
+    {file = "docutils-0.22.4-py3-none-any.whl", hash = "sha256:d0013f540772d1420576855455d050a2180186c91c15779301ac2ccb3eeb68de"},
+    {file = "docutils-0.22.4.tar.gz", hash = "sha256:4db53b1fde9abecbb74d91230d32ab626d94f6badfc575d6db9194a49df29968"},
 ]
 
 [[package]]
 name = "fastapi"
-version = "0.124.4"
+version = "0.125.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "fastapi-0.124.4-py3-none-any.whl", hash = "sha256:6d1e703698443ccb89e50abe4893f3c84d9d6689c0cf1ca4fad6d3c15cf69f15"},
-    {file = "fastapi-0.124.4.tar.gz", hash = "sha256:0e9422e8d6b797515f33f500309f6e1c98ee4e85563ba0f2debb282df6343763"},
+    {file = "fastapi-0.125.0-py3-none-any.whl", hash = "sha256:2570ec4f3aecf5cca8f0428aed2398b774fcdfee6c2116f86e80513f2f86a7a1"},
+    {file = "fastapi-0.125.0.tar.gz", hash = "sha256:16b532691a33e2c5dee1dac32feb31dc6eb41a3dd4ff29a95f9487cb21c054c0"},
 ]
 
 [package.dependencies]
@@ -1803,10 +1798,7 @@ files = [
 ]
 
 [package.dependencies]
-numpy = [
-    {version = ">=1.23.2", markers = "python_version == \"3.11\""},
-    {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
-]
+numpy = {version = ">=1.26.0", markers = "python_version >= \"3.12\""}
 python-dateutil = ">=2.8.2"
 pytz = ">=2020.1"
 tzdata = ">=2022.7"
@@ -2037,7 +2029,7 @@ files = [
     {file = "pycparser-2.23-py3-none-any.whl", hash = "sha256:e5c6e8d3fbad53479cab09ac03729e0a9faf2bee3db8208a550daf5af81a5934"},
     {file = "pycparser-2.23.tar.gz", hash = "sha256:78816d4f24add8f10a06d6f05b4d424ad9e96cfebf68a4ddc99c65c0720d00c2"},
 ]
-markers = {main = "platform_python_implementation != \"PyPy\" and implementation_name != \"PyPy\"", dev = "implementation_name != \"PyPy\" and (platform_python_implementation != \"PyPy\" or platform_system != \"Windows\")"}
+markers = {main = "platform_python_implementation != \"PyPy\" and implementation_name != \"PyPy\"", dev = "(platform_python_implementation != \"PyPy\" or platform_system != \"Windows\") and implementation_name != \"PyPy\""}
 
 [[package]]
 name = "pydantic"
@@ -2284,26 +2276,26 @@ docs = ["sphinx"]
 
 [[package]]
 name = "python-multipart"
-version = "0.0.20"
+version = "0.0.21"
 description = "A streaming multipart parser for Python"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "python_multipart-0.0.20-py3-none-any.whl", hash = "sha256:8a62d3a8335e06589fe01f2a3e178cdcc632f3fbe0d492ad9ee0ec35aab1f104"},
-    {file = "python_multipart-0.0.20.tar.gz", hash = "sha256:8dd0cab45b8e23064ae09147625994d090fa46f5b0d1e13af944c331a7fa9d13"},
+    {file = "python_multipart-0.0.21-py3-none-any.whl", hash = "sha256:cf7a6713e01c87aa35387f4774e812c4361150938d20d232800f75ffcf266090"},
+    {file = "python_multipart-0.0.21.tar.gz", hash = "sha256:7137ebd4d3bbf70ea1622998f902b97a29434a9e8dc40eb203bbcf7c2a2cba92"},
 ]
 
 [[package]]
 name = "python-socketio"
-version = "5.15.0"
+version = "5.15.1"
 description = "Socket.IO server and client for Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_socketio-5.15.0-py3-none-any.whl", hash = "sha256:e93363102f4da6d8e7a8872bf4908b866c40f070e716aa27132891e643e2687c"},
-    {file = "python_socketio-5.15.0.tar.gz", hash = "sha256:d0403ababb59aa12fd5adcfc933a821113f27bd77761bc1c54aad2e3191a9b69"},
+    {file = "python_socketio-5.15.1-py3-none-any.whl", hash = "sha256:abc3528803563ed9a2010bc76829afe21d7a308a1e5651171fdb582d12e2ace0"},
+    {file = "python_socketio-5.15.1.tar.gz", hash = "sha256:54fe3e5580ea06a1b29b541e8ef32fe956846c99a76059e343e43aada754efdd"},
 ]
 
 [package.dependencies]
@@ -2444,7 +2436,6 @@ files = [
 [package.dependencies]
 attrs = ">=22.2.0"
 rpds-py = ">=0.7.0"
-typing-extensions = {version = ">=4.4.0", markers = "python_version < \"3.13\""}
 
 [[package]]
 name = "requests"
@@ -2470,20 +2461,21 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "resolvelib"
-version = "1.2.1"
+version = "1.0.1"
 description = "Resolve abstract dependencies into concrete ones"
 optional = false
-python-versions = ">=3.9"
+python-versions = "*"
 groups = ["main", "dev"]
 files = [
-    {file = "resolvelib-1.2.1-py3-none-any.whl", hash = "sha256:fb06b66c8da04172d9e72a21d7d06186d8919e32ae5ab5cdf5b9d920be805ac2"},
-    {file = "resolvelib-1.2.1.tar.gz", hash = "sha256:7d08a2022f6e16ce405d60b68c390f054efcfd0477d4b9bd019cc941c28fad1c"},
+    {file = "resolvelib-1.0.1-py2.py3-none-any.whl", hash = "sha256:d2da45d1a8dfee81bdd591647783e340ef3bcb104b54c383f70d422ef5cc7dbf"},
+    {file = "resolvelib-1.0.1.tar.gz", hash = "sha256:04ce76cbd63fded2078ce224785da6ecd42b9564b1390793f64ddecbe997b309"},
 ]
 
 [package.extras]
-lint = ["mypy", "ruff", "types-requests"]
+examples = ["html5lib", "packaging", "pygraphviz", "requests"]
+lint = ["black", "flake8", "isort", "mypy", "types-requests"]
 release = ["build", "towncrier", "twine"]
-test = ["packaging", "pytest"]
+test = ["commentjson", "packaging", "pytest"]
 
 [[package]]
 name = "rpds-py"
@@ -2613,19 +2605,19 @@ files = [
 
 [[package]]
 name = "ruamel-yaml"
-version = "0.18.16"
+version = "0.18.17"
 description = "ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["dev"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ruamel.yaml-0.18.16-py3-none-any.whl", hash = "sha256:048f26d64245bae57a4f9ef6feb5b552a386830ef7a826f235ffb804c59efbba"},
-    {file = "ruamel.yaml-0.18.16.tar.gz", hash = "sha256:a6e587512f3c998b2225d68aa1f35111c29fad14aed561a26e73fab729ec5e5a"},
+    {file = "ruamel_yaml-0.18.17-py3-none-any.whl", hash = "sha256:9c8ba9eb3e793efdf924b60d521820869d5bf0cb9c6f1b82d82de8295e290b9d"},
+    {file = "ruamel_yaml-0.18.17.tar.gz", hash = "sha256:9091cd6e2d93a3a4b157ddb8fabf348c3de7f1fb1381346d985b6b247dcd8d3c"},
 ]
 
 [package.dependencies]
-"ruamel.yaml.clib" = {version = ">=0.2.7", markers = "platform_python_implementation == \"CPython\" and python_version < \"3.14\""}
+"ruamel.yaml.clib" = {version = ">=0.2.15", markers = "platform_python_implementation == \"CPython\" and python_version < \"3.15\""}
 
 [package.extras]
 docs = ["mercurial (>5.7)", "ryd"]
@@ -2638,7 +2630,7 @@ description = "C version of reader, parser and emitter for ruamel.yaml derived f
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
-markers = "platform_system != \"Windows\" and python_version < \"3.14\""
+markers = "platform_system != \"Windows\""
 files = [
     {file = "ruamel_yaml_clib-0.2.15-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:88eea8baf72f0ccf232c22124d122a7f26e8a24110a0273d9bcddcb0f7e1fa03"},
     {file = "ruamel_yaml_clib-0.2.15-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9b6f7d74d094d1f3a4e157278da97752f16ee230080ae331fcc219056ca54f77"},
@@ -2748,7 +2740,6 @@ files = [
 
 [package.dependencies]
 anyio = ">=3.6.2,<5"
-typing-extensions = {version = ">=4.10.0", markers = "python_version < \"3.13\""}
 
 [package.extras]
 full = ["httpx (>=0.27.0,<0.29.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.18)", "pyyaml"]
@@ -2788,12 +2779,11 @@ version = "4.15.0"
 description = "Backported and Experimental Type Hints for Python 3.9+"
 optional = false
 python-versions = ">=3.9"
-groups = ["main", "dev"]
+groups = ["main"]
 files = [
     {file = "typing_extensions-4.15.0-py3-none-any.whl", hash = "sha256:f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548"},
     {file = "typing_extensions-4.15.0.tar.gz", hash = "sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466"},
 ]
-markers = {dev = "platform_system != \"Windows\" and python_version < \"3.13\""}
 
 [[package]]
 name = "typing-inspection"
@@ -3330,5 +3320,5 @@ propcache = ">=0.2.1"
 
 [metadata]
 lock-version = "2.1"
-python-versions = "^3.11"
-content-hash = "9cf0cf16906b5cfb9079d38a25d94217a0fc00febf21d33cb410b00909c0401f"
+python-versions = ">=3.13,<3.14"
+content-hash = "888349c643e4ffdca1db3fcfbc18024550611e0335fecd9305104a7c4fc14c18"

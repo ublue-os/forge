@@ -7,7 +7,13 @@
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "rebaseWhen": "conflicted",
+  "ansible": {
+    "fileMatch": ["(^|/)collections\\.yml$", "(^|/)requirements\\.yml$"]
+  },
+  "poetry": {
+    "enabled": true,
+    "fileMatch": ["(^|/)pyproject\\.toml$"]
+  },
   "packageRules": [
     {
       "description": "Automerge non-major updates",
@@ -21,20 +27,10 @@
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch"
-    },
-    {
-      "description": "Major updates require manual review",
-      "matchUpdateTypes": ["major"],
-      "automerge": false
     }
   ],
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true
-  },
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true,
-    "schedule": ["before 6am on Monday"]
   }
 }

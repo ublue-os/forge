@@ -1,4 +1,5 @@
 import pandas
+import re
 import toml
 from nicegui import ui
 from importlib.metadata import version
@@ -13,20 +14,27 @@ def load_pyproject_toml() -> str:
 
 def get_project_version() -> str:
     pyproject_file = load_pyproject_toml()
-    project_version = pyproject_file["tool"]["poetry"]["version"]
+    project_version = pyproject_file["project"]["version"]
     return project_version
 
 
 def get_python_package_version() -> pandas.DataFrame:
     pyproject_file = load_pyproject_toml()
-    python_packages = pyproject_file["tool"]["poetry"]["dependencies"]
+    python_packages = pyproject_file["project"]["dependencies"]
     python_packages_data = []
-    for key, value in python_packages.items():
-        # Skip python itself
-        if key == "python":
+    for dependency in python_packages:
+        package_name = re.split(r"[ (>=<]", dependency)[0].strip()
+        if package_name.lower() == "python":
             continue
-        get_version = version(key)
-        python_packages_data.append({"Package": key, "Version": get_version})
+        try:
+            current_version = version(package_name)
+            python_packages_data.append(
+                {"Package": package_name, "Version": current_version}
+            )
+        except Exception:
+            python_packages_data.append(
+                {"Package": package_name, "Version": "not installed"}
+            )
     python_packages_version = pandas.DataFrame(data=python_packages_data).sort_values(
         by="Package"
     )
