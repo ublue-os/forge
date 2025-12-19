@@ -1,25 +1,26 @@
-[tool.poetry]
+[project]
 name = "ublue-os_forge"
-version = "0.1.0"
+version = "0.2.2"
 description = "Ansible automation for Universal Blue"
-authors = ["Stephan Lüscher <stephan.luescher@mykolab.com>"]
+authors = [{name = "Stephan Lüscher", email = "code@luescher.io"}]
 license = "../LICENSE"
 readme = "../README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "ansible-core(>=2.18,<2.19)",
+    "jmespath (>=1.0,<2.0)",
+    "nicegui (>=3.0.0,<4.0.0)",
+    "ansible-runner(>=2.4.2,<3.0.0)",
+    "requests(>=2.32.2,<3.0.0)",
+    "pandas(>=2.2.2,<3.0.0)",
+    "humanize(>=4.9.0,<5.0.0)",
+    "toml(>=0.10.2,<0.11.0)"
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-ansible-core = "^2.16"
-jmespath = "^1.0"
-nicegui = "^3.0.0"
-ansible-runner = "^2.3.6"
-requests = "^2.32.2"
-pandas = "^2.2.2"
-humanize = "^4.9.0"
-toml = "^0.10.2"
-
+[tool.poetry]
 [tool.poetry.group.dev.dependencies]
 ansible-lint = { version = "25.12.1", markers = 'platform_system != "Windows"' } # https://github.com/ansible/ansible-lint/issues/2730#issuecomment-1330406601
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
