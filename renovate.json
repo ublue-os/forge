@@ -8,11 +8,14 @@
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "ansible": {
-    "fileMatch": ["(^|/)collections\\.yml$", "(^|/)requirements\\.yml$"]
+    "managerFilePatterns": [
+      "/(^|/)collections\\.yml$/",
+      "/(^|/)requirements\\.yml$/"
+    ]
   },
   "poetry": {
     "enabled": true,
-    "fileMatch": ["(^|/)pyproject\\.toml$"]
+    "managerFilePatterns": ["/(^|/)pyproject\\.toml$/"]
   },
   "packageRules": [
     {
