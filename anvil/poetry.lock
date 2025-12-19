@@ -233,6 +233,7 @@ description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.11"
 groups = ["main", "dev"]
+markers = "python_version == \"3.11\""
 files = [
     {file = "ansible_core-2.19.5-py3-none-any.whl", hash = "sha256:7fa6c052bad2c294284b960d240b4cd227060fd2e3836d381db44d2bcfcdf4b7"},
     {file = "ansible_core-2.19.5.tar.gz", hash = "sha256:d03660ff32ba8a5ae40a82148cb24b38a35d26c0155621ddd9148b7562fd8be2"},
@@ -244,6 +245,26 @@ jinja2 = ">=3.1.0"
 packaging = "*"
 PyYAML = ">=5.1"
 resolvelib = ">=0.5.3,<2.0.0"
+
+[[package]]
+name = "ansible-core"
+version = "2.20.1"
+description = "Radically simple IT automation"
+optional = false
+python-versions = ">=3.12"
+groups = ["main", "dev"]
+markers = "python_version >= \"3.12\""
+files = [
+    {file = "ansible_core-2.20.1-py3-none-any.whl", hash = "sha256:2a66825b4a53f130b62515e7e2a3d811d544b19b6e8a22d9ef88c55896384cb3"},
+    {file = "ansible_core-2.20.1.tar.gz", hash = "sha256:a891e5f90cd46626778f0f3d545ec1115840c9b50e8adf25944c5e1748452106"},
+]
+
+[package.dependencies]
+cryptography = "*"
+jinja2 = ">=3.1.0"
+packaging = "*"
+PyYAML = ">=5.1"
+resolvelib = ">=0.8.0,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
@@ -801,6 +822,7 @@ description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
+markers = "platform_system != \"Windows\""
 files = [
     {file = "filelock-3.20.1-py3-none-any.whl", hash = "sha256:15d9e9a67306188a44baa72f569d2bfd803076269365fdea0934385da4dc361a"},
     {file = "filelock-3.20.1.tar.gz", hash = "sha256:b8360948b351b80f420878d8516519a2204b07aefcdcfd24912a5d33127f188c"},
