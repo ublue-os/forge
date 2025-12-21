@@ -1,0 +1,4 @@
+{
+  "ignoreDeps": ["ansible-core"],
+  "ignorePaths": ["**/.devcontainer/**"]
+}
