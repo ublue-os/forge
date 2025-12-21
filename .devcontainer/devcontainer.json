@@ -7,7 +7,7 @@
   "features": {
     "ghcr.io/devcontainers/features/python:1": {
       "installTools": true,
-      "version": "3.14"
+      "version": "3.13"
     },
     "ghcr.io/devcontainers-extra/features/black:2": {
       "version": "25.12.0"
